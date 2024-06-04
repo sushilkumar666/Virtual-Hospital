@@ -1,44 +1,114 @@
 // components/DoctorProfile.js
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+// components/PrescriptionPage.js
+import React, { useState, useEffect } from "react";
+
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const DoctorProfile = () => {
-    const [consultations, setConsultations] = useState([]);
+  //   const [consultations, setConsultations] = useState([]);
+  const consultations = [
+    {
+      name: "arman",
+      email: "arman@gmail.com",
+      familyMedicalHistory: "all clear",
+      profileImage:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6vdueakGImGactugJLkm9szSZD4KDT_BtlQ&s",
+      phone: "98766544",
+      age: "20",
+      historyOfSurgery: "xyz surgery",
+      historyOfIllness: "lorem, ipsum",
+      currentIllnessHistory: "many illness, skin, heart, body",
+      recentSurgery: "heart surgery",
+    },
+    {
+      name: "arman",
+      email: "arman@gmail.com",
+      familyMedicalHistory: "all clear",
+      profileImage:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6vdueakGImGactugJLkm9szSZD4KDT_BtlQ&s",
+      phone: "98766544",
+      age: "20",
+      historyOfSurgery: "xyz surgery",
+      historyOfIllness: "lorem, ipsum",
+      currentIllnessHistory: "many illness, skin, heart, body",
+      recentSurgery: "heart surgery",
+    },
+    {
+      name: "arman",
+      email: "arman@gmail.com",
+      familyMedicalHistory: "all clear",
+      profileImage:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6vdueakGImGactugJLkm9szSZD4KDT_BtlQ&s",
+      phone: "98766544",
+      age: "20",
+      historyOfSurgery: "xyz surgery",
+      historyOfIllness: "lorem, ipsum",
+      currentIllnessHistory: "many illness, skin, heart, body",
+      recentSurgery: "heart surgery",
+    },
+  ];
 
-    useEffect(() => {
-        const fetchConsultations = async () => {
-            try {
-                const res = await axios.get('/api/v1/doctor/consultations');
-                setConsultations(res.data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchConsultations();
-    }, []);
+  useEffect(() => {
+    const fetchConsultations = (async () => {}, []);
+  });
 
-    return (
-        <div>
-            <h2>Doctor Profile</h2>
-            <Link to="/prescription">Go to Prescription Page</Link>
+  return (
+    <div>
+      <h2>Doctor Profile</h2>
+      <Link to="/prescription">Go to Prescription Page</Link>
+      <div>
+        {consultations.map((consultation) => (
+          <div className="flex px-5 py-3" key={consultation._id}>
             <div>
-                {consultations.map((consultation) => (
-                    <div key={consultation._id}>
-                        <p>{consultation.currentIllnessHistory}</p>
-                        <p>{consultation.recentSurgery}</p>
-                        {/* More details */}
-                    </div>
-                ))}
+              <img width={"300px"} src={consultation.profileImage} alt="" />
             </div>
-        </div>
-    );
+            <div className="text-left pl-4">
+              <div>
+                Patient Name:&nbsp; <span>{consultation.name}</span>
+              </div>
+              <div>
+                Email: &nbsp; <span>{consultation.email}</span>
+              </div>
+              <div>
+                Phone: &nbsp; <span>{consultation.phone}</span>
+              </div>
+              <div>
+                Age: <span>{consultation.age}</span>
+              </div>
+
+              <div>
+                Family Medical History: &nbsp;{" "}
+                <span>{consultation.familyMedicalHistory}</span>
+              </div>
+              <div>
+                Illness History: &nbsp;{" "}
+                <span>{consultation.historyOfIllness}</span>
+              </div>
+              <div>
+                Surgeory History:&nbsp;{" "}
+                <span>{consultation.historyOfSurgery}</span>
+              </div>
+
+              <div>
+                {" "}
+                Current Illness Hisotry:{" "}
+                <span>{consultation.currentIllnessHistory}</span>
+              </div>
+              <div>
+                Recent Surgeory: <span>{consultation.recentSurgery}</span>
+              </div>
+            </div>
+            <div className="ml-auto mr-20">
+              <span className="ml-auto p-4 bg-[#0f9015] cursor-pointer text-white rounded-xl">
+                prescribe
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default DoctorProfile;
-
-// components/PrescriptionPage.js
-import React, { useState } from 'react';
-import axios from 'axios';
-
-
