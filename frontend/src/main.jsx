@@ -11,26 +11,27 @@ import Login from "./components/Login.jsx";
 import SignUp from "./components/SignUp.jsx";
 import Doctors from "./components/Doctors.jsx";
 import PatientSignUp from "./components/PatientSignUp.jsx";
-import DoctorSignUp from "./components/DoctorSignup.jsx";
+import DoctorSignUp from "./components/DoctorSignUp.jsx";
 import PatientSignIn from "./components/PatientSignIn.jsx";
 import DoctorSignIn from "./components/DoctorSignIn.jsx";
 import DoctorProfile from "./components/DoctorProfile.jsx";
 import PrescriptionPage from "./components/PrescriptionPage.jsx";
 import ConsulationForm from "./components/ConsultationForm.jsx";
 import ConsultationForm from "./components/ConsultationForm.jsx";
+import Profile from "./components/Profile.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
       {
+
         path: "/",
-        element: <Home />,
+
+        element: (<AuthLayout> <Home /></AuthLayout>),
+
       },
-      {
-        path: "/",
-        element: <Home />,
-      },
+
       {
         path: "/signup",
         element: <SignUp />,
@@ -41,27 +42,27 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "patient/signup",
+        path: "/patient/signup",
         element: <PatientSignUp />,
       },
       {
-        path: "doctor/signup",
+        path: "/doctor/signup",
         element: <DoctorSignUp />,
       },
       {
-        path: "patient/login",
+        path: "/patient/login",
         element: <PatientSignIn />,
       },
       {
-        path: "doctor/login",
+        path: "/doctor/login",
         element: <DoctorSignIn />,
       },
       {
-        path: "patient/doctors",
-        element: <Doctors />,
+        path: "/patient/doctors",
+        element: (<AuthLayout><Doctors /></AuthLayout>),
       },
       {
-        path: "doctor/doctorprofile",
+        path: "/doctor/doctorprofile/:doctorId",
         element: (
           <AuthLayout>
             <DoctorProfile />
@@ -69,22 +70,29 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "doctor/prescription",
+        path: "/doctor/prescription/:patientId",
         element: (
-          <AuthLayout>
-            <PrescriptionPage />
-          </AuthLayout>
+
+          <PrescriptionPage />
+
         ),
       },
       {
-        path: "patient/consultationform",
+        path: "/patient/consultationform/:doctorId",
         element: (
-          <AuthLayout>
-            <ConsultationForm />
-          </AuthLayout>
+
+          <ConsultationForm />
+
         ),
       },
+      {
+        path: "/patient/doctordetails/:doctorId",
+        element: (
 
+          <Profile />
+
+        ),
+      },
       // {
       //   path: "/post/:slug",
       //   element: <Post />,

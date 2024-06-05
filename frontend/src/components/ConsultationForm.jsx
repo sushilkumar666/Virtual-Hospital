@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const ConsultationForm = () => {
     const { doctorId } = useParams();
@@ -30,8 +31,15 @@ const ConsultationForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`/api/v1/consult/${doctorId}`, formData);
+            // await axios.post(`/api/v1/consult/${doctorId}`, formData);
             // Handle success (e.g., redirect to doctor's profile)
+            console.log(formData);
+            Swal.fire({
+                title: 'Success!',
+                text: 'Your form has been submitted. soon the doctor will connect with you.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
         } catch (error) {
             console.error(error);
         }
@@ -41,31 +49,70 @@ const ConsultationForm = () => {
         <form onSubmit={handleSubmit}>
             {step === 1 && (
                 <>
-                    <input type="text" name="currentIllnessHistory" placeholder="Current Illness History" onChange={handleChange} required />
-                    <input type="text" name="recentSurgery" placeholder="Recent Surgery" onChange={handleChange} required />
-                    <button type="button" onClick={handleNextStep}>Next</button>
+                    <div className="flex flex-col border border-black w-[80vw] mx-auto my-4 p-4" >
+                        <div className="w-[70vw] mx-auto">
+                            <p className="text-left mb-2">Current illness History</p>
+                            <textarea rows={"6"} className="border border-black" cols={"100"} type="text" name="currentIllnessHistory" placeholder="Current Illness History" onChange={handleChange} required /> <br />
+                        </div>
+                        <div className="w-[70vw] mx-auto">
+                            <p className="text-left mt-4 mb-2">Recent Surgery</p>
+                            <textarea rows={"6"} className="border border-black" cols={"100"} type="text" name="recentSurgery" placeholder="Recent Surgery" onChange={handleChange} />
+                        </div>
+
+                        <div className='mt-5'>
+                            <button className="px-4 py-2 rounded-lg bg-green-500" type="button" onClick={handleNextStep}>Next</button>
+                        </div>
+                    </div>
                 </>
             )}
             {step === 2 && (
-                <>
-                    <label>
-                        <input type="radio" name="familyMedicalHistory" value="Diabetics" onChange={handleChange} required /> Diabetics
-                    </label>
-                    <label>
-                        <input type="radio" name="familyMedicalHistory" value="Non-Diabetics" onChange={handleChange} required /> Non-Diabetics
-                    </label>
-                    <input type="text" name="allergies" placeholder="Allergies" onChange={handleChange} required />
-                    <input type="text" name="others" placeholder="Others" onChange={handleChange} required />
-                    <button type="button" onClick={handlePrevStep}>Previous</button>
-                    <button type="button" onClick={handleNextStep}>Next</button>
+                <><div className='flex flex-col w-[70vw] border border-black px-10 mx-auto my-10 text-left'>
+                    <div className='mt-5'>
+                        <div className='mt-5'>
+                            <label>
+                                <input type="radio" name="familyMedicalHistory" value="Diabetics" onChange={handleChange} required /> Diabetics
+                            </label>
+                        </div><div className='mt-5'>
+                            <label>
+                                <input type="radio" name="familyMedicalHistory" value="Non-Diabetics" onChange={handleChange} required /> Non-Diabetics
+                            </label>
+                        </div>
+                    </div>
+                    <div className='mt-5'>
+                        <p className='flex'> Allergies &nbsp; <textarea cols={80} className='border border-black' rows={6} type="text" name="allergies" placeholder="Allergies" onChange={handleChange} required /></p>
+                    </div>
+                    <div className='mt-5'>
+                        <div className='flex'>  Others &nbsp; &nbsp; &nbsp;  <textarea className='border border-black' cols={80} rows={6} type="text" name="others" placeholder="Others" onChange={handleChange} /></div>
+                    </div>
+
+                    <div className='flex mx-auto my-8'>
+                        <div >
+                            <button className='bg-green-500 px-4 mx-6 py-2  rounded-lg' type="button" onClick={handlePrevStep}>Previous</button>
+                        </div>
+                        <div >
+                            <button className='bg-green-500 px-7  py-2 rounded-lg' type="button" onClick={handleNextStep}>Next</button>
+                        </div>
+                    </div>
+                </div>
                 </>
             )}
             {step === 3 && (
                 <>
-                    <input type="text" name="transactionId" placeholder="Transaction ID" onChange={handleChange} required />
-                    {/* QR Code for payment can be displayed here */}
-                    <button type="button" onClick={handlePrevStep}>Previous</button>
-                    <button type="submit">Submit</button>
+                    <div className='flex border mt-20 border-black p-4 justify-evenly items-center w-[80vw] mx-auto'>
+                        <div><img width={'200px'} src="https://cdn.britannica.com/17/155017-050-9AC96FC8/Example-QR-code.jpg" alt="QR code" /></div>
+                        <div>Transaction Id: &nbsp;<input type="text" name="transactionId" placeholder="Transaction ID" onChange={handleChange} required />
+                            {/* QR Code for payment can be displayed here */}</div>
+                    </div>
+
+                    <div className='flex mx-auto  w-[20vw] my-8'>
+
+
+                        <button className='bg-green-500 px-4 mx-6 py-2  rounded-lg' type="button" onClick={handlePrevStep}>Previous</button>
+
+
+                        <button className='bg-green-500 px-4 mx-6 py-2  rounded-lg' type="submit">Submit</button>
+
+                    </div>
                 </>
             )}
         </form>

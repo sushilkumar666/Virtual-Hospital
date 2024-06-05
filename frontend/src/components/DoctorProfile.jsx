@@ -1,12 +1,14 @@
 // components/DoctorProfile.js
 // components/PrescriptionPage.js
 import React, { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 const DoctorProfile = () => {
   //   const [consultations, setConsultations] = useState([]);
+  const navigate = useNavigate();
   const consultations = [
     {
       name: "arman",
@@ -49,8 +51,12 @@ const DoctorProfile = () => {
     },
   ];
 
+  const prescribe = () => {
+    navigate("/doctor/prescription/1234");
+  }
+
   useEffect(() => {
-    const fetchConsultations = (async () => {}, []);
+    const fetchConsultations = (async () => { }, []);
   });
 
   return (
@@ -100,7 +106,7 @@ const DoctorProfile = () => {
               </div>
             </div>
             <div className="ml-auto mr-20">
-              <span className="ml-auto p-4 bg-[#0f9015] cursor-pointer text-white rounded-xl">
+              <span onClick={prescribe} className="ml-auto p-4 bg-[#0f9015] border  cursor-pointer text-white rounded-xl">
                 prescribe
               </span>
             </div>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import DoctorSignUp from "./DoctorSignup";
+import DoctorSignUp from "./DoctorSignUp";
 import PatientSignUp from "./PatientSignUp";
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [user, setUser] = useState("patient");
   const navigate = useNavigate();
-  useEffect(() => {}, [user]);
+  useEffect(() => { }, [user]);
   return (
     <>
       <div>

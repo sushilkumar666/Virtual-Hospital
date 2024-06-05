@@ -22,9 +22,9 @@ function PatientSignUp() {
     }
   };
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
+    <div className="bg-white p-6 rounded-lg w-[30vw] mx-auto shadow-lg">
       <h2 className="text-2xl font-bold mb-4">Patient Sign-up</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="text-left" onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700">Profile Picture</label>
           <input

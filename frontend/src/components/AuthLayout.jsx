@@ -7,16 +7,21 @@ export default function Protected({ children, authentication = true }) {
   const navigate = useNavigate();
   const [loader, setLoader] = useState(true);
   const authStatus = useSelector((state) => state.auth.status);
+  const identity = useSelector((state) => state.auth.identity);
 
   useEffect(() => {
-    if (authStatus === true) {
+    if (authStatus === true && identity === 'patient') {
       navigate("/");
-    } else if (authStatus === false) {
+
+    } else if (authStatus === true && identity === 'doctor') {
+      navigate("/doctor/doctorprofile");
+    }
+    else {
       navigate("/login");
     }
 
     setLoader(false);
-  }, [authStatus, navigate, authentication]);
+  }, [authStatus, navigate]);
 
   return loader ? <h1>Loading...</h1> : <>{children}</>;
 }
