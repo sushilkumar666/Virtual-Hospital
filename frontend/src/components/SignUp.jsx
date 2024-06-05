@@ -9,22 +9,29 @@ function SignUp() {
   useEffect(() => { }, [user]);
   return (
     <>
-      <div>
+      <div className="border border-black rounded-lg mt-20 w-[30vw] mx-auto p-4 ">
         <form action="">
-          <input
-            onChange={() => navigate("/doctor/signup")}
-            type="radio"
-            name="user"
-          />
-          Doctor &nbsp;&nbsp;&nbsp;&nbsp;
-          <input
-            onChange={() => navigate("/patient/signup")}
-            type="radio"
-            name="user"
-          />
-          Patient
+          <div className="flex justify-evenly">
+            <div className="text-xl px-3 py-2 rounded-lg bg-green-600 text-white">
+
+              <input
+                onChange={() => navigate("/doctor/signup")}
+                type="radio"
+                name="user"
+              />
+              <span > &nbsp;Doctor &nbsp;&nbsp;&nbsp;&nbsp; </span>
+            </div>
+            <div className="text-xl rounded-lg px-3 py-2 bg-blue-600 text-white">
+              <input
+                onChange={() => navigate("/patient/signup")}
+                type="radio"
+                name="user"
+              />
+              <span > &nbsp;Patient </span>
+            </div>
+          </div>
         </form>
-      </div>
+      </div >
       {/* {user == "doctor" ? <DoctorSignUp /> : <PatientSignUp />} */}
     </>
   );

@@ -17,12 +17,13 @@ const DoctorSignUp = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    navigate('/doctor/doctorprofile')
+
   };
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent default form submission
     console.log(formData);
+    navigate('/doctor/doctorprofile/1234')
     // You can add your axios call or other logic here to submit the form data
   };
 

@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PatientSignUp() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -17,6 +19,8 @@ function PatientSignUp() {
     try {
       //   const res = await axios.post("/api/v1/auth/doctor/signup", formData);
       console.log(formData);
+      navigate("/")
+
     } catch (error) {
       console.error(error.response.data);
     }

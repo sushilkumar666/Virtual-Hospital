@@ -64,9 +64,9 @@ const router = createBrowserRouter([
       {
         path: "/doctor/doctorprofile/:doctorId",
         element: (
-          <AuthLayout>
-            <DoctorProfile />
-          </AuthLayout>
+
+          <DoctorProfile />
+
         ),
       },
       {

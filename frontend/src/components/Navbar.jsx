@@ -1,7 +1,12 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const authStatus = useSelector((state) => state.auth.status)
+
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
