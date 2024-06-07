@@ -4,15 +4,17 @@ import {
     logoutUser,
     registerUser,
     getCurrentUser
-} from "../controllers/doctor.controller.js";
+} from "../controllers/patient.controller.js";
 import { upload } from "../middlewares/multer.middleware.js"
 import { verifyJWT } from "../middlewares/patient.middleware.js";
+import { getDoctorList } from "../controllers/patient.controller.js";
+import { getDoctor } from "../controllers/patient.controller.js";
 
 const router = Router()
 router.route("/register").post(
     upload.fields([
         {
-            name: "avatar",
+            name: "profileImage",
             maxCount: 1
         }
 
@@ -26,6 +28,10 @@ router.route("/login").post(loginUser)
 router.route("/logout").post(verifyJWT, logoutUser)
 
 router.route("/current-user").get(verifyJWT, getCurrentUser)
+
+router.route("/doctorlist").get(verifyJWT, getDoctorList);
+
+router.route("/doctorlist/:doctorId").get(verifyJWT, getDoctor);
 
 
 

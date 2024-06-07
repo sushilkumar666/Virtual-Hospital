@@ -3,12 +3,12 @@ import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 
 const doctorSchema = new mongoose.Schema({
-    profileImage: String,
+    profileImage:{type: String},
     name: { type: String, required: true, trim: true },
     specialty: { type: String, required: true },
     email: { type: String, unique: true, required: true },
     phone: { type: String, unique: true, required: true },
-    experience: { type: Number, required: true },
+    experience: { type: String, required: true },
     identity: { type: String, required: true },
     password: { type: String, required: true }
 
@@ -23,8 +23,8 @@ doctorSchema.pre("save", async function (next) {
 doctorSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password)
 }
-doctorSchema.methods.generateAccessToken = function () {
-    return jwt.sign(
+doctorSchema.methods.generateAccessToken = async function () {
+    return await jwt.sign(
         {
             _id: this._id,
             email: this.email,

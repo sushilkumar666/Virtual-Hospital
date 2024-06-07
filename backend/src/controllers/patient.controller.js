@@ -1,35 +1,35 @@
-import { Patient } from "../models/patient.model.js"
+import { Patient } from "../models/patient.model.js";
+import { Doctor } from "../models/doctor.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js"
 import jwt from "jsonwebtoken"
 import mongoose from "mongoose";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { response } from "express";
 
 
-const generateAccessAndRefereshTokens = async (patientId) => {
+const generateAccessToken = async (patientId) => {
     try {
-        const patient = await User.findById(patientId)
-        const accessToken = user.generateAccessToken()
-
-
-        await Patient.save({ validateBeforeSave: false })
-
-        return { accessToken }
-
+        const patient = await Patient.findById(patientId)
+        const accessToken = patient.generateAccessToken()
+      
+        return accessToken 
 
     } catch (error) {
-        throw new Error(500, "Something went wrong while generating referesh and access token")
+        throw new Error(500, "Something went wrong while generating access token")
     }
 }
 
 const registerUser = async (req, res) => {
 
-    const { name, email, phone, password, age, historyOfsurgery, historyOfIllness, identity, doctor, currentIllnessHistory, recentSurgery, DiabeticOrNot, allergies, others, transactionId, pdf } = req.body
+    const { name, email, phone, password, age, historyOfSurgery, historyOfIllness} = req.body
 
     const existedUser = await Patient.findOne(
         { email }
     )
 
     if (existedUser) {
-        throw new Error(409, "User with email or username already exists")
+        throw new Error(409, "User with email  already exists")
     }
     //console.log(req.files);
 
@@ -37,7 +37,7 @@ const registerUser = async (req, res) => {
     //const coverImageLocalPath = req.files?.coverImage[0]?.path;
 
     if (!profileImagePath) {
-        throw new Error(400, "Avatar file is required")
+        throw new Error(400, "profile file is required")
     }
 
     const profile = await uploadOnCloudinary(profileImagePath);
@@ -48,14 +48,12 @@ const registerUser = async (req, res) => {
     const patient = await Patient.create({
         name,
         profileImage: profile.url,
-
-        email, phone, password, age, historyOfsurgery, historyOfIllness, identity: identity || "", doctor: doctor || "", currentIllnessHistory: currentIllnessHistory || "", recentSurgery: recentSurgery || "", DiabeticOrNot: DiabeticOrNot || "", allergies: allergies || "", others: others || "", transactionId: transactionId || "", pdf: pdf || ""
-
-
+        email, phone, password, age, historyOfSurgery, historyOfIllness, identity:  "doctor" 
     })
 
-    const createdPatient = await User.findById(user._id).select(
-        "-password -refreshToken"
+   
+    const createdPatient = await Patient.findById(patient._id).select(
+        "-password "
     )
 
     if (!createdPatient) {
@@ -63,18 +61,13 @@ const registerUser = async (req, res) => {
     }
 
     return res.status(201).json(
-        new ApiResponse(200, createdUser, "User registered Successfully")
+        new ApiResponse(200, createdPatient, "User registered Successfully")
     )
 
 }
 
 const loginUser = async (req, res) => {
-    // req body -> data
-    // username or email
-    //find the user
-    //password check
-    //access and referesh token
-    //send cookie
+    
 
     const { email, password } = req.body
     console.log(email);
@@ -83,18 +76,13 @@ const loginUser = async (req, res) => {
         throw new Error(400, " email is required")
     }
 
-    // Here is an alternative of above code based on logic discussed in video:
-    // if (!(username || email)) {
-    //     throw new Error(400, "username or email is required")
-
-    // }
 
     const patient = await Patient.findOne({
         email
     })
 
     if (!patient) {
-        throw new Error(404, "User does not exist")
+        throw new Error(404, "patient does not exist")
     }
 
     const isPasswordValid = await patient.isPasswordCorrect(password)
@@ -103,7 +91,7 @@ const loginUser = async (req, res) => {
         throw new Error(401, "Invalid user credentials")
     }
 
-    const { accessToken } = await generateAccessAndRefereshTokens(patient._id)
+    const  accessToken  = await generateAccessToken(patient._id)
 
     const loggedInUser = await Patient.findById(patient._id).select("-password -refreshToken")
 
@@ -150,22 +138,42 @@ const getCurrentUser = async (req, res) => {
         ))
 }
 
+const getDoctorList = async (req,res) => {
+    const doctorList = await Doctor.find({});
+    console.log(doctorList);
+    res.status(200).json({
+        success:true,
+        doctorList}
+    )
+}
+const getDoctor = async (req,res) => {
+    const doctor = await Doctor.findById("6662a064c6ba29d9705afd2a");
+    console.log(doctor);
+    res.status(200).json({
+        success:true,
+        doctor}
+    )
+}
 
+const getConsultation = async(req, res) => {
+    try {
+        const {currentIllnesssHistory, recentSurgery, diabeticOrNot, allergies, others} = req.body;
+        const patientDetails = await Patient({_id:req.patient._id}, {$set:{currentIllnesssHistory, recentSurgery, diabeticOrNot, allergies, others}}, { new: true });
 
+        res.status(200).json(patientDetails);
+        
+    } catch (error) {
+        
+    }
 
-
-
-
-
-
-
-
+}
 
 export {
     registerUser,
     loginUser,
     logoutUser,
-
+    getDoctorList,
     getCurrentUser,
+    getDoctor
 
 }

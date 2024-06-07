@@ -1,1 +1,1 @@
-export const DB_NAME = "virtual-hospital"
+export const DB_NAME = "hospital"
