@@ -3,12 +3,14 @@ import {
     loginUser,
     logoutUser,
     registerUser,
-    getCurrentUser
+    getCurrentUser,
+    getConsultation
 } from "../controllers/patient.controller.js";
 import { upload } from "../middlewares/multer.middleware.js"
 import { verifyJWT } from "../middlewares/patient.middleware.js";
 import { getDoctorList } from "../controllers/patient.controller.js";
 import { getDoctor } from "../controllers/patient.controller.js";
+
 
 const router = Router()
 router.route("/register").post(
@@ -32,6 +34,8 @@ router.route("/current-user").get(verifyJWT, getCurrentUser)
 router.route("/doctorlist").get(verifyJWT, getDoctorList);
 
 router.route("/doctorlist/:doctorId").get(verifyJWT, getDoctor);
+
+router.route("/consult/:doctorId").post(verifyJWT, getConsultation);
 
 
 

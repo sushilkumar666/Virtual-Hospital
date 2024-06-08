@@ -139,31 +139,44 @@ const getCurrentUser = async (req, res) => {
 }
 
 const getDoctorList = async (req,res) => {
-    const doctorList = await Doctor.find({});
-    console.log(doctorList);
-    res.status(200).json({
-        success:true,
-        doctorList}
-    )
+    try {
+        const doctorList = await Doctor.find({});
+        console.log(doctorList);
+        res.status(200).json({
+            success:true,
+            doctorList}
+        )
+    } catch (error) {
+        throw new Error("error while fetching doctorList" + error);
+    }
+   
 }
 const getDoctor = async (req,res) => {
-    const doctor = await Doctor.findById("6662a064c6ba29d9705afd2a");
-    console.log(doctor);
-    res.status(200).json({
-        success:true,
-        doctor}
-    )
+    try {
+        const doctor = await Doctor.findById("6662a064c6ba29d9705afd2a");
+        console.log(doctor);
+        res.status(200).json({
+            success:true,
+            doctor}
+        )
+    } catch (error) {
+        throw new Error("Error while fetching doctor detail " + error)
+    }
+   
 }
 
 const getConsultation = async(req, res) => {
     try {
-        const {currentIllnesssHistory, recentSurgery, diabeticOrNot, allergies, others} = req.body;
-        const patientDetails = await Patient({_id:req.patient._id}, {$set:{currentIllnesssHistory, recentSurgery, diabeticOrNot, allergies, others}}, { new: true });
+        const {currentIllnesssHistory, recentSurgery, diabeticOrNot, allergies, others, transactionId} = req.body;
+        const {doctorId} = req.params;
+        
+        const patientDetails = await Patient.findByIdAndUpdate(req.patient._id, {$set:{currentIllnesssHistory, recentSurgery, diabeticOrNot, allergies, others, doctor: doctorId, transactionId}}, { new: true });
+        const patientUpdatedDetails = await Patient.findById(req.patient._id);
 
-        res.status(200).json(patientDetails);
+        res.status(200).json({patientUpdatedDetails, success:true, message:'consultation Form submitted successfully'});
         
     } catch (error) {
-        
+        throw new error("error in consultation" + error);
     }
 
 }
@@ -174,6 +187,7 @@ export {
     logoutUser,
     getDoctorList,
     getCurrentUser,
-    getDoctor
+    getDoctor,
+    getConsultation
 
 }

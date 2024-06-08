@@ -25,11 +25,14 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-
         path: "/",
 
-        element: (<AuthLayout> <Home /></AuthLayout>),
-
+        element: (
+          <AuthLayout>
+            {" "}
+            <Home />
+          </AuthLayout>
+        ),
       },
 
       {
@@ -59,39 +62,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/patient/doctors",
-        element: (<AuthLayout><Doctors /></AuthLayout>),
+        element: (
+          <AuthLayout>
+            <Doctors />
+          </AuthLayout>
+        ),
       },
       {
-        path: "/doctor/doctorprofile/:doctorId",
-        element: (
-
-          <DoctorProfile />
-
-        ),
+        path: "/doctor/doctorprofile",
+        element: <DoctorProfile />,
       },
       {
         path: "/doctor/prescription/:patientId",
-        element: (
-
-          <PrescriptionPage />
-
-        ),
+        element: <PrescriptionPage />,
       },
       {
         path: "/patient/consultationform/:doctorId",
-        element: (
-
-          <ConsultationForm />
-
-        ),
+        element: <ConsultationForm />,
       },
       {
         path: "/patient/doctordetails/:doctorId",
-        element: (
-
-          <Profile />
-
-        ),
+        element: <Profile />,
       },
       // {
       //   path: "/post/:slug",

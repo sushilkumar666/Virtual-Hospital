@@ -151,13 +151,80 @@ const getCurrentUser = async (req, res) => {
             "User fetched successfully"
         ))
 }
+ 
+ const getPatientList = async (req,res) => {
+    try {
+        const patientList = await Patient.find({doctor: req.doctor._id});
+        console.log(patientList);
+        res.status(200).json({
+            success:true,
+            patientList}
+        )
+    } catch (error) {
+        throw new Error("error while fetching doctorList" + error);
+    }
+   
+}
+ const getPatient = async (req,res) => {
+    try {
+        const {patientId} = req.params;
+        const patient = await Patient.findById(req.params);
+        console.log(patient);
+        res.status(200).json({
+            success:true,
+            patient}
+        )
+    } catch (error) {
+        throw new Error("Error while fetching doctor detail " + error)
+    }
+   
+}
+
+const prescribe = async(req, res) => {
+    try {
+       
+    } catch (error) {
+        throw new Error("error in prescription " + error);
+    }
+}
+
+const uploadPdf = async(req, res) => {
+    try {
+
+        const pdf = req.files?.pdf[0]?.path;
+   
+        // const coverImageLocalPath = req.files?.coverImage[0]?.path;
+        
+        if (!pdf) {
+            throw new Error(400, "pdf file is required")
+        }
+        
+            const cloudinaryPdf = await uploadOnCloudinary(profileImagePath);
+        
+            if (!cloudinaryPdf) {
+                throw new ApiError(400, "profile file is required")
+            }
+
+
+        const patientId = req.params;
+        const uploadPdf = Patient.findByIdAndUpdate(patientId, {$set:{pdf:cloudinaryPdf.url}})
+        res.status(200).json({
+            success:true,
+            message: "presciption uploaded successfully"
+        })
+    } catch (error) {
+        throw new Error("errow while uplaoding pdf " + error);
+    }
+}
 
 export {
     registerUser,
     loginUser,
     logoutUser,
-
+    getPatient,
+    getPatientList,
     getCurrentUser,
-
+    prescribe,
+    uploadPdf
 }
 
