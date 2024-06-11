@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const PrescriptionPage = () => {
   const [prescriptionData, setPrescriptionData] = useState({
@@ -8,13 +10,9 @@ const PrescriptionPage = () => {
     medicines: "",
   });
 
-  const handleChange = (e) => {
-    setPrescriptionData({
-      ...prescriptionData,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const generatePDF = () => {
+  const { patientId } = useParams();
+
+  const generatePDF = async () => {
     const input = document.getElementById("formData");
     html2canvas(input, { scale: 1 }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
@@ -28,20 +26,30 @@ const PrescriptionPage = () => {
       const pdfBlob = pdf.output("blob");
 
       const formData = new FormData();
-      formData.append("file", pdfBlob, "prescription.pdf");
+      formData.append("pdf", pdfBlob, "prescription.pdf");
 
-      fetch("http://localhost:8000/upload", {
-        // Replace with your backend URL
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Successfully uploaded to Cloudinary:", data);
+      axios
+        .post(
+          `http://localhost:8000/api/v1/doctor/upload/${patientId}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then((response) => {
+          console.log("Success:", response.data);
         })
         .catch((error) => {
-          console.error("Error uploading to Cloudinary:", error);
+          console.error("Error:", error);
         });
+    });
+  };
+  const handleChange = (e) => {
+    setPrescriptionData({
+      ...prescriptionData,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -73,6 +81,7 @@ const PrescriptionPage = () => {
               type="text"
               name="care"
               placeholder="Care to be taken"
+              value={prescriptionData.care}
               onChange={handleChange}
               required
             />
@@ -85,7 +94,8 @@ const PrescriptionPage = () => {
               id="care"
               rows={8}
               type="text"
-              name="care"
+              name="medicines"
+              value={prescriptionData.medicines}
               placeholder="Medicines"
               onChange={handleChange}
             />

@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken"
 import mongoose from "mongoose";
 import { ApiError } from "../utils/ApiError.js";
 import {ApiResponse} from "../utils/ApiResponse.js"
+import CircularJSON from 'circular-json';
 
 
 
@@ -67,10 +68,27 @@ const registerUser = async (req, res) => {
     if (!createdDoctor) {
         throw new Error(500, "Something went wrong while registering the user")
     }
-    console.log(req.body);
-    return res.status(201).json(
-        new ApiResponse(200, req.body, "User registered Successfully")
-    )
+    // console.log(req.body);
+    const  accessToken  = await generateAccessToken(doctor._id)
+
+    const loggedInUser = await Doctor.findById(doctor._id).select("-password")
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+    return res
+        .status(200)
+        .cookie("accessToken", accessToken, options).json(
+            new ApiResponse(
+                200,
+                {
+                    doctor: loggedInUser, accessToken
+                },
+                "User registered Successfully"
+            )
+        )
    
 } catch (error) {
        console.log('error in registration '  + error) 
@@ -192,28 +210,38 @@ const uploadPdf = async(req, res) => {
     try {
 
         const pdf = req.files?.pdf[0]?.path;
+        console.log("multer handle the file")
+        console.log(pdf);
    
         // const coverImageLocalPath = req.files?.coverImage[0]?.path;
         
         if (!pdf) {
             throw new Error(400, "pdf file is required")
         }
-        
-            const cloudinaryPdf = await uploadOnCloudinary(profileImagePath);
-        
+           
+            const cloudinaryPdf = await uploadOnCloudinary(pdf);
+            console.log("cloudnary pdf :" + cloudinaryPdf );
             if (!cloudinaryPdf) {
                 throw new ApiError(400, "profile file is required")
             }
 
+console.log('debug1')
+        const {patientId} = req.params;
+        console.log('debug2')
 
-        const patientId = req.params;
-        const uploadPdf = Patient.findByIdAndUpdate(patientId, {$set:{pdf:cloudinaryPdf.url}})
+        const uploadPdf = await Patient.findByIdAndUpdate(patientId, {$set:{pdf:cloudinaryPdf}},  { new: true})
+        console.log('debug3')
+
         res.status(200).json({
+            
+
             success:true,
-            message: "presciption uploaded successfully"
+            message: "presciption uploaded successfully",
+            uploadPdf
         })
     } catch (error) {
-        throw new Error("errow while uplaoding pdf " + error);
+        console.error("Error while uploading PDF", CircularJSON.stringify(error));
+        res.status(500).json({ message: "Error while uploading PDF" });
     }
 }
 

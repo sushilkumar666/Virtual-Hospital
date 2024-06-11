@@ -28,11 +28,10 @@ router.route("/register").post(
 )
 
 router.route("/upload/:patientId").post(
-    upload.fields([
-        {name:"pdf",
-            maxCount:1
-        }
-    ]), uploadPdf
+    upload.fields([{
+        name:"pdf",
+        maxCount: 1
+    }]), uploadPdf
 )
 router.route("/login").post(loginUser)
 

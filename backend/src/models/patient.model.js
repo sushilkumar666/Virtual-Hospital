@@ -11,7 +11,7 @@ const patientSchema = new mongoose.Schema({
     phone: { type: String, unique: true, required: true },
     historyOfSurgery: { type: String },
     historyOfIllness: { type: String },
-    identity: { type: String },
+    identity: { type: String, default: "patient" },
     password: {
         type: String,
         required: [true, 'Password is required']
@@ -20,13 +20,13 @@ const patientSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "Doctor"
     },
-    currentIllnessHistory: { type: String },
-    recentSurgery: { type: String },
-    diabeticOrNot: { type: String },
-    allergies: { type: String },
-    others: { type: String },
-    transactionId: { type: String },
-    pdf: { type: String }
+    // currentIllnessHistory: { type: String },
+    // recentSurgery: { type: String },
+    // diabeticOrNot: { type: String },
+    // allergies: { type: String },
+    // others: { type: String },
+    // transactionId: { type: String },
+    // pdf: { type: String }
 
 
 }, {
