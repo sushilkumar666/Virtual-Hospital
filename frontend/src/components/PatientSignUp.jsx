@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function PatientSignUp() {
   const navigate = useNavigate();
@@ -9,7 +10,8 @@ function PatientSignUp() {
     age: "",
     email: "",
     phone: "",
-    profileImage: "",
+    password: "",
+    profileImage: null,
     historyOfSurgery: "",
     historyOfIllness: "",
   });
@@ -17,10 +19,24 @@ function PatientSignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      //   const res = await axios.post("/api/v1/auth/doctor/signup", formData);
       console.log(formData);
-      navigate("/")
-
+      const { data } = await axios.post(
+        "http://localhost:8000/api/v1/patient/register",
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Custom-Header": "CustomValue",
+          },
+        }
+      );
+      console.log(data);
+      if (data.success) {
+        navigate("/");
+      } else {
+        console.log("error while registering patient");
+      }
     } catch (error) {
       console.error(error.response.data);
     }
@@ -68,6 +84,17 @@ function PatientSignUp() {
             type="email"
             className="w-full border p-2 rounded"
             placeholder="Email"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">password</label>
+          <input
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+            type="password"
+            className="w-full border p-2 rounded"
+            placeholder="password"
           />
         </div>
         <div className="mb-4">

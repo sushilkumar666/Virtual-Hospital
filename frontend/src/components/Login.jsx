@@ -4,7 +4,7 @@ import PatientSignIn from "./PatientSignIn";
 import { useDispatch, useSelector } from "react-redux";
 
 function Login() {
-  const [user, setUser] = useState("patient");
+  const [user, setUser] = useState("");
   useEffect(() => {}, [user]);
   return (
     <>

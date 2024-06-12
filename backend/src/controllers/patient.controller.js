@@ -8,6 +8,8 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { response } from "express";
 
 
+
+
 const generateAccessToken = async (patientId) => {
     try {
         const patient = await Patient.findById(patientId)
@@ -21,7 +23,7 @@ const generateAccessToken = async (patientId) => {
 }
 
 const registerUser = async (req, res) => {
-
+ 
     const { name, email, phone, password, age, historyOfSurgery, historyOfIllness} = req.body
 
     const existedUser = await Patient.findOne(
@@ -48,34 +50,34 @@ const registerUser = async (req, res) => {
     const patient = await Patient.create({
         name,
         profileImage: profile.url,
-        email, phone, password, age, historyOfSurgery, historyOfIllness, identity:  "doctor" 
+        email, phone, password, age, historyOfSurgery, historyOfIllness, identity:  "patient" 
     })
 
-   
+
+    if (!patient) {
+        throw new Error(500, "Something went wrong while registering the user")
+    }
     const createdPatient = await Patient.findById(patient._id).select(
         "-password "
     )
 
-    if (!createdPatient) {
-        throw new Error(500, "Something went wrong while registering the user")
-    }
-
     const  accessToken  = await generateAccessToken(patient._id)
-
-    const loggedInUser = await Patient.findById(patient._id).select("-password")
+     
+     
 
     const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
+         sameSite: 'Strict'
     }
-
+    res.cookie("accessToken", accessToken, options);
     return res
         .status(200)
-        .cookie("accessToken", accessToken, options).json(
+         .json(
             new ApiResponse(
                 200,
                 {
-                    user: loggedInUser, accessToken
+                    user: createdPatient, accessToken
                 },
                 "User registered Successfully"
             )
@@ -85,7 +87,7 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     
-
+    
     const { email, password } = req.body
     console.log(email);
 
@@ -109,17 +111,17 @@ const loginUser = async (req, res) => {
     }
 
     const  accessToken  = await generateAccessToken(patient._id)
-
+    console.log(accessToken + "this is accesstokenbeforesetting cookies");
     const loggedInUser = await Patient.findById(patient._id).select("-password")
 
     const options = {
         httpOnly: true,
         secure: true
     }
-
+    res.cookie("accessToken", accessToken, options);
     return res
         .status(200)
-        .cookie("accessToken", accessToken, options).json(
+        .json(
             new ApiResponse(
                 200,
                 {

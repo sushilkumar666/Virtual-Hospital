@@ -9,7 +9,6 @@ import { Provider } from "react-redux";
 import store from "./store/store.js";
 import Login from "./components/Login.jsx";
 import SignUp from "./components/SignUp.jsx";
-import Doctors from "./components/Doctors.jsx";
 import PatientSignUp from "./components/PatientSignUp.jsx";
 import DoctorSignUp from "./components/DoctorSignUp.jsx";
 import PatientSignIn from "./components/PatientSignIn.jsx";
@@ -19,6 +18,7 @@ import PrescriptionPage from "./components/PrescriptionPage.jsx";
 import ConsulationForm from "./components/ConsultationForm.jsx";
 import ConsultationForm from "./components/ConsultationForm.jsx";
 import Profile from "./components/Profile.jsx";
+import DoctorList from "./components/DoctorList.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,12 +27,7 @@ const router = createBrowserRouter([
       {
         path: "/",
 
-        element: (
-          <AuthLayout>
-            {" "}
-            <Home />
-          </AuthLayout>
-        ),
+        element: <Home />,
       },
 
       {
@@ -64,7 +59,7 @@ const router = createBrowserRouter([
         path: "/patient/doctors",
         element: (
           <AuthLayout>
-            <Doctors />
+            <DoctorList />
           </AuthLayout>
         ),
       },
