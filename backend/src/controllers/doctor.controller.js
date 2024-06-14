@@ -28,10 +28,8 @@ const generateAccessToken = async (patientId) => {
 
 const registerUser = async (req, res) => {
     
-    try {
-        
+    try {   
     const { name, email, phone, password, experience, specialty,  identity } = req.body
-
     const existedUser = await Doctor.findOne(
         { email }
     )
@@ -41,19 +39,14 @@ const registerUser = async (req, res) => {
     console.log(req.files);
    
     const profileImagePath = req.files?.profileImage[0]?.path;
-   
     // const coverImageLocalPath = req.files?.coverImage[0]?.path;
-    
     if (!profileImagePath) {
         throw new Error(400, "Avatar file is required")
     }
-    
         const profile = await uploadOnCloudinary(profileImagePath);
-    
         if (!profile) {
             throw new ApiError(400, "profile file is required")
         }
-    
     
     const doctor = await Doctor.create({
         name,
@@ -174,9 +167,9 @@ const getCurrentUser = async (req, res) => {
     try {
         const patientList = await Patient.find({doctor: req.doctor._id});
         console.log(patientList);
-        res.status(200).json({
-            success:true,
-            patientList}
+        res.status(200).json(new ApiResponse(200, patientList, 'patient list fetched successfully')
+            
+            
         )
     } catch (error) {
         throw new Error("error while fetching doctorList" + error);

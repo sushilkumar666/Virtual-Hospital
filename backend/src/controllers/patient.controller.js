@@ -173,7 +173,9 @@ const getDoctorList = async (req,res) => {
 }
 const getDoctor = async (req,res) => {
     try {
-        const doctor = await Doctor.findById("6662a064c6ba29d9705afd2a");
+        const {doctorId} = req.params
+        console.log(req.params + "reqest docteor id");
+        const doctor = await Doctor.findById(doctorId);
         console.log(doctor);
         res.status(200).json(
             new ApiResponse(200,
@@ -193,9 +195,10 @@ const getConsultation = async(req, res) => {
         const {doctorId} = req.params;
         
         const patientDetails = await Patient.findByIdAndUpdate(req.patient._id, {$set:{currentIllnesssHistory, recentSurgery, diabeticOrNot, allergies, others, doctor: doctorId, transactionId}}, { new: true });
-        const patientUpdatedDetails = await Patient.findById(req.patient._id);
-
+        const patientUpdatedDetails = await Patient.findById(req.patient._id).select("-password");
+        // console.log(patientUpdatedDetails)
         res.status(200).json(new ApiResponse(200, patientUpdatedDetails,'consultation Form submitted successfully'));
+        // res.status(200).json({success:true, data: patientUpdatedDetails})
         
     } catch (error) {
         throw new error("error in consultation" + error);

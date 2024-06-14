@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../store/authSlice";
 
 const DoctorSignUp = () => {
   const navigate = useNavigate();
@@ -14,16 +16,38 @@ const DoctorSignUp = () => {
     password: "",
     identity: "doctor",
   });
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission
-    console.log(formData);
-    navigate('/doctor/doctorprofile/1234')
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(formData);
+      const { data } = await axios.post(
+        "http://localhost:8000/api/v1/doctor/register",
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Custom-Header": "CustomValue",
+          },
+        }
+      );
+      console.log(data);
+      if (data.success) {
+        dispatch(login());
+        navigate("/doctor/doctorprofile/1234");
+      } else {
+        console.log("error while registering doctor");
+      }
+    } catch (error) {
+      console.error(error.response.data);
+    }
+
     // You can add your axios call or other logic here to submit the form data
   };
 
@@ -31,7 +55,10 @@ const DoctorSignUp = () => {
     <>
       <div>
         <div className="text-2xl p-4 text-blue-700">Doctor's Signup</div>
-        <form className="w-[30vw] mb-10 mx-auto border border-gray p-4 text-left" onSubmit={handleSubmit}>
+        <form
+          className="w-[30vw] mb-10 mx-auto border border-gray p-4 text-left"
+          onSubmit={handleSubmit}
+        >
           <div className="mb-4">
             <label className="block text-gray-700">Name</label>
             <input

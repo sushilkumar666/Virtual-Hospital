@@ -1,19 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../store/authSlice";
+import axios from "axios";
 
 function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const authStatus = useSelector((state) => state.auth.status);
+
   const navigate = useNavigate();
-  const authStatus = useSelector((state) => state.auth.status)
+  const dispatch = useDispatch();
 
+  const logout = async () => {
+    const { data } = await axios.get("http://localhost:8000/logout", {
+      withCredentials: true,
+    });
+    if (data.success) {
+      console.log("after succesffully logged out from backed");
+      console.log(data);
+      dispatch(logout());
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+      // console.log("logged out successfullY");
+      // navigate("/login");
+    }
   };
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="bg-green-600  shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between">
           <div className="flex space-x-7">
@@ -24,7 +37,7 @@ function Navbar() {
                   alt="Logo"
                   className="h-8 w-8 mr-2"
                 />
-                <span className="font-semibold text-gray-500 text-lg">
+                <span className="font-semibold text-white text-lg">
                   YourBrand
                 </span>
               </a>
@@ -33,13 +46,13 @@ function Navbar() {
             <div className="hidden md:flex items-center space-x-1">
               <a
                 href="#"
-                className="py-4 px-2 text-gray-500 border-b-4 border-blue-500 font-semibold"
+                className="py-4 px-2 text-white border-b-4 border-blue-500 font-semibold"
               >
                 Doctors
               </a>
               <a
                 href="#"
-                className="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300"
+                className="py-4 px-2 text-white font-semibold hover:text-blue-500 transition duration-300"
               >
                 Prescriptions
               </a>
@@ -47,90 +60,25 @@ function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center space-x-3">
-            <a
-              href="#"
-              className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
-            >
-              Profile
-            </a>
-            <a
-              href="#"
-              className="py-2 px-2 font-medium text-white bg-blue-500 rounded hover:bg-blue-400 transition duration-300"
-            >
-              Sign In
-            </a>
-            <a
-              href="#"
-              className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
-            >
-              Sign Out
-            </a>
-          </div>
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              className="outline-none mobile-menu-button"
-              onClick={toggleMenu}
-            >
-              <svg
-                className=" w-6 h-6 text-gray-500 hover:text-blue-500 "
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-            </button>
+            {authStatus && (
+              <>
+                <a
+                  href="#"
+                  className="py-2 px-2 font-medium text-white rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
+                >
+                  Profile
+                </a>
+                <a
+                  onClick={logout}
+                  href="#"
+                  className="py-2 px-2 font-medium text-white rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
+                >
+                  Log Out
+                </a>
+              </>
+            )}
           </div>
         </div>
-      </div>
-      {/* mobile menu */}
-      <div className={`mobile-menu ${menuOpen ? "block" : "hidden"}`}>
-        <ul>
-          <li className="active">
-            <a
-              href="#"
-              className="block text-sm px-2 py-4 text-white bg-blue-500 font-semibold"
-            >
-              Doctors
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300"
-            >
-              Prescriptions
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300"
-            >
-              Profile
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300"
-            >
-              Sign In
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300"
-            >
-              Sign Out
-            </a>
-          </li>
-        </ul>
       </div>
     </nav>
   );

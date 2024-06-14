@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../store/authSlice";
 
 function PatientSignIn() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const state = useSelector((state) => state.auth);
+
+  console.log(state);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -16,18 +22,18 @@ function PatientSignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(formData);
       const { data } = await axios.post(
         "http://localhost:8000/api/v1/patient/login",
         formData,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
       console.log("isnde handlesumit");
-      console.log(data);
+      console.log(data.data);
       if (data.success) {
+        dispatch(login());
         navigate("/");
       } else {
-        console.log("error while registering patient");
+        console.log("error while login patient");
       }
     } catch (error) {
       console.error(error.response.data);

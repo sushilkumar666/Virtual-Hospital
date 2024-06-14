@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { Navigate } from "react-router-dom";
 
 const PrescriptionPage = () => {
   const [prescriptionData, setPrescriptionData] = useState({
     care: "",
     medicines: "",
   });
-
+  const navigate = useNavigate();
   const { patientId } = useParams();
 
   const generatePDF = async () => {
@@ -27,22 +29,34 @@ const PrescriptionPage = () => {
 
       const formData = new FormData();
       formData.append("pdf", pdfBlob, "prescription.pdf");
-
       axios
         .post(
           `http://localhost:8000/api/v1/doctor/upload/${patientId}`,
           formData,
           {
+            withCredentials: true,
+            "Custom-Header": "CustomValue",
             headers: {
               "Content-Type": "multipart/form-data",
             },
           }
         )
         .then((response) => {
-          console.log("Success:", response.data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
+          if (response.data.success) {
+            setPrescriptionData({
+              care: "",
+              medicines: "",
+            });
+
+            Swal.fire({
+              title: "Success!",
+              text: "Get Well Soon!",
+              icon: "success",
+              confirmButtonText: "OK",
+            });
+
+            navigate("/doctor/doctorprofile");
+          }
         });
     });
   };

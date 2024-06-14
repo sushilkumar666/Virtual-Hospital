@@ -13,7 +13,7 @@ import PatientSignUp from "./components/PatientSignUp.jsx";
 import DoctorSignUp from "./components/DoctorSignUp.jsx";
 import PatientSignIn from "./components/PatientSignIn.jsx";
 import DoctorSignIn from "./components/DoctorSignIn.jsx";
-import DoctorProfile from "./components/DoctorProfile.jsx";
+import PatientList from "./components/PatientList.jsx";
 import PrescriptionPage from "./components/PrescriptionPage.jsx";
 import ConsulationForm from "./components/ConsultationForm.jsx";
 import ConsultationForm from "./components/ConsultationForm.jsx";
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/doctor/doctorprofile",
-        element: <DoctorProfile />,
+        element: <PatientList />,
       },
       {
         path: "/doctor/prescription/:patientId",

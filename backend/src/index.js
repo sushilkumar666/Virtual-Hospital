@@ -24,6 +24,10 @@ app.get("/test", (req, res) => {
     res.cookie("name", "sushil", { httpOnly: true, secure: true}).json({ success: true, message: "Trial successful" });
 });
 
+app.get("/logout", (req, res) =>  {
+    res.clearCookie("accessToken", "", { httpOnly: true, secure: true}).json({ success: true, message: "user logout successfully" });
+} )
+
 app.use("/api/v1/patient", patientRouter);
 app.use("/api/v1/doctor", doctorRouter);
 

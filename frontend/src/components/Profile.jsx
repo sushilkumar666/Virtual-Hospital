@@ -3,16 +3,18 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 function Profile() {
-  const { patientId } = useParams();
-  const [doctor, setDoctor] = useState(null); // Initialize to null to handle loading state
+  const { doctorId } = useParams();
+  console.log(doctorId);
+  const [doctor, setDoctor] = useState({}); // Initialize to null to handle loading state
 
   const fetchDoctorDetails = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/v1/patient/doctorlist/${patientId}`,
-        { withCredentials: true }
+        `http://localhost:8000/api/v1/patient/doctorlist/${doctorId}`,
+        { withCredentials: true, "Custom-Header": "CustomValue" }
       );
       setDoctor(data.data);
+
       console.log(data.data);
     } catch (error) {
       console.error("Error fetching doctor details:", error);
@@ -26,10 +28,6 @@ function Profile() {
     };
     getDoctorDetails();
   }, []); // Empty dependency array means this effect runs once after the initial render
-
-  if (!doctor) {
-    return <div>Loading...</div>; // Render loading state if doctor data is not yet available
-  }
 
   return (
     <div>

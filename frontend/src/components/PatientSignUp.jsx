@@ -2,9 +2,14 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { login } from "../store/authSlice";
 function PatientSignUp() {
   const navigate = useNavigate();
+  const authStatus = useSelector((state) => state.auth.status);
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -33,6 +38,7 @@ function PatientSignUp() {
       );
       console.log(data);
       if (data.success) {
+        dispatch(login());
         navigate("/");
       } else {
         console.log("error while registering patient");

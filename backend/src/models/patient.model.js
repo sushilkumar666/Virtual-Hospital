@@ -20,13 +20,13 @@ const patientSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "Doctor"
     },
-    // currentIllnessHistory: { type: String },
-    // recentSurgery: { type: String },
-    // diabeticOrNot: { type: String },
-    // allergies: { type: String },
-    // others: { type: String },
-    // transactionId: { type: String },
-    // pdf: { type: String }
+    currentIllnessHistory: { type: String },
+    recentSurgery: { type: String },
+    diabeticOrNot: { type: String },
+    allergies: { type: String },
+    others: { type: String },
+    transactionId: { type: String },
+    pdf: { type: String }
 
 
 }, {

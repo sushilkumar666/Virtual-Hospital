@@ -44,7 +44,9 @@ router.route("/patientlist").get(verifyJWT, getPatientList);
 
 router.route("/patientlist/:patientId").get(verifyJWT, getPatient);
 
-router.route("/prescibe/:patientId").post(verifyJWT, prescribe)
+router.route("/prescibe/:patientId").post(verifyJWT, prescribe);
+
+
 
 
 

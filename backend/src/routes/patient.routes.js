@@ -39,4 +39,5 @@ router.route("/consult/:doctorId").post(verifyJWT, getConsultation);
 
 
 
+
 export default router

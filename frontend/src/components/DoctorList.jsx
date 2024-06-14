@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 function DoctorList() {
   const navigate = useNavigate();
 
   const [doctors, setDoctors] = useState([]);
-
+  const state = useSelector((state) => state.auth);
+  console.log(state);
   const details = (_id) => {
     navigate(`/patient/doctordetails/${_id}`);
   };
@@ -35,7 +37,7 @@ function DoctorList() {
         <div className="mx-auto flex flex-wrap  justify-evenly">
           {doctors?.map((doctor) => {
             return (
-              <div className=" px-3    mx-auto flex flex-wrap">
+              <div key={doctor._id} className=" px-3    mx-auto flex flex-wrap">
                 <div className="w-[350px] card m-5 rounded-3xl  border border-gray cursor-pointer  p-4">
                   <img width={"300px"} src={doctor.profileImage} alt="doctor" />
 
