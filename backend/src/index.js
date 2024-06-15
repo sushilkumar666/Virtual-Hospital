@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import patientRouter from "./routes/patient.routes.js";
 import doctorRouter from "./routes/doctor.routes.js";
 import connectDB from "./db/index.js";
+import { verifyJWT } from "./middlewares/patient.middleware.js";
 // import { ApiError } from "./utils/ApiError.js";
 
 dotenv.config({ path: './.env' });
@@ -27,6 +28,8 @@ app.get("/test", (req, res) => {
 app.get("/logout", (req, res) =>  {
     res.clearCookie("accessToken", "", { httpOnly: true, secure: true}).json({ success: true, message: "user logout successfully" });
 } )
+
+
 
 app.use("/api/v1/patient", patientRouter);
 app.use("/api/v1/doctor", doctorRouter);

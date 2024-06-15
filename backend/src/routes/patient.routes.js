@@ -37,6 +37,8 @@ router.route("/doctorlist/:doctorId").get(verifyJWT, getDoctor);
 
 router.route("/consult/:doctorId").post(verifyJWT, getConsultation);
 
+router.route("/profile").get(verifyJWT, getCurrentUser);
+
 
 
 

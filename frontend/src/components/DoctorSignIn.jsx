@@ -26,9 +26,12 @@ function DoctorSignIn() {
         formData,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
-      console.log("isnde handlesumit");
+      // console.log("isnde handlesumit");
+      // console.log(JSON.stringify(data.data.doctor) + " data value ");
       if (data.success) {
-        dispatch(login());
+        const identity = data.data.doctor.identity;
+        console.log(identity + " this identity value");
+        dispatch(login({ identity }));
         navigate("/doctor/doctorprofile");
       } else {
         console.log("error while login patient");

@@ -39,7 +39,8 @@ const DoctorSignUp = () => {
       );
       console.log(data);
       if (data.success) {
-        dispatch(login());
+        const identity = data.data.user.identity;
+        dispatch(login({ identity }));
         navigate("/doctor/doctorprofile/1234");
       } else {
         console.log("error while registering doctor");

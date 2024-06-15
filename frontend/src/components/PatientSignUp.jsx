@@ -38,7 +38,8 @@ function PatientSignUp() {
       );
       console.log(data);
       if (data.success) {
-        dispatch(login());
+        const identity = data.data.user.identity;
+        dispatch(login({ identity }));
         navigate("/");
       } else {
         console.log("error while registering patient");

@@ -9,7 +9,7 @@ function DoctorList() {
 
   const [doctors, setDoctors] = useState([]);
   const state = useSelector((state) => state.auth);
-  console.log(state);
+  // console.log(state + " auth status");
   const details = (_id) => {
     navigate(`/patient/doctordetails/${_id}`);
   };
@@ -22,7 +22,6 @@ function DoctorList() {
           { withCredentials: true, "Custom-Header": "CustomValue" }
         );
         setDoctors(data.data);
-        console.log(typeof data, "res data", data.data);
       } catch (error) {
         console.log("error while fetching doctors data");
         console.error(error);

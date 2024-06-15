@@ -11,7 +11,7 @@ function PatientSignIn() {
   });
   const state = useSelector((state) => state.auth);
 
-  console.log(state);
+  // console.log(state);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -30,7 +30,9 @@ function PatientSignIn() {
       console.log("isnde handlesumit");
       console.log(data.data);
       if (data.success) {
-        dispatch(login());
+        console.log(data.data.user.identity);
+        const identity = data.data.user.identity;
+        dispatch(login({ identity: identity }));
         navigate("/");
       } else {
         console.log("error while login patient");

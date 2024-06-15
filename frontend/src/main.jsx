@@ -15,10 +15,10 @@ import PatientSignIn from "./components/PatientSignIn.jsx";
 import DoctorSignIn from "./components/DoctorSignIn.jsx";
 import PatientList from "./components/PatientList.jsx";
 import PrescriptionPage from "./components/PrescriptionPage.jsx";
-import ConsulationForm from "./components/ConsultationForm.jsx";
 import ConsultationForm from "./components/ConsultationForm.jsx";
 import Profile from "./components/Profile.jsx";
 import DoctorList from "./components/DoctorList.jsx";
+import UserProfile from "./components/UserProfile.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -57,15 +57,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/patient/doctors",
-        element: (
-          <AuthLayout>
-            <DoctorList />
-          </AuthLayout>
-        ),
+        element: <DoctorList />,
       },
       {
-        path: "/doctor/doctorprofile",
-        element: <PatientList />,
+        path: "/profile",
+        element: <UserProfile />,
       },
       {
         path: "/doctor/prescription/:patientId",
@@ -79,6 +75,11 @@ const router = createBrowserRouter([
         path: "/patient/doctordetails/:doctorId",
         element: <Profile />,
       },
+      {
+        path: "/doctor/doctorprofile",
+        element: <PatientList />,
+      },
+
       // {
       //   path: "/post/:slug",
       //   element: <Post />,
