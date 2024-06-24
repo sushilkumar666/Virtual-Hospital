@@ -19,6 +19,8 @@ import ConsultationForm from "./components/ConsultationForm.jsx";
 import Profile from "./components/Profile.jsx";
 import DoctorList from "./components/DoctorList.jsx";
 import UserProfile from "./components/UserProfile.jsx";
+import PatientHistory from "./components/PatientHistory.jsx";
+import PresciptionPdf from "./components/PresciptionPdf.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -26,8 +28,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-
-        element: <Home />,
+        element: (
+          <AuthLayout>
+            {" "}
+            <Home />
+          </AuthLayout>
+        ),
       },
 
       {
@@ -61,23 +67,52 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <UserProfile />,
+        element: (
+          <AuthLayout>
+            <UserProfile />
+          </AuthLayout>
+        ),
       },
       {
         path: "/doctor/prescription/:patientId",
-        element: <PrescriptionPage />,
+        element: (
+          <AuthLayout>
+            <PrescriptionPage />,
+          </AuthLayout>
+        ),
       },
       {
         path: "/patient/consultationform/:doctorId",
-        element: <ConsultationForm />,
+        element: (
+          <AuthLayout>
+            <ConsultationForm />,
+          </AuthLayout>
+        ),
       },
       {
         path: "/patient/doctordetails/:doctorId",
-        element: <Profile />,
+        element: (
+          <AuthLayout>
+            <Profile />,
+          </AuthLayout>
+        ),
       },
       {
         path: "/doctor/doctorprofile",
-        element: <PatientList />,
+        element: (
+          <AuthLayout>
+            {" "}
+            <PatientList />,
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/doctor/patienthistory",
+        element: <PatientHistory />,
+      },
+      {
+        path: "/doctor/patientlist/:patientId",
+        element: <PresciptionPdf />,
       },
 
       // {

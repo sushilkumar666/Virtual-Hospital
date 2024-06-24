@@ -11,6 +11,7 @@ import {
 } from "../controllers/doctor.controller.js";
 import { upload } from "../middlewares/multer.middleware.js"
 import { verifyJWT } from "../middlewares/doctor.middleware.js";
+import { patientHistory } from "../controllers/doctor.controller.js";
 
 
 const router = Router()
@@ -42,11 +43,14 @@ router.route("/current-user").get(verifyJWT, getCurrentUser)
 
 router.route("/patientlist").get(verifyJWT, getPatientList);
 
-router.route("/patientlist/:patientId").get(verifyJWT, getPatient);
+router.route("/patientlist/:patientId").get( getPatient);
 
 router.route("/prescibe/:patientId").post(verifyJWT, prescribe);
 
 router.route("/profile").get(verifyJWT, getCurrentUser);
+
+router.route("/patienthistory").get(verifyJWT, patientHistory);
+
 
 
 

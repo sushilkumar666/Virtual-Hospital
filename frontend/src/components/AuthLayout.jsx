@@ -10,13 +10,7 @@ export default function Protected({ children, authentication = true }) {
   const identity = useSelector((state) => state.auth.identity);
 
   useEffect(() => {
-    if (authStatus === true && identity === 'patient') {
-      navigate("/");
-
-    } else if (authStatus === true && identity === 'doctor') {
-      navigate("/doctor/doctorprofile");
-    }
-    else {
+    if (authStatus === false) {
       navigate("/login");
     }
 

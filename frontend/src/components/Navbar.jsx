@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout as logoutAction } from "../store/authSlice";
 import axios from "axios";
@@ -32,7 +32,7 @@ function Navbar() {
         <div className="flex justify-between">
           <div className="flex space-x-7">
             <div>
-              <a href="#" className="flex items-center py-4 px-2">
+              <Link to="/" className="flex items-center py-4 px-2">
                 <img
                   src="/path-to-your-logo.png"
                   alt="Logo"
@@ -41,22 +41,28 @@ function Navbar() {
                 <span className="font-semibold text-white text-lg">
                   YourBrand
                 </span>
-              </a>
+              </Link>
             </div>
 
             <div className="hidden md:flex items-center space-x-1">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="py-4 px-2 text-white border-b-4 border-blue-500 font-semibold"
               >
                 Doctors
-              </a>
+              </Link>
               <a
                 href="#"
                 className="py-4 px-2 text-white font-semibold hover:text-blue-500 transition duration-300"
               >
                 Prescriptions
               </a>
+              <Link
+                to="doctor/patienthistory"
+                className="py-4 px-2 text-white font-semibold hover:text-blue-500 transition duration-300"
+              >
+                History
+              </Link>
             </div>
           </div>
 

@@ -20,6 +20,7 @@ const patientSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "Doctor"
     },
+    prescribed: {type:Boolean, default:false},
     currentIllnessHistory: { type: String },
     recentSurgery: { type: String },
     diabeticOrNot: { type: String },

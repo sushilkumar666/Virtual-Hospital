@@ -12,6 +12,7 @@ import { getDoctorList } from "../controllers/patient.controller.js";
 import { getDoctor } from "../controllers/patient.controller.js";
 
 
+
 const router = Router()
 router.route("/register").post(
     upload.fields([
@@ -38,6 +39,7 @@ router.route("/doctorlist/:doctorId").get(verifyJWT, getDoctor);
 router.route("/consult/:doctorId").post(verifyJWT, getConsultation);
 
 router.route("/profile").get(verifyJWT, getCurrentUser);
+
 
 
 

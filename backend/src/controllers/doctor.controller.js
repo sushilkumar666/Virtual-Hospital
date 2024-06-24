@@ -165,8 +165,7 @@ const getCurrentUser = async (req, res) => {
  
  const getPatientList = async (req,res) => {
     try {
-        const patientList = await Patient.find({doctor: req.doctor._id});
-        console.log(patientList);
+        const patientList = await Patient.find({doctor: req.doctor._id, prescribed: false});
         res.status(200).json(new ApiResponse(200, patientList, 'patient list fetched successfully')
             
             
@@ -179,7 +178,7 @@ const getCurrentUser = async (req, res) => {
  const getPatient = async (req,res) => {
     try {
         const {patientId} = req.params;
-        const patient = await Patient.findById(req.params);
+        const patient = await Patient.findById(patientId);
         console.log(patient);
         res.status(200).json({
             success:true,
@@ -218,11 +217,9 @@ const uploadPdf = async(req, res) => {
                 throw new ApiError(400, "profile file is required")
             }
 
-console.log('debug1')
         const {patientId} = req.params;
-        console.log('debug2')
-
-        const uploadPdf = await Patient.findByIdAndUpdate(patientId, {$set:{pdf:cloudinaryPdf}},  { new: true})
+      
+        const uploadPdf = await Patient.findByIdAndUpdate(patientId, {$set:{pdf:cloudinaryPdf, prescribed: true}},  { new: true})
         console.log('debug3')
 
         res.status(200).json({
@@ -238,6 +235,28 @@ console.log('debug1')
     }
 }
 
+
+
+const patientHistory = async(req, res) => {
+    try {
+        console.log('insdie patient  history1')
+        const patients = await Patient.find({doctor: req.doctor._id});
+        const patientHistory =  patients.filter((patient) => {
+            
+            return patient?.prescribed === true;
+        });
+
+        res.status(200).json({
+            success:true,
+            message:'patient history fetched succesfully',
+            patientHistory
+        })
+
+    } catch (error) {
+        throw new Error("Error while while fetching pateint History " + error);
+    }
+}
+
 export {
     registerUser,
     loginUser,
@@ -246,6 +265,7 @@ export {
     getPatientList,
     getCurrentUser,
     prescribe,
-    uploadPdf
+    uploadPdf,
+    patientHistory
 }
 

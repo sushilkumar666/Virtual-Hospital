@@ -2,10 +2,10 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import patientRouter from "./routes/patient.routes.js";
-import doctorRouter from "./routes/doctor.routes.js";
-import connectDB from "./db/index.js";
-import { verifyJWT } from "./middlewares/patient.middleware.js";
+import patientRouter from "./src/routes/patient.routes.js";
+import doctorRouter from "./src/routes/doctor.routes.js";
+import connectDB from "./src/db/index.js";
+import { verifyJWT } from "./src/middlewares/patient.middleware.js";
 // import { ApiError } from "./utils/ApiError.js";
 
 dotenv.config({ path: './.env' });

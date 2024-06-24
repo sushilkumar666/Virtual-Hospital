@@ -206,6 +206,8 @@ const getConsultation = async(req, res) => {
 
 }
 
+
+
 export {
     registerUser,
     loginUser,
