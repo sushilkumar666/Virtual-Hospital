@@ -13,13 +13,8 @@ const generateAccessToken = async (patientId) => {
     try {
         const doctor = await Doctor.findById(patientId)
         const accessToken = doctor.generateAccessToken()
-
-
-       
-
         return  accessToken 
         // console.log(doctor);
-
 
     } catch (error) {
         throw new Error(500, "Something went wrong while generating access token")
@@ -185,7 +180,7 @@ const getCurrentUser = async (req, res) => {
             patient}
         )
     } catch (error) {
-        throw new Error("Error while fetching doctor detail " + error)
+        throw new Error("Error while fetching patient detail " + error)
     }
    
 }
@@ -257,7 +252,51 @@ const patientHistory = async(req, res) => {
     }
 }
 
+
+const deletePatient = async (req, res) => {
+    try {
+        console.log('Inside delete patient');
+        const patientId = req.params.patientId;
+        console.log(patientId, "this is patientId in backend");
+
+        if (!patientId) {
+            return res.status(400).json({
+                success: false,
+                message: 'Patient ID is required',
+            });
+        }
+
+        const data = await Patient.findByIdAndUpdate(patientId, { $set: { presentInHistory: false } }, { new: true });
+
+        if (!data) {
+            return res.status(404).json({
+                success: false,
+                message: 'Patient not found',
+            });
+        }
+
+        console.log(data, "data of updated record");
+
+        res.status(200).json({
+            success: true,
+            message: 'Patient record updated successfully',
+        });
+
+    } catch (error) {
+        console.error("Error while updating patient:", error);
+        res.status(500).json({
+            success: false,
+            message: 'Error while updating patient: ' + error.message,
+        });
+    }
+};
+
+
+
+
+
 export {
+    deletePatient,
     registerUser,
     loginUser,
     logoutUser,

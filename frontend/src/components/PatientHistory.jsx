@@ -29,62 +29,93 @@ const PatientHistory = () => {
     fetchPatients();
   }, []);
 
+  const deleteRecord = async (patientId) => {
+    try {
+      console.log(patientId + " this pateint id");
+      const data = await axios.patch(
+        `http://localhost:8000/api/v1/doctor/deletepatient/${patientId}`,
+        { withCredentials: true, "Custom-Header": "CustomValue" }
+      );
+      if (data.success) {
+        console.log(typeof data, "this is patient history data", data);
+      }
+    } catch (error) {
+      console.log("error  wile deleting");
+      console.error(error);
+    }
+
+    const filterPatients = patients.filter(
+      (patient) => patient._id !== patientId
+    );
+    setPatients(filterPatients);
+  };
+
   return (
     <div>
       <h2>Doctor Profile</h2>
       <Link to="/prescription">Go to Prescription Page</Link>
       <div>
-        {patients?.map((patient) => (
-          <div className="flex px-5 py-3" key={patient._id}>
-            <div>
-              <img width={"300px"} src={patient.profileImage} alt="" />
-            </div>
-            <div className="text-left pl-4">
+        {patients
+          ?.filter((patient) => patient.presentInHistory == true)
+          .map((patient) => (
+            <div className="flex px-5 py-3" key={patient._id}>
               <div>
-                Patient Name:&nbsp; <span>{patient.name}</span>
+                <img width={"300px"} src={patient.profileImage} alt="" />
               </div>
-              <div>
-                Email: &nbsp; <span>{patient.email}</span>
-              </div>
-              <div>
-                Phone: &nbsp; <span>{patient.phone}</span>
-              </div>
-              <div>
-                Age: <span>{patient.age}</span>
-              </div>
+              <div className="text-left pl-4">
+                <div>
+                  Patient Name:&nbsp; <span>{patient.name}</span>
+                </div>
+                <div>
+                  Email: &nbsp; <span>{patient.email}</span>
+                </div>
+                <div>
+                  Phone: &nbsp; <span>{patient.phone}</span>
+                </div>
+                <div>
+                  Age: <span>{patient.age}</span>
+                </div>
 
-              <div>
-                Family Medical History: &nbsp;{" "}
-                <span>{patient.familyMedicalHistory}</span>
-              </div>
-              <div>
-                Illness History: &nbsp; <span>{patient.historyOfIllness}</span>
-              </div>
-              <div>
-                Surgeory History:&nbsp; <span>{patient.historyOfSurgery}</span>
-              </div>
+                <div>
+                  Family Medical History: &nbsp;{" "}
+                  <span>{patient.familyMedicalHistory}</span>
+                </div>
+                <div>
+                  Illness History: &nbsp;{" "}
+                  <span>{patient.historyOfIllness}</span>
+                </div>
+                <div>
+                  Surgeory History:&nbsp;{" "}
+                  <span>{patient.historyOfSurgery}</span>
+                </div>
 
-              <div>
-                {" "}
-                Current Illness Hisotry:{" "}
-                <span>{patient.currentIllnessHistory}</span>
+                <div>
+                  {" "}
+                  Current Illness Hisotry:{" "}
+                  <span>{patient.currentIllnessHistory}</span>
+                </div>
+                <div>
+                  Recent Surgeory: <span>{patient.recentSurgery}</span>
+                </div>
               </div>
-              <div>
-                Recent Surgeory: <span>{patient.recentSurgery}</span>
+              <div className="ml-auto mr-20">
+                <span
+                  onClick={() => {
+                    navigate(`/doctor/patientlist/${patient._id}`);
+                  }}
+                  className="ml-auto p-4 px-8 m-2 bg-[#0f9015] border  cursor-pointer text-white rounded-xl"
+                >
+                  pdf
+                </span>
+                <span
+                  onClick={() => deleteRecord(patient._id)}
+                  className="ml-auto p-4 bg-red-600 border  cursor-pointer text-white rounded-xl"
+                >
+                  remove
+                </span>
               </div>
             </div>
-            <div className="ml-auto mr-20">
-              <span
-                onClick={() => {
-                  navigate(`/doctor/patientlist/${patient._id}`);
-                }}
-                className="ml-auto p-4 bg-[#0f9015] border  cursor-pointer text-white rounded-xl"
-              >
-                pdf
-              </span>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

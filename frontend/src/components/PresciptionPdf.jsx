@@ -9,7 +9,7 @@ function PresciptionPdf() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(
+        const { data } = await axios.delete(
           `http://localhost:8000/api/v1/doctor/patientlist/${patientId}`
         );
         setPdfPath(data.patient.pdf);
@@ -25,8 +25,8 @@ function PresciptionPdf() {
     fetchData();
   }, [patientId]);
   return (
-    <div>
-      <iframe src="pdfPath" width="100%" height="600px">
+    <div className="h-[100vh] ">
+      <iframe src={`${pdfPath}`} width="100%" height="100%">
         This browser does not support PDFs. Please download the PDF to view it:
         <a href="#">Download PDF</a>.
       </iframe>

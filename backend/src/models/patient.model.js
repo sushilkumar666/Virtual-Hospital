@@ -27,7 +27,8 @@ const patientSchema = new mongoose.Schema({
     allergies: { type: String },
     others: { type: String },
     transactionId: { type: String },
-    pdf: { type: String }
+    pdf: { type: String },
+    presentInHistory: { type: Boolean, default: true }
 
 
 }, {

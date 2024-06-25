@@ -4,12 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout as logoutAction } from "../store/authSlice";
 import axios from "axios";
+import SearchBar from "./SearchBar";
 
 function Navbar() {
   const authStatus = useSelector((state) => state.auth.status);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchResults, setSearchResults] = useState({
+    patients: [],
+    doctors: [],
+  });
 
   const logout = async () => {
     console.log("logout ubtton clicked");
@@ -65,7 +70,9 @@ function Navbar() {
               </Link>
             </div>
           </div>
-
+          <div>
+            <SearchBar setSearchResults={setSearchResults} />
+          </div>
           <div className="hidden md:flex items-center space-x-3">
             {authStatus && (
               <>
