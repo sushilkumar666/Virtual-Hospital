@@ -158,8 +158,9 @@ const getCurrentUser = async (req, res) => {
 }
 
 const getDoctorList = async (req,res) => {
+    const page = req.params.page;
     try {
-        const doctorList = await Doctor.find({});
+        const doctorList = await Doctor.find({}).skip((page - 1) * 6).limit(6);
         console.log(doctorList);
         res.status(200).json(
             new ApiResponse(
@@ -201,7 +202,7 @@ const getConsultation = async(req, res) => {
         // res.status(200).json({success:true, data: patientUpdatedDetails})
         
     } catch (error) {
-        throw new error("error in consultation" + error);
+        throw new Error("error in consultation" + error);
     }
 
 }
