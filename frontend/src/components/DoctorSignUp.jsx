@@ -12,7 +12,7 @@ const DoctorSignUp = () => {
     email: "",
     phoneNumber: "",
     yearsOfExperience: "",
-    profilePicture: "",
+    profileImage: "",
     password: "",
     identity: "doctor",
   });
@@ -39,9 +39,10 @@ const DoctorSignUp = () => {
       );
       console.log(data);
       if (data.success) {
+        console.log("sign up success");
+        navigate("/doctor/doctorprofile");
         const identity = data.data.user.identity;
         dispatch(login({ identity }));
-        navigate("/doctor/doctorprofile/1234");
       } else {
         console.log("error while registering doctor");
       }
@@ -56,6 +57,15 @@ const DoctorSignUp = () => {
     <>
       <div>
         <div className="text-2xl p-4 text-blue-700">Doctor's Signup</div>
+        <div className="p-4">
+          Already have an account?{" "}
+          <span
+            className="text-blue-500 cursor-pointer"
+            onClick={() => navigate("/login")}
+          >
+            &nbsp; Login
+          </span>
+        </div>
         <form
           className="w-[30vw] mb-10 mx-auto border border-gray p-4 text-left"
           onSubmit={handleSubmit}
@@ -97,7 +107,7 @@ const DoctorSignUp = () => {
             <label className="block text-gray-700">Phone</label>
             <input
               type="text"
-              name="phoneNumber"
+              name="phone"
               className="w-full border p-2 rounded"
               placeholder="Phone Number"
               onChange={handleChange}
@@ -109,7 +119,7 @@ const DoctorSignUp = () => {
             <input
               type="number"
               className="w-full border p-2 rounded"
-              name="yearsOfExperience"
+              name="experience"
               placeholder="Years of Experience"
               step="0.1"
               onChange={handleChange}
@@ -120,10 +130,10 @@ const DoctorSignUp = () => {
             <label className="block text-gray-700">Profile Image</label>
             <input
               type="file"
-              name="profilePicture"
+              name="profileImage"
               className="w-full border p-2 rounded"
               onChange={(e) =>
-                setFormData({ ...formData, profilePicture: e.target.files[0] })
+                setFormData({ ...formData, profileImage: e.target.files[0] })
               }
               required
             />

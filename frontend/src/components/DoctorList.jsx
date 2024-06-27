@@ -8,30 +8,51 @@ function DoctorList() {
   const navigate = useNavigate();
 
   const [doctors, setDoctors] = useState([]);
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(1);
+  const limit = 6;
   const state = useSelector((state) => state.auth);
   // console.log(state + " auth status");
   const details = (_id) => {
     navigate(`/patient/doctordetails/${_id}`);
   };
 
+  const handleNextPage = () => {
+    if (page <= count / limit) {
+      setPage((nextPage) => nextPage + 1);
+    }
+
+    console.log(page);
+  };
+
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage((prevPage) => prevPage - 1);
+      console.log(page);
+    }
+  };
+
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8000/api/v1/patient/doctorlist",
+          `http://localhost:8000/api/v1/patient/doctorlist/${page}`,
           { withCredentials: true, "Custom-Header": "CustomValue" }
         );
-        setDoctors(data.data);
+        setDoctors(data.data.doctorList);
+        setCount(data.data.count);
       } catch (error) {
         console.log("error while fetching doctors data");
         console.error(error);
       }
     };
     fetchDoctors();
-  }, []);
+  }, [page]);
 
   return (
     <>
+      <button onClick={handlePrevPage}>Previous</button>
+      <button onClick={handleNextPage}>Next</button>
       <div>
         <div className="mx-auto flex flex-wrap  justify-evenly">
           {doctors?.map((doctor) => {

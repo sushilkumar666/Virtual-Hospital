@@ -43,6 +43,15 @@ function DoctorSignIn() {
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg w-[30vw] mx-auto">
       <h2 className="text-2xl font-bold mb-4">Doctor Sign-in</h2>
+      <div className="p-4 ">
+        Don't have an account?
+        <span
+          className="text-blue-500 cursor-pointer"
+          onClick={() => navigate("/doctor/signup")}
+        >
+          &nbsp; Sign up
+        </span>
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700">Email</label>

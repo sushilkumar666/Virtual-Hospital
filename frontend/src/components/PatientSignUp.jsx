@@ -5,9 +5,11 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice";
+
 function PatientSignUp() {
   const navigate = useNavigate();
   const authStatus = useSelector((state) => state.auth.status);
+
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -50,6 +52,15 @@ function PatientSignUp() {
   };
   return (
     <div className="bg-white p-6 rounded-lg w-[30vw] mx-auto shadow-lg">
+      <div className="p-4">
+        Already have an account?
+        <span
+          className="text-blue-500 cursor-pointer"
+          onClick={() => navigate("/login")}
+        >
+          &nbsp; Login
+        </span>
+      </div>
       <h2 className="text-2xl font-bold mb-4">Patient Sign-up</h2>
       <form className="text-left" onSubmit={handleSubmit}>
         <div className="mb-4">

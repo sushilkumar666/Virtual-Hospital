@@ -46,6 +46,7 @@ const registerUser = async (req, res) => {
     if (!profile) {
         throw new ApiError(400, "profile file is required")
     }
+    console.log(profile.url + " this is the cloudinary url of the signup doctor")
 
     const patient = await Patient.create({
         name,
@@ -161,10 +162,11 @@ const getDoctorList = async (req,res) => {
     const page = req.params.page;
     try {
         const doctorList = await Doctor.find({}).skip((page - 1) * 6).limit(6);
+        const count = await Doctor.countDocuments({});
         console.log(doctorList);
         res.status(200).json(
             new ApiResponse(
-            200, doctorList, "all Doctors"
+            200, {doctorList, count}, "all Doctors"
             )
         )
     } catch (error) {

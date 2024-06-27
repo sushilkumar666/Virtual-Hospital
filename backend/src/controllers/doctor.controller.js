@@ -42,10 +42,10 @@ const registerUser = async (req, res) => {
         if (!profile) {
             throw new ApiError(400, "profile file is required")
         }
-    
+    console.log(profile + " this is the data recieve when profile is uploaded on cloudinary")
     const doctor = await Doctor.create({
         name,
-        profileImage: profile.url,
+        profileImage: profile,
         email, phone, password, specialty, experience, identity
     })
 
@@ -161,7 +161,8 @@ const getCurrentUser = async (req, res) => {
  const getPatientList = async (req,res) => {
     try {
         const patientList = await Patient.find({doctor: req.doctor._id, prescribed: false});
-        res.status(200).json(new ApiResponse(200, patientList, 'patient list fetched successfully')
+        const count = patientList.length;
+        res.status(200).json(new ApiResponse(200, {patientList, count}, 'patient list fetched successfully')
             
             
         )

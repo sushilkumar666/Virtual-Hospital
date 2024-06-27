@@ -18,7 +18,7 @@ const PatientList = () => {
           "http://localhost:8000/api/v1/doctor/patientlist",
           { withCredentials: true, "Custom-Header": "CustomValue" }
         );
-        setPatients(data.data);
+        setPatients(data.data.patientList);
         console.log(typeof data, "res data", data.data);
       } catch (error) {
         console.log("error while fetching patients data");
