@@ -293,8 +293,7 @@ const deletePatient = async (req, res) => {
 };
 
 
-
-
+ 
 
 export {
     deletePatient,
@@ -306,6 +305,7 @@ export {
     getCurrentUser,
     prescribe,
     uploadPdf,
-    patientHistory
+    patientHistory,
+    
 }
 

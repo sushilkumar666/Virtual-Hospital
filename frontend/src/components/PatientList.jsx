@@ -1,32 +1,48 @@
 // components/DoctorProfile.js
 // components/PrescriptionPage.js
 import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 const PatientList = () => {
-  //   const [patients, setpatients] = useState([]);
   const navigate = useNavigate();
   const [patients, setPatients] = useState([]);
+  const search = useSelector((state) => state.search.searchQuery);
+  const [searchState, setSearchState] = useState(search);
+  //redux se aa raha ahi
+
+  const fetchPatients = async () => {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:8000/api/v1/doctor/patientlist",
+        { withCredentials: true, "Custom-Header": "CustomValue" }
+      );
+      setPatients(data.data.patientList);
+      console.log(typeof data, "res data", data.data);
+    } catch (error) {
+      console.log("error while fetching patients data");
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const { data } = await axios.get(
-          "http://localhost:8000/api/v1/doctor/patientlist",
-          { withCredentials: true, "Custom-Header": "CustomValue" }
-        );
-        setPatients(data.data.patientList);
-        console.log(typeof data, "res data", data.data);
-      } catch (error) {
-        console.log("error while fetching patients data");
-        console.error(error);
-      }
-    };
-    fetchPatients();
-  }, []);
+    if (search && search.trim()) {
+      console.log(search + " inside there exists a query");
+      const filterPatients = patients.filter((patient) =>
+        patient.name.toLowerCase().includes(search.toLowerCase())
+      );
+      setPatients(filterPatients);
+    } else {
+      console.log("inside empty function call");
+      fetchPatients();
+    }
+  }, [searchState]);
+
+  // useEffect(() => {
+  //   setSearchState();
+  // }, [search]);
 
   return (
     <div>
@@ -60,16 +76,16 @@ const PatientList = () => {
                 Illness History: &nbsp; <span>{patient.historyOfIllness}</span>
               </div>
               <div>
-                Surgeory History:&nbsp; <span>{patient.historyOfSurgery}</span>
+                Surgery History:&nbsp; <span>{patient.historyOfSurgery}</span>
               </div>
 
               <div>
                 {" "}
-                Current Illness Hisotry:{" "}
+                Current Illness History:{" "}
                 <span>{patient.currentIllnessHistory}</span>
               </div>
               <div>
-                Recent Surgeory: <span>{patient.recentSurgery}</span>
+                Recent Surgery: <span>{patient.recentSurgery}</span>
               </div>
             </div>
             <div className="ml-auto mr-20">
@@ -77,7 +93,7 @@ const PatientList = () => {
                 onClick={() => {
                   navigate(`/doctor/prescription/${patient._id}`);
                 }}
-                className="ml-auto p-4 bg-[#0f9015] border  cursor-pointer text-white rounded-xl"
+                className="ml-auto p-4 bg-[#0f9015] border cursor-pointer text-white rounded-xl"
               >
                 prescribe
               </span>

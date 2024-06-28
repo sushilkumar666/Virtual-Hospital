@@ -1,43 +1,46 @@
 // SearchBar.js
 import React, { useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { searchQueryFunc } from "../store/searchSlice";
+import { IoIosSearch } from "react-icons/io";
 
-const SearchBar = ({ setSearchResults }) => {
+const SearchBar = () => {
   const [query, setQuery] = useState("");
   const identity = useSelector((state) => state.auth.identity);
-  console.log("checking identity data " + identity);
+  const searchQuery = useSelector((state) => state.search.searchQuery);
+  const dispatch = useDispatch();
+
+  // console.log("checking identity data " + identity);
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
 
-  const handleSearch = async () => {
-    try {
-      const patientResponse = await axios.get(
-        `http://localhost:8000/api/v1/search/patients?query=${query}`
-      );
-      const doctorResponse = await axios.get(
-        `http://localhost:8000/api/v1/search/doctors?query=${query}`
-      );
-      setSearchResults({
-        patients: patientResponse.data,
-        doctors: doctorResponse.data,
-      });
-    } catch (error) {
-      console.error("Error fetching search results:", error);
+  const onInputChange = (e) => {
+    setQuery(e.target.value);
+    console.log(e.target.value + " this is value");
+    if (!e.target.value) {
+      dispatch(searchQueryFunc({ query }));
+      console.log("ok query is empty");
     }
+  };
+  const handleSearch = () => {
+    dispatch(searchQueryFunc({ query }));
   };
 
   return (
-    <div>
+    <div className="flex items-center  rounded-sm bg-white">
       <input
         type="text"
         value={query}
-        onChange={handleInputChange}
+        className="p-3"
+        onChange={onInputChange}
         placeholder="Search patients or doctors..."
       />
-      <button onClick={handleSearch}>Search</button>
+      <button onClick={handleSearch}>
+        <IoIosSearch size="30" />
+      </button>
     </div>
   );
 };

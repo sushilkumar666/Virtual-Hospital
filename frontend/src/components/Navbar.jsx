@@ -70,7 +70,7 @@ function Navbar() {
               </Link>
             </div>
           </div>
-          <div>
+          <div className="flex items-center">
             <SearchBar setSearchResults={setSearchResults} />
           </div>
           <div className="hidden md:flex items-center space-x-3">

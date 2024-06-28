@@ -209,6 +209,25 @@ const getConsultation = async(req, res) => {
 
 }
 
+const getSearchDoctor = async (req, res) => {
+    try {
+      console.log('Inside search Doctor');
+      const query = req.params.query;
+  
+      const searchResult = await Doctor.find({
+        $or: [
+          { name: { $regex: query, $options: 'i' } }, // Case-insensitive partial match for name
+          { specialty: { $regex: query, $options: 'i' } } // Case-insensitive partial match for specialty
+        ]
+      });
+  
+      res.status(200).json(new ApiResponse(200, searchResult, "Doctor search successful"));
+    } catch (error) {
+      throw new Error("Error while searching doctor: " + error);
+    }
+  }
+  
+
 
 
 export {
@@ -218,6 +237,7 @@ export {
     getDoctorList,
     getCurrentUser,
     getDoctor,
-    getConsultation
+    getConsultation,
+    getSearchDoctor
 
 }

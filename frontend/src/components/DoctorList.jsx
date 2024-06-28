@@ -6,13 +6,32 @@ import { useSelector } from "react-redux";
 
 function DoctorList() {
   const navigate = useNavigate();
-
   const [doctors, setDoctors] = useState([]);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(1);
   const limit = 6;
   const state = useSelector((state) => state.auth);
-  // console.log(state + " auth status");
+  const search = useSelector((state) => state.search.searchQuery);
+
+  useEffect(() => {
+    console.log(search + " this is squery value");
+    searchResult();
+  }, [search]);
+
+  const searchResult = async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:8000/api/v1/patient/search/${search}`
+      );
+      console.log(JSON.stringify(data.data) + " this is searched data");
+      if (data.success && data.data.length) {
+        setDoctors(data.data);
+      }
+    } catch (error) {
+      throw new Error("Error while searching in frontend part " + error);
+    }
+  };
+
   const details = (_id) => {
     navigate(`/patient/doctordetails/${_id}`);
   };

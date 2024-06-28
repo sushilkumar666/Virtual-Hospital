@@ -10,6 +10,7 @@ import {
     uploadPdf,
     deletePatient,
     
+    
 } from "../controllers/doctor.controller.js";
 import { upload } from "../middlewares/multer.middleware.js"
 import { verifyJWT } from "../middlewares/doctor.middleware.js";
@@ -55,6 +56,8 @@ router.route("/profile").get(verifyJWT, getCurrentUser);
 router.route("/patienthistory").get(verifyJWT, patientHistory);
 
 router.route("/deletepatient/:patientId").patch( deletePatient);
+
+ 
 
 
 
