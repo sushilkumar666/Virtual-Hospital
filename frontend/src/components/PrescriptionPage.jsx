@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Navigate } from "react-router-dom";
 
 const PrescriptionPage = () => {
   const [prescriptionData, setPrescriptionData] = useState({
@@ -13,6 +12,8 @@ const PrescriptionPage = () => {
   });
   const navigate = useNavigate();
   const { patientId } = useParams();
+  const [user, setUser] = useState({});
+  const [currentDate, setCurrentDate] = useState("");
 
   const generatePDF = async () => {
     const input = document.getElementById("formData");
@@ -60,6 +61,7 @@ const PrescriptionPage = () => {
         });
     });
   };
+
   const handleChange = (e) => {
     setPrescriptionData({
       ...prescriptionData,
@@ -73,17 +75,46 @@ const PrescriptionPage = () => {
     generatePDF();
   };
 
+  const fetchUserDetails = async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:8000/api/v1/doctor/profile`,
+        { withCredentials: true, "Custom-Header": "CustomValue" }
+      );
+
+      setUser(data.data);
+      console.log(data.data.data.name + " this is the value of data.data");
+      //   console.log(data.name + " this is the value of data");
+
+      console.log(data.data);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+      // Handle error (e.g., set error state)
+    }
+  };
+
+  const getCurrentDate = () => {
+    const today = new Date();
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return today.toLocaleDateString(undefined, options);
+  };
+
+  useEffect(() => {
+    setCurrentDate(getCurrentDate());
+    fetchUserDetails();
+  }, []);
+
   return (
     <div className="mt-2">
       <form id="formData" onSubmit={handleSubmit}>
         <div className="w-[70vw] mx-auto border border-black m-4">
           <div className="flex justify-between p-4 ">
             <div className="flex flex-col text-left">
-              <div>Dr. lorem ipsum</div>
-              <div>Address: </div>
-              <div>addess will go here</div>
+              <div>Name: {user.name}</div>
+              <div>Email: {user.email} </div>
+              <div>Phone: {user.phone}</div>
             </div>
-            <div>Date : Feb 2, 2024</div>
+            <div>Date: {currentDate}</div>
           </div>
           <p className="bg-[#0f9015] leading-4">&nbsp;</p>
           <div className="flex flex-col py-2 px-8 text-left">
