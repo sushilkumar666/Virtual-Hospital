@@ -5,7 +5,8 @@ import {
     registerUser,
     getCurrentUser,
     getConsultation,
-    getSearchDoctor
+    getSearchDoctor,
+    getPrescriptionPdf
 } from "../controllers/patient.controller.js";
 import { upload } from "../middlewares/multer.middleware.js"
 import { verifyJWT } from "../middlewares/patient.middleware.js";
@@ -31,7 +32,6 @@ router.route("/login").post(loginUser)
 //secured routes
 router.route("/logout").post(verifyJWT, logoutUser)
 
-router.route("/current-user").get(verifyJWT, getCurrentUser)
 
 router.route("/doctorlist/:page").get(verifyJWT, getDoctorList);
 
@@ -42,6 +42,9 @@ router.route("/consult/:doctorId").post(verifyJWT, getConsultation);
 router.route("/profile").get(verifyJWT, getCurrentUser);
 
 router.route("/search/:query").get( getSearchDoctor);
+
+
+
 
 
 

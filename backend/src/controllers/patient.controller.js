@@ -120,6 +120,7 @@ const loginUser = async (req, res) => {
         secure: true
     }
     res.cookie("accessToken", accessToken, options);
+   
     return res
         .status(200)
         .json(
@@ -135,8 +136,6 @@ const loginUser = async (req, res) => {
 }
 
 const logoutUser = async (req, res) => {
-
-
     const options = {
         httpOnly: true,
         secure: true
@@ -149,11 +148,12 @@ const logoutUser = async (req, res) => {
 }
 
 const getCurrentUser = async (req, res) => {
+    const pdf = req.patient;
     return res
         .status(200)
         .json(new ApiResponse(
             200,
-            req.patient,
+            pdf,
             "User fetched successfully"
         ))
 }
@@ -226,6 +226,17 @@ const getSearchDoctor = async (req, res) => {
       throw new Error("Error while searching doctor: " + error);
     }
   }
+
+
+const getPrescriptionPdf = async (req, res) => {
+    try {
+        const pdf = req.patient;
+        res.status(200).json( new ApiResponse(200, pdf, "presciption result"))
+        
+    } catch (error) {
+      throw new Error("Error while fetching pdf " + error);
+    }
+  }
   
 
 
@@ -238,6 +249,7 @@ export {
     getCurrentUser,
     getDoctor,
     getConsultation,
-    getSearchDoctor
+    getSearchDoctor,
+    getPrescriptionPdf
 
 }

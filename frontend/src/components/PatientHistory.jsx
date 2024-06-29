@@ -2,7 +2,7 @@
 // components/PrescriptionPage.js
 import React, { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -10,24 +10,42 @@ const PatientHistory = () => {
   //   const [patients, setpatients] = useState([]);
   const navigate = useNavigate();
   const [patients, setPatients] = useState([]);
+  const search = useSelector((state) => state.search.searchQuery);
+  const [searchState, setSearchState] = useState(search);
+
+  const fetchPatients = async () => {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:8000/api/v1/doctor/patienthistory",
+        { withCredentials: true, "Custom-Header": "CustomValue" }
+      );
+      setPatients(data.patientHistory);
+
+      console.log(typeof data, "this is patient history data", data);
+    } catch (error) {
+      console.log("error while fetching patients data");
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const { data } = await axios.get(
-          "http://localhost:8000/api/v1/doctor/patienthistory",
-          { withCredentials: true, "Custom-Header": "CustomValue" }
+    const calling = async () => {
+      await fetchPatients();
+      console.log(search + " this is search value from query in redux");
+      if (search && search.trim()) {
+        console.log(search + " inside there exists a query");
+        const filterPatients = patients.filter((patient) =>
+          patient.name.toLowerCase().includes(search.toLowerCase())
         );
-        setPatients(data.patientHistory);
-
-        console.log(typeof data, "this is patient history data", data);
-      } catch (error) {
-        console.log("error while fetching patients data");
-        console.error(error);
+        setPatients(filterPatients);
+      } else {
+        console.log("inside empty function call");
+        fetchPatients();
       }
     };
-    fetchPatients();
-  }, []);
+    calling();
+    // fetchPatients();
+  }, [search]);
 
   const deleteRecord = async (patientId) => {
     try {

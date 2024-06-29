@@ -8,6 +8,8 @@ import SearchBar from "./SearchBar";
 
 function Navbar() {
   const authStatus = useSelector((state) => state.auth.status);
+  const identity = useSelector((state) => state.auth.identity);
+  console.log(identity + "this is the value of identity in navabar");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -56,18 +58,21 @@ function Navbar() {
               >
                 Doctors
               </Link>
-              <a
-                href="#"
-                className="py-4 px-2 text-white font-semibold hover:text-blue-500 transition duration-300"
-              >
-                Prescriptions
-              </a>
-              <Link
-                to="doctor/patienthistory"
-                className="py-4 px-2 text-white font-semibold hover:text-blue-500 transition duration-300"
-              >
-                History
-              </Link>
+              {identity == "doctor" ? (
+                <Link
+                  to="doctor/patienthistory"
+                  className="py-4 px-2 text-white font-semibold hover:text-blue-500 transition duration-300"
+                >
+                  History
+                </Link>
+              ) : (
+                <Link
+                  to="/patient/prescription"
+                  className="py-4 px-2 text-white font-semibold hover:text-blue-500 transition duration-300"
+                >
+                  Prescriptions
+                </Link>
+              )}
             </div>
           </div>
           <div className="flex items-center">

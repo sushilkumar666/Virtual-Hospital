@@ -20,25 +20,36 @@ const PatientList = () => {
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
       setPatients(data.data.patientList);
-      console.log(typeof data, "res data", data.data);
+      console.log("all patinet vlae sesach");
     } catch (error) {
       console.log("error while fetching patients data");
       console.error(error);
     }
   };
 
+  // const changeSearchState = async () => {
+  //   await setSearchState(search);
+  //   console.log("inside chang serach sate funtion");
+  // };
+
   useEffect(() => {
-    if (search && search.trim()) {
-      console.log(search + " inside there exists a query");
-      const filterPatients = patients.filter((patient) =>
-        patient.name.toLowerCase().includes(search.toLowerCase())
-      );
-      setPatients(filterPatients);
-    } else {
-      console.log("inside empty function call");
-      fetchPatients();
-    }
-  }, [searchState]);
+    // changeSearchState();
+    const calling = async () => {
+      await fetchPatients();
+      console.log(search + " this is search value from query in redux");
+      if (search && search.trim()) {
+        console.log(search + " inside there exists a query");
+        const filterPatients = patients.filter((patient) =>
+          patient.name.toLowerCase().includes(search.toLowerCase())
+        );
+        setPatients(filterPatients);
+      } else {
+        console.log("inside empty function call");
+        fetchPatients();
+      }
+    };
+    calling();
+  }, [search]);
 
   // useEffect(() => {
   //   setSearchState();

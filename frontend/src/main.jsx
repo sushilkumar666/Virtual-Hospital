@@ -21,6 +21,7 @@ import DoctorList from "./components/DoctorList.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import PatientHistory from "./components/PatientHistory.jsx";
 import PresciptionPdf from "./components/PresciptionPdf.jsx";
+import UserPrescription from "./components/UserPrescription.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -112,6 +113,10 @@ const router = createBrowserRouter([
       {
         path: "/doctor/patientlist/:patientId",
         element: <PresciptionPdf />,
+      },
+      {
+        path: "/patient/prescription",
+        element: <UserPrescription />,
       },
 
       // {

@@ -21,7 +21,7 @@ const SearchBar = () => {
     setQuery(e.target.value);
     console.log(e.target.value + " this is value");
     if (!e.target.value) {
-      dispatch(searchQueryFunc({ query }));
+      dispatch(searchQueryFunc({ query: "" }));
       console.log("ok query is empty");
     }
   };
