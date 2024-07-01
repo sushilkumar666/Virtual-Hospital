@@ -13,11 +13,6 @@ function DoctorList() {
   const state = useSelector((state) => state.auth);
   const search = useSelector((state) => state.search.searchQuery);
 
-  useEffect(() => {
-    console.log(search + " this is squery value");
-    searchResult();
-  }, [search]);
-
   const searchResult = async () => {
     try {
       const { data } = await axios.get(
@@ -58,6 +53,7 @@ function DoctorList() {
           `http://localhost:8000/api/v1/patient/doctorlist/${page}`,
           { withCredentials: true, "Custom-Header": "CustomValue" }
         );
+        console.log(" this is useeffect of fetch doctor");
         setDoctors(data.data.doctorList);
         setCount(data.data.count);
       } catch (error) {
@@ -65,13 +61,29 @@ function DoctorList() {
         console.error(error);
       }
     };
-    fetchDoctors();
-  }, [page]);
+    search ? searchResult() : fetchDoctors();
+  }, [page, search]);
 
   return (
     <>
-      <button onClick={handlePrevPage}>Previous</button>
-      <button onClick={handleNextPage}>Next</button>
+      <div className="flex justify-between p-4 mx-4">
+        <button
+          className={`bg-green-600 ${
+            page <= 1 ? "bg-green-300" : ""
+          } text-white  p-2 rounded-sm `}
+          onClick={handlePrevPage}
+        >
+          Previous
+        </button>
+        <button
+          className={`bg-green-600 ${
+            page <= count / limit ? "" : "bg-green-300"
+          } text-white px-6 rounded-sm`}
+          onClick={handleNextPage}
+        >
+          Next
+        </button>
+      </div>
       <div>
         <div className="mx-auto flex flex-wrap  justify-evenly">
           {doctors?.map((doctor) => {

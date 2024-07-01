@@ -57,16 +57,14 @@ const PatientList = () => {
 
   return (
     <div>
-      <h2>Doctor Profile</h2>
-      <Link to="/prescription">Go to Prescription Page</Link>
-      <div>
+      <div className="p-4">
         {patients?.map((patient) => (
           <div className="flex px-5 py-3" key={patient._id}>
             <div>
               <img width={"300px"} src={patient.profileImage} alt="" />
             </div>
             <div className="text-left pl-4">
-              <div>
+              <div className="text-xl">
                 Patient Name:&nbsp; <span>{patient.name}</span>
               </div>
               <div>
@@ -78,11 +76,10 @@ const PatientList = () => {
               <div>
                 Age: <span>{patient.age}</span>
               </div>
-
               <div>
-                Family Medical History: &nbsp;{" "}
-                <span>{patient.familyMedicalHistory}</span>
+                Diabetic: <span>{patient?.diabeticOrNot}</span>
               </div>
+
               <div>
                 Illness History: &nbsp; <span>{patient.historyOfIllness}</span>
               </div>

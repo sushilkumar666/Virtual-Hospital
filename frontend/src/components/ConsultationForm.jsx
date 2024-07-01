@@ -9,8 +9,8 @@ const ConsultationForm = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     currentIllnessHistory: "",
+    diabeticOrNot: "",
     recentSurgery: "",
-    familyMedicalHistory: "",
     allergies: "",
     others: "",
     transactionId: "",
@@ -30,6 +30,7 @@ const ConsultationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(JSON.stringify(formData) + " this form data");
     try {
       const { data } = await axios.post(
         `http://localhost:8000/api/v1/patient/consult/${doctorId}`,
@@ -40,7 +41,7 @@ const ConsultationForm = () => {
       //     data.data.name + " data returned aftr consultation for submitted"
       //   );
       // Handle success (e.g., redirect to doctor's profile)
-      //   console.log(formData);
+      console.log(JSON.stringify(data) + " form data that reutrn from backedn");
       if (data.success) {
         Swal.fire({
           title: "Success!",
@@ -106,7 +107,7 @@ const ConsultationForm = () => {
                 <label>
                   <input
                     type="radio"
-                    name="familyMedicalHistory"
+                    name="diabeticOrNot"
                     value="Diabetics"
                     onChange={handleChange}
                     required

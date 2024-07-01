@@ -82,17 +82,6 @@ const DoctorSignUp = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Specialty</label>
-            <input
-              type="text"
-              name="specialty"
-              className="w-full border p-2 rounded"
-              placeholder="Specialty"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-4">
             <label className="block text-gray-700">Email</label>
             <input
               type="email"
@@ -104,12 +93,35 @@ const DoctorSignUp = () => {
             />
           </div>
           <div className="mb-4">
+            <label className="block text-gray-700">Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              className="w-full border p-2 rounded"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="mb-4">
             <label className="block text-gray-700">Phone</label>
             <input
               type="text"
               name="phone"
               className="w-full border p-2 rounded"
               placeholder="Phone Number"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Specialty</label>
+            <input
+              type="text"
+              name="specialty"
+              className="w-full border p-2 rounded"
+              placeholder="Specialty"
               onChange={handleChange}
               required
             />
@@ -138,17 +150,7 @@ const DoctorSignUp = () => {
               required
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              className="w-full border p-2 rounded"
-              onChange={handleChange}
-              required
-            />
-          </div>
+
           <div className="mb-4">
             <label className="block text-gray-700">identity</label>
             <input
@@ -157,7 +159,7 @@ const DoctorSignUp = () => {
               placeholder="identity"
               value={"doctor"}
               className="w-full border p-2 rounded"
-              onChange={handleChange}
+              disabled
               required
             />
           </div>

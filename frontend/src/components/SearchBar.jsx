@@ -30,7 +30,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="flex items-center  rounded-sm bg-white">
+    <div className="flex items-center   rounded-sm bg-white">
       <input
         type="text"
         value={query}

@@ -49,7 +49,7 @@ function PatientSignIn() {
         Don't have an account?
         <span
           className="text-blue-500 cursor-pointer"
-          onClick={() => navigate("/patient/signup")}
+          onClick={() => navigate("/signup")}
         >
           &nbsp;Sign up
         </span>

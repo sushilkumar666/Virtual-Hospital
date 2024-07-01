@@ -7,9 +7,6 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { response } from "express";
 
-
-
-
 const generateAccessToken = async (patientId) => {
     try {
         const patient = await Patient.findById(patientId)
@@ -36,7 +33,7 @@ const registerUser = async (req, res) => {
     //console.log(req.files);
 
     const profileImagePath = req.files?.profileImage[0]?.path;
-    //const coverImageLocalPath = req.files?.coverImage[0]?.path;
+   
 
     if (!profileImagePath) {
         throw new Error(400, "profile file is required")

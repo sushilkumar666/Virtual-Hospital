@@ -4,10 +4,10 @@ import bcrypt from "bcrypt"
 
 // models/Patient.js
 const patientSchema = new mongoose.Schema({
-    profileImage: String,
+    profileImage: {type: String, default: "https://res.cloudinary.com/dgjqrdpbq/image/upload/v1719814310/1430453_heabgf.png"} ,
     name: { type: String, required: true, trim: true, },
     age: { type: Number, required: true },
-    email: { type: String, unique: true, required: true, lowecase: true },
+    email: { type: String, unique: true, required: true, lowercase: true },
     phone: { type: String, unique: true, required: true },
     historyOfSurgery: { type: String },
     historyOfIllness: { type: String },
