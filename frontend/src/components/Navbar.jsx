@@ -46,7 +46,7 @@ function Navbar() {
         <NavLink
           to="/"
           activeClassName="active"
-          className="py-4 mx-6 px-2 text-white  border-white hover:text-black transition duration-300   font-semibold"
+          className="py-4 mx-6 px-2 text-white *: border-white hover:text-black transition duration-300   font-semibold"
         >
           Doctors
         </NavLink>
