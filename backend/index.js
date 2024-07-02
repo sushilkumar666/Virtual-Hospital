@@ -65,28 +65,21 @@ const app = express();
 //     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 //          allowedHeaders: 'Content-Type, Authorization',
 
-
-// const corsOptions = {
-//     origin: 'https://virtual-hospital-frontend.vercel.app/', 
-//     credentials: true,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//     allowedHeaders: ['Content-Type', 'Authorization']
-//   };
-  
-//   app.use(cors(corsOptions));
+const corsOptions = {
+    origin: 'https://virtual-hospital-frontend.vercel.app',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+ };
+ 
+ app.use(cors(corsOptions));  // Use cors middleware
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 app.use(cookieParser());
 
-router.get("/", (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*")
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Max-Age", "1800");
-    res.setHeader("Access-Control-Allow-Headers", "content-type");
-    res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
-     });
+
 
 app.get("/test", (req, res) => {
     res.cookie("name", "sushil", { httpOnly: true, secure: true }).json({ success: true, message: "Trial successful" });
