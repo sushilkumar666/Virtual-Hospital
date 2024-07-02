@@ -30,7 +30,10 @@ function Login() {
                   name="user"
                 />
                 <label htmlFor="doctor">
-                  <img src="https://res.cloudinary.com/dgjqrdpbq/image/upload/v1719652748/avatar-bearded-doctor-doctor-with-stethoscope-vector-illustrationxa_276184-31_byrpfl.jpg" />{" "}
+                  <img
+                    style={{ width: "200px", height: "200px" }}
+                    src="https://res.cloudinary.com/dgjqrdpbq/image/upload/v1719652748/avatar-bearded-doctor-doctor-with-stethoscope-vector-illustrationxa_276184-31_byrpfl.jpg"
+                  />
                   <p>Doctor</p>
                 </label>
               </div>
@@ -43,10 +46,8 @@ function Login() {
                 />
                 <label htmlFor="patient">
                   <p className="py-4">
-                    {" "}
                     <img
-                      width={180}
-                      className="mx-auto"
+                      style={{ width: "200px", height: "200px" }}
                       src="https://res.cloudinary.com/dgjqrdpbq/image/upload/v1719814310/1430453_heabgf.png"
                     />
                   </p>
