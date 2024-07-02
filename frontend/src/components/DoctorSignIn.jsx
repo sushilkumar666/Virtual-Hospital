@@ -28,6 +28,7 @@ function DoctorSignIn() {
       );
       // console.log("isnde handlesumit");
       // console.log(JSON.stringify(data.data.doctor) + " data value ");
+      console.log(data, "data coming from dr login");
       if (data.success) {
         const identity = data.data.doctor.identity;
         console.log(identity + " this identity value");
