@@ -60,7 +60,7 @@ dotenv.config({ path: './.env' });
 const app = express();
 
 app.use(cors({
-    origin: 'https://virtual-hospital-cdnr.vercel.app/', // Update with your frontend URL
+    origin: 'https://virtual-hospital-cdnr.vercel.app', // Update with your frontend URL
     credentials: true,
 }));
 app.use(express.json({ limit: "16kb" }));
