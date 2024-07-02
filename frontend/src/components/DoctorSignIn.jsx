@@ -33,7 +33,8 @@ function DoctorSignIn() {
         const identity = data.data.doctor.identity;
         console.log(identity + " this identity value");
         dispatch(login({ identity }));
-        navigate("/doctor/doctorprofile");
+        // navigate("/doctor/doctorprofile");
+        navigate("/dummy");
       } else {
         console.log("error while login patient");
       }
