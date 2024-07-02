@@ -66,19 +66,19 @@ const app = express();
 //          allowedHeaders: 'Content-Type, Authorization',
 //  }));
 
-// app.use(cors({
-//     origin: '*', // Allow all origins (for debugging purposes only)
-//     credentials: true,
-// }));
+ app.use(cors({
+     origin: '*', // Allow all origins (for debugging purposes only)
+     credentials: true,
+     }));
 
-const corsOptions = {
-    origin: 'https://virtual-hospital-frontend.vercel.app/', 
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  };
+// const corsOptions = {
+//     origin: 'https://virtual-hospital-frontend.vercel.app/', 
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+//   };
   
-  app.use(cors(corsOptions));
+//   app.use(cors(corsOptions));
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
