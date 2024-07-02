@@ -59,17 +59,26 @@ dotenv.config({ path: './.env' });
 
 const app = express();
 
-// app.use(cors({
-//     origin: ['https://virtual-hospital-cdnr.vercel.app'], // Add all allowed origins in this array
+//  app.use(cors({
+//      origin: ['https://virtual-hospital-cdnr.vercel.app'], // Add all allowed origins in this array
 //     credentials: true,
 //     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     allowedHeaders: 'Content-Type, Authorization',
+//          allowedHeaders: 'Content-Type, Authorization',
+//  }));
+
+// app.use(cors({
+//     origin: '*', // Allow all origins (for debugging purposes only)
+//     credentials: true,
 // }));
 
-app.use(cors({
-    origin: '*', // Allow all origins (for debugging purposes only)
+const corsOptions = {
+    origin: 'https://virtual-hospital-cdnr.vercel.app', 
     credentials: true,
-}));
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  };
+  
+  app.use(cors(corsOptions));
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
