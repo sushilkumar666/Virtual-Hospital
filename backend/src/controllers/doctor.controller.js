@@ -112,7 +112,9 @@ const loginUser = async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
+        sameSite: 'None', 
+      maxAge: 24 * 60 * 60 * 1000, // 1 day in milliseconds
     }
 
     return res

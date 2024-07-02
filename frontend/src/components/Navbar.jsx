@@ -30,7 +30,7 @@ function Navbar() {
     );
     if (data.success) {
       console.log("after succesffully logged out from backed");
-      console.log(data.data + "data after log out");
+      console.log(data + "data after log out");
       navigate("/login");
 
       dispatch(logoutAction());
