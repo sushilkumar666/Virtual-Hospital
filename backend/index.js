@@ -81,7 +81,8 @@ app.use(cookieParser());
 
 
 
-app.get("/test", (req, res) => {
+app.get("/", (req, res) => {
+    res.send('resposn from backend')
     res.cookie("name", "sushil", { httpOnly: true, secure: true }).json({ success: true, message: "Trial successful" });
 });
 
@@ -106,6 +107,9 @@ connectDB()
             server.close(); // Close the server if there's an error connecting to the database
         }
         process.exit(1); // Exit the process with an error code
+    });
+    app.get("/test", (req, res) => {
+        res.cookie("name", "sushil", { httpOnly: true, secure: true }).json({ success: true, message: "Trial successful" });
     });
 
 export default app;
