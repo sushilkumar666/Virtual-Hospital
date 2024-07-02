@@ -10,7 +10,7 @@ export default function Protected({ children, authentication = true }) {
   const identity = useSelector((state) => state.auth.identity);
 
   useEffect(() => {
-    if (authStatus === false) {
+    if (authStatus === false || "") {
       navigate("/login");
     }
 
