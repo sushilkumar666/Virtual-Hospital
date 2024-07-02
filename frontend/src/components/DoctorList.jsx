@@ -16,7 +16,7 @@ function DoctorList() {
   const searchResult = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/v1/patient/search/${search}`
+        `https://virtual-hospital.vercel.app/api/v1/patient/search/${search}`
       );
       console.log(JSON.stringify(data.data) + " this is searched data");
       if (data.success && data.data.length) {
@@ -50,7 +50,7 @@ function DoctorList() {
     const fetchDoctors = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:8000/api/v1/patient/doctorlist/${page}`,
+          `https://virtual-hospital.vercel.app/api/v1/patient/doctorlist/${page}`,
           { withCredentials: true, "Custom-Header": "CustomValue" }
         );
         console.log(" this is useeffect of fetch doctor");
