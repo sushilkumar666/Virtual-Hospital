@@ -72,7 +72,7 @@ const app = express();
 // }));
 
 const corsOptions = {
-    origin: 'https://virtual-hospital-cdnr.vercel.app', 
+    origin: 'https://virtual-hospital-frontend.vercel.app/', 
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
