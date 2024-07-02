@@ -54,7 +54,7 @@ import cookieParser from "cookie-parser";
 import patientRouter from "./src/routes/patient.routes.js";
 import doctorRouter from "./src/routes/doctor.routes.js";
 import connectDB from "./src/db/index.js";
-
+import router from "./src/routes/patient.routes.js";
 dotenv.config({ path: './.env' });
 
 const app = express();
@@ -63,13 +63,7 @@ const app = express();
 //      origin: ['https://virtual-hospital-cdnr.vercel.app'], // Add all allowed origins in this array
 //     credentials: true,
 //     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//          allowedHeaders: 'Content-Type, Authorization',
-//  }));
-
- app.use(cors({
-     origin: '*', // Allow all origins (for debugging purposes only)
-     credentials: true,
-     }));
+//          allowedHead
 
 // const corsOptions = {
 //     origin: 'https://virtual-hospital-frontend.vercel.app/', 
@@ -84,6 +78,14 @@ app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 app.use(cookieParser());
+
+router.get("/", (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Max-Age", "1800");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+    res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
+     });
 
 app.get("/test", (req, res) => {
     res.cookie("name", "sushil", { httpOnly: true, secure: true }).json({ success: true, message: "Trial successful" });
