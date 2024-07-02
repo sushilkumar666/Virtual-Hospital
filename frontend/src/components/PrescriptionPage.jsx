@@ -32,7 +32,7 @@ const PrescriptionPage = () => {
       formData.append("pdf", pdfBlob, "prescription.pdf");
       axios
         .post(
-          `http://localhost:8000/api/v1/doctor/upload/${patientId}`,
+          `https://virtual-hospital.vercel.app/api/v1/doctor/upload/${patientId}`,
           formData,
           {
             withCredentials: true,
@@ -78,7 +78,7 @@ const PrescriptionPage = () => {
   const fetchUserDetails = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/v1/doctor/profile`,
+        `https://virtual-hospital.vercel.app/api/v1/doctor/profile`,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
 

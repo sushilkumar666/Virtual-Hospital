@@ -28,7 +28,7 @@ function PatientSignUp() {
     try {
       console.log(formData);
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/patient/register",
+        "https://virtual-hospital.vercel.app/api/v1/patient/register",
         formData,
         {
           withCredentials: true,

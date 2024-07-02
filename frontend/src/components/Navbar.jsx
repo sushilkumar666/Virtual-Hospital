@@ -22,9 +22,12 @@ function Navbar() {
   const logout = async () => {
     console.log("logout ubtton clicked");
     // alert("button clicked");
-    const { data } = await axios.get("http://localhost:8000/logout", {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      "https://virtual-hospital.vercel.app/logout",
+      {
+        withCredentials: true,
+      }
+    );
     if (data.success) {
       console.log("after succesffully logged out from backed");
       console.log(data.data + "data after log out");

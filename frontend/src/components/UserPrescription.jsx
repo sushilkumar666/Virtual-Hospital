@@ -8,7 +8,7 @@ function UserPrescription() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:8000/api/v1/patient/profile`,
+          `https://virtual-hospital.vercel.app/api/v1/patient/profile`,
           { withCredentials: true, "Custom-Header": "CustomValue" }
         );
         console.log(data);
