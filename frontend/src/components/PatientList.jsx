@@ -17,7 +17,12 @@ const PatientList = () => {
     try {
       const { data } = await axios.get(
         "https://virtual-hospital.vercel.app/api/v1/doctor/patientlist",
-        { withCredentials: true, "Custom-Header": "CustomValue" }
+        {
+          withCredentials: true,
+          headers: {
+            "Custom-Header": "CustomValue",
+          },
+        }
       );
       setPatients(data.data.patientList);
       console.log("all patinet vlae sesach");
