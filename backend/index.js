@@ -60,11 +60,7 @@ dotenv.config({ path: './.env' });
 const app = express();
 
 app.use(cors({
-<<<<<<< HEAD
     origin: ['https://virtual-hospital-cdnr.vercel.app'], // Add all allowed origins in this array
-=======
-    origin: 'https://virtual-hospital-cdnr.vercel.app', // Update with your frontend URL
->>>>>>> 301c449e82bade1af9facf7324cc117b19fd963b
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Authorization',
