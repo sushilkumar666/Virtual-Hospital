@@ -81,10 +81,6 @@ app.use(cookieParser());
 
 
 
-app.get("/", (req, res) => {
-    res.send('resposn from backend')
-    res.cookie("name", "sushil", { httpOnly: true, secure: true }).json({ success: true, message: "Trial successful" });
-});
 
 app.get("/logout", (req, res) => {
     res.clearCookie("accessToken", "", { httpOnly: true, secure: true }).json({ success: true, message: "User logout successfully" });
