@@ -63,7 +63,8 @@ const app = express();
 //      origin: ['https://virtual-hospital-cdnr.vercel.app'], // Add all allowed origins in this array
 //     credentials: true,
 //     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//          allowedHead
+//          allowedHeaders: 'Content-Type, Authorization',
+
 
 // const corsOptions = {
 //     origin: 'https://virtual-hospital-frontend.vercel.app/', 
