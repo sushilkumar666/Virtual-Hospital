@@ -130,23 +130,32 @@ const loginUser = async (req, res) => {
 }
 
 const logoutUser = async (req, res) => {
-
     try {
-        const options = {
-            httpOnly: true,
-            secure: true
-        }
-    
-        return res
-            .status(200)
-            .clearCookie("accessToken", options)
-            .json(new ApiResponse(200, {}, "User logged Out"))
+      const options = {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None', // Add this if you are using cross-site cookies
+      };
+  
+      // Clear the access token cookie
+      res.clearCookie('accessToken', options);
+  
+      // If you are using any session management (like express-session), destroy the session here
+      // Example for express-session:
+      if (req.session) {
+        req.session.destroy((err) => {
+          if (err) {
+            return res.status(500).json(new ApiResponse(500, {}, 'Error destroying session'));
+          }
+          res.status(200).json(new ApiResponse(200, {}, 'User logged out and session destroyed'));
+        });
+      } else {
+        res.status(200).json(new ApiResponse(200, {}, 'User logged out'));
+      }
     } catch (error) {
-        throw new Error("error while logging out " + error );
+      res.status(500).json(new ApiResponse(500, {}, 'Error while logging out: ' + error.message));
     }
-
-   
-}
+  };
 
 const getCurrentUser = async (req, res) => {
     return res
