@@ -12,7 +12,7 @@ export const verifyJWT = async (req, _, next) => {
         console.log(token + " trying to fetc token from patient");
         if (!token) {
             throw new ApiError(401, "Unauthorized request")
-        }
+        }           
 
         const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         console.log("decdoeded totken " + JSON.stringify(decodedToken));
@@ -21,7 +21,7 @@ export const verifyJWT = async (req, _, next) => {
 
         if (!patient) {
 
-            throw new ApiError(401, "Invalid Access Token")
+            throw new ApiError(401, "Invalid ccess Token")
         }
 
         req.patient = patient;

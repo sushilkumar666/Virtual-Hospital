@@ -33,7 +33,7 @@ router.route("/login").post(loginUser)
 router.route("/logout").post(verifyJWT, logoutUser)
 
 
-router.route("/doctorlist/:page").get(verifyJWT, getDoctorList);
+router.route("/doctorlist/:page").get( getDoctorList);
 
 router.route("/doctordetails/:doctorId").get(verifyJWT, getDoctor);
 

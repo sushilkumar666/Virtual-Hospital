@@ -16,7 +16,7 @@ export const verifyJWT = async (req, _, next) => {
 
         const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 
-        const doctor = await Doctor.findById(decodedToken?._id).select("-password -refreshToken")
+        const doctor = await Doctor.findById(decodedToken?._id).select("-password")
 
         if (!doctor) {
 
