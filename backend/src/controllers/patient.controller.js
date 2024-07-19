@@ -91,6 +91,7 @@ const loginUser = async (req, res) => {
 
     if (!email) {
         throw new Error(400, " email is required")
+        throw new Error(400, " email is required")
     }
 
 

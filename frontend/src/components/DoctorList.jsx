@@ -51,7 +51,12 @@ function DoctorList() {
       try {
         const { data } = await axios.get(
           `https://virtual-hospital.vercel.app/api/v1/patient/doctorlist/${page}`,
-          { withCredentials: true, "Custom-Header": "CustomValue" }
+          {
+            withCredentials: true,
+            headers: {
+              "Custom-Header": "CustomValue",
+            },
+          }
         );
         console.log(" this is useeffect of fetch doctor");
         setDoctors(data.data.doctorList);
