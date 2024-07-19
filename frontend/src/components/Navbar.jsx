@@ -48,7 +48,7 @@ function Navbar() {
       <div className="   flex  ml-12    items-center  ">
         <NavLink
           to="/"
-          activeClassName="active"
+          activeclassname="active"
           className="py-4 mx-6 px-2 text-white *: border-white hover:text-black transition duration-300   font-semibold"
         >
           Doctors
@@ -56,7 +56,7 @@ function Navbar() {
 
         {identity == "doctor" ? (
           <NavLink
-            activeClassName="active"
+            activeclassname="active"
             to="doctor/patienthistory"
             className="py-4 px-2 text-white font-semibold hover:text-black transition duration-300"
           >
@@ -64,7 +64,7 @@ function Navbar() {
           </NavLink>
         ) : (
           <NavLink
-            activeClassName="active"
+            activeclassname="active"
             to="/patient/prescription"
             className="py-4 px-2 text-white font-semibold hover:text-black transition duration-300"
           >
