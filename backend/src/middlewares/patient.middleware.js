@@ -18,7 +18,7 @@ export const verifyJWT = async (req, _, next) => {
         console.log("decdoeded totken " + JSON.stringify(decodedToken));
 
         const patient = await Patient.findById(decodedToken?._id).select("-password");
-        console.log(patient + " thisis isthe data fo patiente")
+        console.log(patient + decodedToken?._id + " this is decoded totken id  hehehehehehe" + " thisis isthe data fo patiente")
 
         if (!patient) {
 
