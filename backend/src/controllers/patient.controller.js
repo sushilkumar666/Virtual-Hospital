@@ -156,22 +156,40 @@ const getCurrentUser = async (req, res) => {
         ))
 }
 
-const getDoctorList = async (req,res) => {
-    const page = req.params.page;
-    try {
-        const doctorList = await Doctor.find({}).skip((page - 1) * 6).limit(6);
-        const count = await Doctor.countDocuments({});
-        console.log(doctorList);
-        res.status(200).json(
-            new ApiResponse(
-            200, {doctorList, count}, "all Doctors"
-            )
-        )
-    } catch (error) {
-        throw new Error("error while fetching doctorList" + error);
-    }
+// const getDoctorList = async (req,res) => {
+//     const page = req.params.page;
+//     try {
+//         const doctorList = await Doctor.find({}).skip((page - 1) * 6).limit(6);
+//         const count = await Doctor.countDocuments({});
+//         console.log(doctorList);
+//         res.status(200).json(
+//             new ApiResponse(
+//             200, {doctorList, count}, "all Doctors"
+//             )
+//         )
+//     } catch (error) {
+//         throw new Error("error while fetching doctorList" + error);
+//     }
    
-}
+// }
+
+
+const getDoctorList = async (req, res) => {
+    const page = parseInt(req.params.page, 10) || 1; // Ensure page is a number and default to 1
+    try {
+      const doctorList = await Doctor.find({})
+        .skip((page - 1) * 6)
+        .limit(6);
+      const count = await Doctor.countDocuments({});
+      console.log(doctorList);
+      res.status(200).json(new ApiResponse(200, { doctorList, count }, "all Doctors"));
+    } catch (error) {
+      console.error("Error while fetching doctorList:", error);
+      res.status(500).json({ error: "error while fetching doctorList" + error.message });
+    }
+  };
+  
+
 const getDoctor = async (req,res) => {
     try {
         const {doctorId} = req.params
