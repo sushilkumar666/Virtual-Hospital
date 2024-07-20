@@ -61,11 +61,14 @@ const app = express();
 
 // CORS Configuration
 const corsOptions = {
-    origin: ['https://virtual-hospital-frontend.vercel.app', 'http://localhost:5173'],
+    origin: 'https://virtual-hospital-frontend.vercel.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,
 };
+
+
+
 
 app.use(cors(corsOptions)); // Use cors middleware
 
