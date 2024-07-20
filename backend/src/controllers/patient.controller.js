@@ -66,7 +66,7 @@ const registerUser = async (req, res) => {
     const options = {
         httpOnly: true,
         secure: true,
-         sameSite: 'Strict'
+         sameSite: 'None'
     }
     res.cookie("accessToken", accessToken, options);
     return res
