@@ -21,7 +21,7 @@ export const verifyJWT = async (req, res, next) => {
 
         console.log("Decoded token:", decodedToken);
 
-        const patient = await Patient.findById(decodedToken?._id).select("-password");
+        const patient = await Patient.findById(decodedToken?._id);
         if (!patient) {
             console.log("Patient not found for token ID:", decodedToken?._id);
             throw new ApiError(401, "Invalid access token");
