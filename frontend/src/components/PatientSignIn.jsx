@@ -25,7 +25,12 @@ function PatientSignIn() {
       const { data } = await axios.post(
         "https://virtual-hospital.vercel.app/api/v1/patient/login",
         formData,
-        { withCredentials: true, "Custom-Header": "CustomValue" }
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
       console.log("isnde handlesumit");
       console.log(data.data);

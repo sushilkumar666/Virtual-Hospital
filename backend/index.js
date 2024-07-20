@@ -66,14 +66,14 @@ const app = express();
 //          allowedHeaders: 'Content-Type, Authorization',
 
 const corsOptions = {
-    origin:  ['https://virtual-hospital-frontend.vercel.app','http://localhost:5173'],
+    origin:  ['https://virtual-hospital-frontend.vercel.app','http://localhost:5173/'],
     
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,
     
  };
- app.options('*', cors(corsOptions)); // Enable pre-flight requests for all routes
+ app.options(cors(corsOptions)); // Enable pre-flight requests for all routes
 
  
  app.use(cors(corsOptions));  // Use cors middleware

@@ -24,9 +24,7 @@ function Navbar() {
     // alert("button clicked");
     const { data } = await axios.get(
       "https://virtual-hospital.vercel.app/logout",
-      {
-        withCredentials: true,
-      }
+      
     );
     if (data.success) {
       console.log("after succesffully logged out from backed");
