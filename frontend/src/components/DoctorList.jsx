@@ -46,8 +46,9 @@ function DoctorList() {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
+        console.log("this is useEffect of fetch doctor");
         const { data } = await axios.get(
-          `https://virtual-hospital.vercel.app/api/v1/patient/doctorlist/1`,
+          `https://virtual-hospital.vercel.app/api/v1/patient/doctorlist/${page}`,
           {
             withCredentials: true,
             headers: {

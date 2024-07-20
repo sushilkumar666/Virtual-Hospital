@@ -29,13 +29,7 @@ const DoctorSignUp = () => {
       const { data } = await axios.post(
         "https://virtual-hospital.vercel.app/api/v1/doctor/register",
         formData,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "Custom-Header": "CustomValue",
-          },
-        }
+        { withCredentials: true, "Custom-Header": "CustomValue" }
       );
       console.log(data);
       if (data.success) {

@@ -175,20 +175,35 @@ const getCurrentUser = async (req, res) => {
 
 
 const getDoctorList = async (req, res) => {
-    const page = 2
-    // parseInt(req.params.page, 10) || 1; // Ensure page is a number and default to 1
+    const page = parseInt(req.params.page, 10);
+    const limit = 6;
+  
+    // Validate page number
+    if (isNaN(page) || page < 1) {
+      return res.status(400).json({ error: "Invalid page number" });
+    }
+  
     try {
+      // Fetch the doctor list with pagination
       const doctorList = await Doctor.find({})
-        .skip((page - 1) * 6)
-        .limit(6);
+        .skip((page - 1) * limit)
+        .limit(limit);
+  
+      // Get the total count of doctors
       const count = await Doctor.countDocuments({});
+  
+      // Log doctor list to console (for debugging purposes)
       console.log(doctorList);
-      res.status(200).json(new ApiResponse(200, { doctorList, count }, "all Doctors"));
+  
+      // Return the response
+      res.status(200).json(new ApiResponse(200, { doctorList, count }, "All Doctors"));
     } catch (error) {
+      // Log the error and return a 500 status code with error message
       console.error("Error while fetching doctorList:", error);
-      res.status(500).json({ error: "error while fetching doctorList" + error.message });
+      res.status(500).json({ error: "Error while fetching doctorList: " + error.message });
     }
   };
+  
   
 
 const getDoctor = async (req,res) => {
