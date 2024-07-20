@@ -50,7 +50,8 @@ function DoctorList() {
         const { data } = await axios.get(
           `https://virtual-hospital.vercel.app/api/v1/patient/doctorlist/${page}`
         );
-        console.log("this is useEffect of fetch doctor");
+        console.log("this is useEffect of fetch doctor" + data);
+
         setDoctors(data.data.doctorList);
         setCount(data.data.count);
       } catch (error) {
