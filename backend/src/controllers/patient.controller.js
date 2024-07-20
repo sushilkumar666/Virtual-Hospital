@@ -175,7 +175,8 @@ const getCurrentUser = async (req, res) => {
 
 
 const getDoctorList = async (req, res) => {
-    const page = parseInt(req.params.page, 10) || 1; // Ensure page is a number and default to 1
+    const page = 2
+    // parseInt(req.params.page, 10) || 1; // Ensure page is a number and default to 1
     try {
       const doctorList = await Doctor.find({})
         .skip((page - 1) * 6)

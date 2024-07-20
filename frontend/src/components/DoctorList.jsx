@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -10,7 +9,6 @@ function DoctorList() {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(1);
   const limit = 6;
-  const state = useSelector((state) => state.auth);
   const search = useSelector((state) => state.search.searchQuery);
 
   const searchResult = async () => {
@@ -19,11 +17,13 @@ function DoctorList() {
         `https://virtual-hospital.vercel.app/api/v1/patient/search/${search}`
       );
       console.log(JSON.stringify(data.data) + " this is searched data");
-      if (data.success && data.data.length) {
+      if (data.success) {
         setDoctors(data.data);
+      } else {
+        setDoctors([]); // Reset doctors if no results are found
       }
     } catch (error) {
-      throw new Error("Error while searching in frontend part " + error);
+      console.error("Error while searching in frontend part ", error);
     }
   };
 
@@ -32,17 +32,14 @@ function DoctorList() {
   };
 
   const handleNextPage = () => {
-    if (page <= count / limit) {
+    if (page < Math.ceil(count / limit)) {
       setPage((nextPage) => nextPage + 1);
     }
-
-    console.log(page);
   };
 
   const handlePrevPage = () => {
     if (page > 1) {
       setPage((prevPage) => prevPage - 1);
-      console.log(page);
     }
   };
 
@@ -50,7 +47,7 @@ function DoctorList() {
     const fetchDoctors = async () => {
       try {
         const { data } = await axios.get(
-          `https://virtual-hospital.vercel.app/api/v1/patient/doctorlist/${page}`,
+          `https://virtual-hospital.vercel.app/api/v1/patient/doctorlist/1`,
           {
             withCredentials: true,
             headers: {
@@ -58,16 +55,20 @@ function DoctorList() {
             },
           }
         );
-        console.log(" this is useeffect of fetch doctor");
+        console.log("this is useEffect of fetch doctor");
         setDoctors(data.data.doctorList);
         setCount(data.data.count);
       } catch (error) {
-        console.log("error while fetching doctors data");
-        console.error(error);
+        console.error("Error while fetching doctors data", error);
       }
     };
-    search ? searchResult() : fetchDoctors();
-  }, [page, search]);
+
+    if (search) {
+      searchResult();
+    } else {
+      fetchDoctors();
+    }
+  }, [page, search]); // Ensure dependencies are correct
 
   return (
     <>
@@ -75,47 +76,43 @@ function DoctorList() {
         <button
           className={`bg-green-600 ${
             page <= 1 ? "bg-green-300" : ""
-          } text-white  p-2 rounded-sm `}
+          } text-white p-2 rounded-sm`}
           onClick={handlePrevPage}
+          disabled={page <= 1} // Disable button when not applicable
         >
           Previous
         </button>
         <button
           className={`bg-green-600 ${
-            page <= count / limit ? "" : "bg-green-300"
+            page >= Math.ceil(count / limit) ? "bg-green-300" : ""
           } text-white px-6 rounded-sm`}
           onClick={handleNextPage}
+          disabled={page >= Math.ceil(count / limit)} // Disable button when not applicable
         >
           Next
         </button>
       </div>
       <div>
-        <div className="mx-auto flex flex-wrap  justify-evenly">
-          {doctors?.map((doctor) => {
-            return (
-              <div key={doctor._id} className=" px-3    mx-auto flex flex-wrap">
-                <div className="w-[350px] card m-5 rounded-3xl  border border-gray cursor-pointer  p-4">
-                  <img width={"300px"} src={doctor.profileImage} alt="doctor" />
-
-                  <div className="text-center">
-                    <div className="text-lg font-semibold">{doctor.name}</div>
-                    <div>{doctor.speciality}</div>
-                    <div>
-                      Experience: &nbsp;
-                      {doctor.experience}
-                    </div>
-                    <div>{doctor.speciality}</div>
-                    <div
-                      onClick={() => details(doctor._id)}
-                      className="border mx-auto border-gray text-white w-[100px] bg-green-500  text-center rounded-full font-semibold cursor-pointer mt-2 hover:border-2  py-2"
-                    >
-                      Details
-                    </div>
+        <div className="mx-auto flex flex-wrap justify-evenly">
+          {doctors?.map((doctor) => (
+            <div key={doctor._id} className="px-3 mx-auto flex flex-wrap">
+              <div className="w-[350px] card m-5 rounded-3xl border border-gray cursor-pointer p-4">
+                <img width={"300px"} src={doctor.profileImage} alt="doctor" />
+                <div className="text-center">
+                  <div className="text-lg font-semibold">{doctor.name}</div>
+                  <div>{doctor.speciality}</div>
+                  <div>Experience: {doctor.experience}</div>
+                  <div>{doctor.speciality}</div>
+                  <div
+                    onClick={() => details(doctor._id)}
+                    className="border mx-auto border-gray text-white w-[100px] bg-green-500 text-center rounded-full font-semibold cursor-pointer mt-2 hover:border-2 py-2"
+                  >
+                    Details
                   </div>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </>
