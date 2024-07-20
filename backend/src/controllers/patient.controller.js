@@ -66,7 +66,8 @@ const registerUser = async (req, res) => {
     const options = {
         httpOnly: true,
         secure: true,
-         sameSite: 'None'
+         sameSite: 'None',
+         maxAge: 24 * 60 * 60 * 1000,
     }
     res.cookie("accessToken", accessToken, options);
     return res
@@ -156,53 +157,53 @@ const getCurrentUser = async (req, res) => {
         ))
 }
 
-// const getDoctorList = async (req,res) => {
-//     const page = req.params.page;
-//     try {
-//         const doctorList = await Doctor.find({}).skip((page - 1) * 6).limit(6);
-//         const count = await Doctor.countDocuments({});
-//         console.log(doctorList);
-//         res.status(200).json(
-//             new ApiResponse(
-//             200, {doctorList, count}, "all Doctors"
-//             )
-//         )
-//     } catch (error) {
-//         throw new Error("error while fetching doctorList" + error);
-//     }
-   
-// }
-
-
-const getDoctorList = async (req, res) => {
-    const page = parseInt(req.params.page, 10);
-    const limit = 6;
-  
-    // Validate page number
-    if (isNaN(page) || page < 1) {
-      return res.status(400).json({ error: "Invalid page number" });
-    }
-  
+const getDoctorList = async (req,res) => {
+    const page = req.params.page;
     try {
-      // Fetch the doctor list with pagination
-      const doctorList = await Doctor.find({})
-        .skip((page - 1) * limit)
-        .limit(limit);
-  
-      // Get the total count of doctors
-      const count = await Doctor.countDocuments({});
-  
-      // Log doctor list to console (for debugging purposes)
-      console.log(doctorList);
-  
-      // Return the response
-      res.status(200).json(new ApiResponse(200, { doctorList, count }, "All Doctors"));
+        const doctorList = await Doctor.find({}).skip((page - 1) * 6).limit(6);
+        const count = await Doctor.countDocuments({});
+        console.log(doctorList);
+        res.status(200).json(
+            new ApiResponse(
+            200, {doctorList, count}, "all Doctors"
+            )
+        )
     } catch (error) {
-      // Log the error and return a 500 status code with error message
-      console.error("Error while fetching doctorList:", error);
-      res.status(500).json({ error: "Error while fetching doctorList: " + error.message });
+        throw new Error("error while fetching doctorList" + error);
     }
-  };
+   
+}
+
+
+// const getDoctorList = async (req, res) => {
+//     const page = parseInt(req.params.page, 10);
+//     const limit = 6;
+  
+//     // Validate page number
+//     if (isNaN(page) || page < 1) {
+//       return res.status(400).json({ error: "Invalid page number" });
+//     }
+  
+//     try {
+//       // Fetch the doctor list with pagination
+//       const doctorList = await Doctor.find({})
+//         .skip((page - 1) * limit)
+//         .limit(limit);
+  
+//       // Get the total count of doctors
+//       const count = await Doctor.countDocuments({});
+  
+//       // Log doctor list to console (for debugging purposes)
+//       console.log(doctorList);
+  
+//       // Return the response
+//       res.status(200).json(new ApiResponse(200, { doctorList, count }, "All Doctors"));
+//     } catch (error) {
+//       // Log the error and return a 500 status code with error message
+//       console.error("Error while fetching doctorList:", error);
+//       res.status(500).json({ error: "Error while fetching doctorList: " + error.message });
+//     }
+//   };
   
   
 
