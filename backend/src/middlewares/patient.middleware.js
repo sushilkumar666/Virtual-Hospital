@@ -1,34 +1,38 @@
-
-import jwt from "jsonwebtoken"
-// import { User } from "../models/user.model.js";
+import jwt from "jsonwebtoken";
 import { Patient } from "../models/patient.model.js";
-import { Doctor } from "../models/doctor.model.js";
 import { ApiError } from "../utils/ApiError.js";
 
-export const verifyJWT = async (req, _, next) => {
+export const verifyJWT = async (req, res, next) => {
     try {
-        const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
+        const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
          
-        console.log(token + " trying to fetc token from patient");
         if (!token) {
-            throw new ApiError(401, "Unauthorized request")
+            console.log("Token not found in cookies or headers.");
+            throw new ApiError(401, "Unauthorized request");
         }           
 
-        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-        console.log("decdoeded totken " + JSON.stringify(decodedToken));
-
-        const patient = await Patient.findById(decodedToken?._id).select("-password");
-        console.log(patient + decodedToken?._id + " this is decoded totken id  hehehehehehe" + " thisis isthe data fo patiente")
-
-        if (!patient) {
-
-            throw new ApiError(401, "Invalid ccess Token")
+        let decodedToken;
+        try {
+            decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        } catch (error) {
+            console.log("Error decoding token:", error);
+            throw new ApiError(401, "Invalid access token");
         }
 
-        req.patient = patient;
-        next()
-    } catch (error) {
-        throw new Error( "Invalid access token " + error)
-    }
+        console.log("Decoded token:", decodedToken);
 
-}
+        const patient = await Patient.findById(decodedToken?._id).select("-password");
+        if (!patient) {
+            console.log("Patient not found for token ID:", decodedToken?._id);
+            throw new ApiError(401, "Invalid access token");
+        }
+
+        console.log("Patient found:", patient);
+
+        req.patient = patient;
+        next();
+    } catch (error) {
+        console.error("Error verifying token:", error);
+        res.status(401).json({ error: "Unauthorized request: " + error.message });
+    }
+};

@@ -73,6 +73,8 @@ const corsOptions = {
     optionsSuccessStatus: 204,
     
  };
+ app.options('*', cors(corsOptions)); // Enable pre-flight requests for all routes
+
  
  app.use(cors(corsOptions));  // Use cors middleware
 
