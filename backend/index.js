@@ -60,12 +60,12 @@ dotenv.config({ path: './.env' });
 const app = express();
 
 // CORS Configuration
-const corsOptions = {
-    origin: 'https://virtual-hospital-frontend.vercel.app',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    optionsSuccessStatus: 204,
-};
+// const corsOptions = {
+//     origin: 'https://virtual-hospital-frontend.vercel.app',
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//     credentials: true,
+//     optionsSuccessStatus: 204,
+// };
 
 
 
