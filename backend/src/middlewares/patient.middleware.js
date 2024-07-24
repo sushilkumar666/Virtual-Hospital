@@ -5,7 +5,8 @@ import { ApiError } from "../utils/ApiError.js";
 export const verifyJWT = async (req, res, next) => {
     try {
         const token = req?.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
-        console.log(token, "Token Coming" + " req.cookies " + req?.cookies );
+        console.log(token, "Token Coming", "req.cookies", req?.cookies);
+
         if (!token) {
             console.log("Token not found in cookies or headers.");
             throw new ApiError(401, "Unauthorized request");
@@ -33,6 +34,7 @@ export const verifyJWT = async (req, res, next) => {
         next();
     } catch (error) {
         console.error("Error verifying token:", error);
-        res.status(401).json({ error: "Unauthorized request: " + error.message });
+        const errorMessage = typeof error.message === 'string' ? error.message : 'Unknown error';
+        res.status(401).json({ error: "Unauthorized request: " + errorMessage });
     }
 };
