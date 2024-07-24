@@ -4,7 +4,8 @@ import { ApiError } from "../utils/ApiError.js";
 
 export const verifyJWT = async (req, res, next) => {
     try {
-        const token = req?.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
+        console.log(req.cookies.accessToken + "   this is access token ")
+        const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
         console.log(token, "Token Coming", "req.cookies", req?.cookies);
 
         if (!token) {
