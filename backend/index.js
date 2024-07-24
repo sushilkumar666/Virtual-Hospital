@@ -88,7 +88,7 @@ app.get('/test', (req, res) => {
 
 // Logout Route
 app.get('/logout', (req, res) => {
-    res.clearCookie('accessToken', '', { httpOnly: true, secure: true }).json({ success: true, message: 'User logout successfully' });
+    res.clearCookie('accessToken', { httpOnly: true, secure: true }).json({ success: true, message: 'User logout successfully' });
 });
 
 // Database Connection and Server Start
