@@ -71,6 +71,16 @@ const corsOptions = {
 
 
 app.use(cors(corsOptions)); // Use cors middleware
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://virtual-hospital-frontend.vercel.app');
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    if (req.method === 'OPTIONS') {
+      return res.sendStatus(204);
+    }
+    next();
+  });
 
 app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
