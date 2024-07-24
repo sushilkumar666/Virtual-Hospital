@@ -5,7 +5,7 @@ import { ApiError } from "../utils/ApiError.js";
 export const verifyJWT = async (req, res, next) => {
     try {
         const token = req?.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
-         console.log(" this si stoken sushil "  + req?.cookies)
+        console.log(token, "Token Coming" + " req.cookies " + req?.cookies );
         if (!token) {
             console.log("Token not found in cookies or headers.");
             throw new ApiError(401, "Unauthorized request");
