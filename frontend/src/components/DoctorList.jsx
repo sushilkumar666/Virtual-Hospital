@@ -14,7 +14,7 @@ function DoctorList() {
   const searchResult = async () => {
     try {
       const { data } = await axios.get(
-        `https://virtual-hospital.vercel.app/api/v1/patient/search/${search}`
+        `http://localhost:8000/api/v1/patient/search/${search}`
       );
       console.log(JSON.stringify(data.data) + " this is searched data");
       if (data.success) {
@@ -48,7 +48,11 @@ function DoctorList() {
       try {
         console.log("this is useEffect of fetch doctor");
         const { data } = await axios.get(
-          `https://virtual-hospital.vercel.app/api/v1/patient/doctorlist/${page}`
+          `http://localhost:8000/api/v1/patient/doctorlist/${page}`,
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
         );
         console.log("this is useEffect of fetch doctor" + data);
 
@@ -68,7 +72,36 @@ function DoctorList() {
 
   return (
     <>
-      <div className="flex justify-between p-4 mx-4">
+      <div>
+        <div className="mx-auto   flex flex-wrap justify-evenly ">
+          {doctors?.map((doctor) => (
+            <div key={doctor._id} className="flex flex-wrap ">
+              <div className="w-[300px] card transform transition duration-300 hover:scale-105  m-3 rounded-3xl border border-gray cursor-pointer p-4">
+                <img
+                  style={{ filter: "drop-shadow(0 0 0.5rem gray)" }}
+                  className="mx-auto transform transition duration-300 hover:scale-105"
+                  width={"200px"}
+                  src={doctor.profileImage}
+                  alt="doctor"
+                />
+                <div className="text-center mt-4">
+                  <div className="text-lg font-semibold">{doctor.name}</div>
+                  <div>{doctor.speciality}</div>
+                  <div>Experience: {doctor.experience}</div>
+                  <div>{doctor.speciality}</div>
+                  <div
+                    onClick={() => details(doctor._id)}
+                    className="border mx-auto border-gray text-white w-[100px] bg-green-500 text-center rounded-full font-semibold cursor-pointer mt-2 hover:border-2 py-2"
+                  >
+                    Details
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex justify-between mb-20 p-4 mx-4">
         <button
           className={`bg-green-600 ${
             page <= 1 ? "bg-green-300" : ""
@@ -87,29 +120,6 @@ function DoctorList() {
         >
           Next
         </button>
-      </div>
-      <div>
-        <div className="mx-auto flex flex-wrap justify-evenly">
-          {doctors?.map((doctor) => (
-            <div key={doctor._id} className="px-3 mx-auto flex flex-wrap">
-              <div className="w-[350px] card m-5 rounded-3xl border border-gray cursor-pointer p-4">
-                <img width={"300px"} src={doctor.profileImage} alt="doctor" />
-                <div className="text-center">
-                  <div className="text-lg font-semibold">{doctor.name}</div>
-                  <div>{doctor.speciality}</div>
-                  <div>Experience: {doctor.experience}</div>
-                  <div>{doctor.speciality}</div>
-                  <div
-                    onClick={() => details(doctor._id)}
-                    className="border mx-auto border-gray text-white w-[100px] bg-green-500 text-center rounded-full font-semibold cursor-pointer mt-2 hover:border-2 py-2"
-                  >
-                    Details
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </>
   );

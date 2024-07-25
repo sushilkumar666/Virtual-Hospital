@@ -10,7 +10,7 @@ function Profile() {
   const fetchDoctorDetails = async () => {
     try {
       const { data } = await axios.get(
-        `https://virtual-hospital.vercel.app/api/v1/patient/doctordetails/${doctorId}`,
+        `http://localhost:8000/api/v1/patient/doctordetails/${doctorId}`,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
       setDoctor(data.data);
@@ -31,12 +31,16 @@ function Profile() {
 
   return (
     <div>
-      <div className="card flex items-center">
-        <div className="w-[80vw]">
-          <img width={"100%"} src={doctor?.profileImage} alt={doctor?.name} />
+      <div className="card   md:flex items-center">
+        <div className="md:mr-10 ">
+          <img
+            className="w-[60vw] md:w-[100%] mx-auto mb-4"
+            src={doctor?.profileImage}
+            alt={doctor?.name}
+          />
         </div>
         <div className="text-left">
-          <p className="text-4xl ">Dr.&nbsp;{doctor?.name}</p>
+          <p className="text-4xl ">D.&nbsp;{doctor?.name}</p>
           <p>
             Specialty: <span>{doctor?.specialty}</span>
           </p>
@@ -59,7 +63,7 @@ function Profile() {
 
           <div className="mt-5">
             <Link
-              className="px-4 py-2 border border-black bg-[#44B678] rounded-lg text-white"
+              className="px-4 py-2 border border-black bg-green-600 rounded-lg text-white"
               to={`/patient/consultationform/${doctor?._id}`}
             >
               Consult

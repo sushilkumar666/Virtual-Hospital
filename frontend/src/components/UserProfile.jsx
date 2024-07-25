@@ -13,11 +13,11 @@ function UserProfile() {
       let data;
       identity == "doctor"
         ? (data = await axios.get(
-            `https://virtual-hospital.vercel.app/api/v1/doctor/profile`,
+            `http://localhost:8000/api/v1/doctor/profile`,
             { withCredentials: true, "Custom-Header": "CustomValue" }
           ))
         : (data = await axios.get(
-            `https://virtual-hospital.vercel.app/api/v1/patient/profile`,
+            `http://localhost:8000/api/v1/patient/profile`,
             { withCredentials: true, "Custom-Header": "CustomValue" }
           ));
       setUser(data.data.data);
@@ -39,12 +39,17 @@ function UserProfile() {
   }, []);
   return (
     <div>
-      <div className="card flex items-center">
-        <div className="w-[80vw]">
-          <img width={"100%"} src={user?.profileImage} alt={user?.name} />
+      <div className="card  md:flex  items-center">
+        <div className="md:mr-10 ">
+          <img
+            width={"100%"}
+            className="w-[60vw] md:w-[100%] mx-auto mb-4"
+            src={user?.profileImage}
+            alt={user?.name}
+          />
         </div>
         <div className="text-left">
-          <p className="text-4xl ">Dr.&nbsp;{user?.name}</p>
+          <p className="text-4xl ">r.&nbsp;{user?.name}</p>
           <p>
             Specialty: <span>{user?.specialty}</span>
           </p>
@@ -65,9 +70,9 @@ function UserProfile() {
             pulmonology or rheumatology.
           </p>
 
-          <div className="mt-5">
+          <div className="my-5 mx-auto mb-10">
             <Link
-              className="px-4 py-2 border border-black bg-[#44B678] rounded-lg text-white"
+              className="px-4  py-2 border border-black bg-green-500 rounded-lg text-white"
               to={`/patient/consultationform/${user?._id}`}
             >
               Consult

@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 
 function Header() {
   return (
-    <div className="sticky top-0">
+    <div style={{ zIndex: 20 }} className="sticky top-0">
       <Navbar />
     </div>
   );

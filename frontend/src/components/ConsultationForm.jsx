@@ -33,7 +33,7 @@ const ConsultationForm = () => {
     console.log(JSON.stringify(formData) + " this form data");
     try {
       const { data } = await axios.post(
-        `https://virtual-hospital.vercel.app/api/v1/patient/consult/${doctorId}`,
+        `http://localhost:8000/api/v1/patient/consult/${doctorId}`,
         formData,
         { withCredentials: true }
       );
@@ -64,7 +64,7 @@ const ConsultationForm = () => {
               <p className="text-left mb-2">Current illness History</p>
               <textarea
                 rows={"6"}
-                className="border border-black"
+                className="border border-black max-w-[70vw] h-32 p-2 "
                 cols={"100"}
                 type="text"
                 name="currentIllnessHistory"
@@ -78,7 +78,7 @@ const ConsultationForm = () => {
               <p className="text-left mt-4 mb-2">Recent Surgery</p>
               <textarea
                 rows={"6"}
-                className="border border-black"
+                className="border border-black max-w-[70vw]"
                 cols={"100"}
                 type="text"
                 name="recentSurgery"
@@ -101,7 +101,7 @@ const ConsultationForm = () => {
       )}
       {step === 2 && (
         <>
-          <div className="flex flex-col w-[70vw] border border-black px-10 mx-auto my-10 text-left">
+          <div className="flex flex-col w-[80vw] border border-black px-10 mx-auto my-10 text-left">
             <div className="mt-5">
               <div className="mt-5">
                 <label>
@@ -129,12 +129,12 @@ const ConsultationForm = () => {
               </div>
             </div>
             <div className="mt-5">
-              <p className="flex">
+              <p className="flex flex-col">
                 {" "}
                 Allergies &nbsp;{" "}
                 <textarea
                   cols={80}
-                  className="border border-black"
+                  className="border border-black max-w-[70vw]"
                   rows={6}
                   type="text"
                   name="allergies"
@@ -145,11 +145,11 @@ const ConsultationForm = () => {
               </p>
             </div>
             <div className="mt-5">
-              <div className="flex">
+              <div className="flex flex-col">
                 {" "}
-                Others &nbsp; &nbsp; &nbsp;{" "}
+                Others &nbsp; &nbsp; &nbsp;
                 <textarea
-                  className="border border-black"
+                  className="border border-black max-w-[70vw]"
                   cols={80}
                   rows={6}
                   type="text"
@@ -160,24 +160,26 @@ const ConsultationForm = () => {
               </div>
             </div>
 
-            <div className="flex mx-auto my-8">
-              <div>
-                <button
-                  className="bg-green-500 px-4 mx-6 py-2  rounded-lg"
-                  type="button"
-                  onClick={handlePrevStep}
-                >
-                  Previous
-                </button>
-              </div>
-              <div>
-                <button
-                  className="bg-green-500 px-7  py-2 rounded-lg"
-                  type="button"
-                  onClick={handleNextStep}
-                >
-                  Next
-                </button>
+            <div className="flex mx-auto  my-8">
+              <div className=" flex gap-10">
+                <div>
+                  <button
+                    className="bg-green-500 px-4   py-2  rounded-lg"
+                    type="button"
+                    onClick={handlePrevStep}
+                  >
+                    Previous
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className="bg-green-500 px-7  py-2 rounded-lg"
+                    type="button"
+                    onClick={handleNextStep}
+                  >
+                    Next
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -185,7 +187,7 @@ const ConsultationForm = () => {
       )}
       {step === 3 && (
         <>
-          <div className="flex border mt-20 border-black p-4 justify-evenly items-center w-[80vw] mx-auto">
+          <div className="flex flex-col md:flex-row  border mt-20 border-black p-4 justify-evenly items-center w-[80vw] mx-auto">
             <div>
               <img
                 width={"200px"}
@@ -193,34 +195,37 @@ const ConsultationForm = () => {
                 alt="QR code"
               />
             </div>
-            <div>
-              Transaction Id: &nbsp;
+            <div className="text-left ml-8 mt-8">
+              <p className="my-2"> Transaction Id: &nbsp;</p>
               <input
                 type="text"
                 name="transactionId"
                 placeholder="Transaction ID"
                 onChange={handleChange}
                 required
+                className="border border-black w-"
               />
               {/* QR Code for payment can be displayed here */}
             </div>
           </div>
 
-          <div className="flex mx-auto  w-[20vw] my-8">
-            <button
-              className="bg-green-500 px-4 mx-6 py-2  rounded-lg"
-              type="button"
-              onClick={handlePrevStep}
-            >
-              Previous
-            </button>
+          <div className="flex mx-auto       my-8">
+            <div className=" mx-auto">
+              <button
+                className="bg-green-500 px-4 mx-6 py-2  rounded-lg"
+                type="button"
+                onClick={handlePrevStep}
+              >
+                Previous
+              </button>
 
-            <button
-              className="bg-green-500 px-4 mx-6 py-2  rounded-lg"
-              type="submit"
-            >
-              Submit
-            </button>
+              <button
+                className="bg-green-500 px-4 mx-6 py-2  rounded-lg"
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </>
       )}

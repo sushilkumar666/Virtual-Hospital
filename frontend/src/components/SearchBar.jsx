@@ -34,7 +34,7 @@ const SearchBar = () => {
       <input
         type="text"
         value={query}
-        className="p-3"
+        className="p-3 focus:outline-none"
         onChange={onInputChange}
         placeholder="Search patients or doctors..."
       />

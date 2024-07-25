@@ -22,7 +22,7 @@ function DoctorSignIn() {
     try {
       console.log(formData);
       const { data } = await axios.post(
-        "https://virtual-hospital.vercel.app/api/v1/doctor/login",
+        "http://localhost:8000/api/v1/doctor/login",
         formData,
         {
           withCredentials: true,

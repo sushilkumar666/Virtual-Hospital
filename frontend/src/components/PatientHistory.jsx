@@ -16,7 +16,7 @@ const PatientHistory = () => {
   const fetchPatients = async () => {
     try {
       const { data } = await axios.get(
-        "https://virtual-hospital.vercel.app/api/v1/doctor/patienthistory",
+        "http://localhost:8000/api/v1/doctor/patienthistory",
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
       setPatients(data.patientHistory);
@@ -51,7 +51,7 @@ const PatientHistory = () => {
     try {
       console.log(patientId + " this pateint id");
       const data = await axios.patch(
-        `https://virtual-hospital.vercel.app/api/v1/doctor/deletepatient/${patientId}`,
+        `http://localhost:8000/api/v1/doctor/deletepatient/${patientId}`,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
       if (data.success) {

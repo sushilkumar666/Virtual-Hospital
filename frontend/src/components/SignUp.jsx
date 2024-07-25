@@ -9,7 +9,7 @@ function SignUp() {
   useEffect(() => {}, [user]);
   return (
     <>
-      <div className="border border-black rounded-lg mt-20 w-[50vw] mx-auto p-4 ">
+      <div className="border border-black rounded-lg mt-20 md:w-[50vw] w-[75vw]  mx-auto p-4 ">
         <form action="">
           <div className="flex justify-evenly">
             <div className="text-xl  w-[600px] border-r-2 border-black  text-black">
