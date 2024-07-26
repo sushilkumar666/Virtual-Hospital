@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    status: "200",  
+    status: "false",  
     data: "",
     identity: "patient"
 

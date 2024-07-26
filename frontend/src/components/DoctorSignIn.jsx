@@ -48,7 +48,7 @@ function DoctorSignIn() {
     }
   };
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg w-[30vw] mx-auto">
+    <div className="bg-white p-6 rounded-lg shadow-lg md:w-[30vw] w-[90vw] mx-auto">
       <h2 className="text-2xl font-bold mb-4">Doctor Sign-in</h2>
       <div className="p-4 ">
         Don't have an account?
@@ -61,7 +61,7 @@ function DoctorSignIn() {
       </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block text-gray-700">Email</label>
+          <label className="block text-left text-gray-700">Email</label>
           <input
             onChange={handleChange}
             name="email"
@@ -71,7 +71,7 @@ function DoctorSignIn() {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">Password</label>
+          <label className="block text-left text-gray-700">Password</label>
           <input
             onChange={handleChange}
             name="password"
@@ -82,7 +82,7 @@ function DoctorSignIn() {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded"
+          className="w-full mb-10 bg-blue-500 text-white p-2 rounded"
         >
           Sign In
         </button>

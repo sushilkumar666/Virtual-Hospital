@@ -34,106 +34,108 @@ function Navbar() {
       dispatch(logoutAction());
     }
   };
-
+  console.log(authStatus + " authstatus value ffrom doctor signup");
   return (
-    <nav className="bg-green-600  index items-center md:flex justify-between px-12 border border-black w-[98vw] shadow-lg">
-      <div
-        style={{ zIndex: 20 }}
-        className="flex z-20  items-center justify-between"
-      >
-        <div>
-          <Link to="/">
-            <p className="text-xl  font-bold text-white">Virtual Hosptial</p>
-          </Link>
-        </div>
-        <div className="md:flex    md:ml-12 ">
-          <div className="   flex items-center  ">
-            <NavLink
-              to="/"
-              activeclassname="active"
-              className="py-4 mx-6 px-2 text-white *: border-white hover:text-black transition duration-300   font-semibold"
-            >
-              Doctors
-            </NavLink>
-
-            {identity == "doctor" ? (
-              <NavLink
-                activeclassname="active"
-                to="doctor/patienthistory"
-                className="py-4 px-2 text-white font-semibold hover:text-black transition duration-300"
-              >
-                History
-              </NavLink>
-            ) : (
-              <NavLink
-                activeclassname="active"
-                to="/patient/prescription"
-                className="py-4 px-2 text-white font-semibold hover:text-black transition duration-300"
-              >
-                Prescriptions
-              </NavLink>
-            )}
+    authStatus && (
+      <nav className="bg-green-600  index items-center md:flex justify-between px-12 border border-black w-[98vw] shadow-lg">
+        <div
+          style={{ zIndex: 20 }}
+          className="flex z-20  items-center justify-between"
+        >
+          <div>
+            <Link to="/">
+              <p className="text-xl  font-bold text-white">Virtual Hosptial</p>
+            </Link>
           </div>
-        </div>
-      </div>
+          <div className="md:flex    md:ml-12 ">
+            <div className="   flex items-center  ">
+              <NavLink
+                to="/"
+                activeclassname="active"
+                className="py-4 mx-6 px-2 text-white *: border-white hover:text-black transition duration-300   font-semibold"
+              >
+                Doctors
+              </NavLink>
 
-      <div>
-        <div className="md:flex  items-center ml-auto ">
-          <div className="flex ml-auto my-4 md:my-0  md:mr-12 items-center">
-            <SearchBar setSearchResults={setSearchResults} />
-            <div className="ml-10">
-              <div className="md:hidden block" onClick={() => setShow(!show)}>
-                <BsThreeDotsVertical size={30} />
-              </div>
-              {show && (
-                <ul className="absolute right-6 ">
-                  <li className="bg-white border border-gray-300 p-3">
-                    {" "}
-                    <a
-                      onClick={() => navigate("/profile")}
-                      href="#"
-                      className="py-2 px-4 font-medium text-black rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
-                    >
-                      Profile
-                    </a>
-                  </li>
-                  <li className="bg-white border border-gray-300 p-3">
-                    <a
-                      onClick={logout}
-                      href="#"
-                      className="py-2 px-4 font-medium text-black rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
-                    >
-                      Log Out
-                    </a>
-                  </li>
-                </ul>
+              {identity == "doctor" ? (
+                <NavLink
+                  activeclassname="active"
+                  to="doctor/patienthistory"
+                  className="py-4 px-2 text-white font-semibold hover:text-black transition duration-300"
+                >
+                  History
+                </NavLink>
+              ) : (
+                <NavLink
+                  activeclassname="active"
+                  to="/patient/prescription"
+                  className="py-4 px-2 text-white font-semibold hover:text-black transition duration-300"
+                >
+                  Prescriptions
+                </NavLink>
               )}
             </div>
           </div>
+        </div>
 
-          {authStatus && (
-            <div className="md:block hidden">
-              <div>
-                <a
-                  onClick={() => navigate("/profile")}
-                  href="#"
-                  className="py-2 px-4 font-medium text-white rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
-                >
-                  Profile
-                </a>
-                <a
-                  onClick={logout}
-                  href="#"
-                  className="py-2 px-4 font-medium text-white rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
-                >
-                  Log Out
-                </a>
+        <div>
+          <div className="md:flex  items-center ml-auto ">
+            <div className="flex ml-auto my-4 md:my-0  md:mr-12 items-center">
+              <SearchBar setSearchResults={setSearchResults} />
+              <div className="ml-10">
+                <div className="md:hidden block" onClick={() => setShow(!show)}>
+                  <BsThreeDotsVertical size={30} />
+                </div>
+                {show && (
+                  <ul className="absolute right-6 ">
+                    <li className="bg-white border border-gray-300 p-3">
+                      {" "}
+                      <a
+                        onClick={() => navigate("/profile")}
+                        href="#"
+                        className="py-2 px-4 font-medium text-black rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
+                      >
+                        Profile
+                      </a>
+                    </li>
+                    <li className="bg-white border border-gray-300 p-3">
+                      <a
+                        onClick={logout}
+                        href="#"
+                        className="py-2 px-4 font-medium text-black rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
+                      >
+                        Log Out
+                      </a>
+                    </li>
+                  </ul>
+                )}
               </div>
             </div>
-          )}
+
+            {authStatus && (
+              <div className="md:block hidden">
+                <div>
+                  <a
+                    onClick={() => navigate("/profile")}
+                    href="#"
+                    className="py-2 px-4 font-medium text-white rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
+                  >
+                    Profile
+                  </a>
+                  <a
+                    onClick={logout}
+                    href="#"
+                    className="py-2 px-4 font-medium text-white rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
+                  >
+                    Log Out
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    )
   );
 }
 

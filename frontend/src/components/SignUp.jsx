@@ -12,7 +12,7 @@ function SignUp() {
       <div className="border border-black rounded-lg mt-20 md:w-[50vw] w-[75vw]  mx-auto p-4 ">
         <form action="">
           <div className="flex justify-evenly">
-            <div className="text-xl  w-[600px] border-r-2 border-black  text-black">
+            <div className="text-xl   w-[600px] border-r-2 border-black  text-black">
               <input
                 id="doctor"
                 onChange={() => navigate("/doctor/signup")}
@@ -22,12 +22,13 @@ function SignUp() {
               <label htmlFor="doctor">
                 <img
                   width={400}
+                  className="p-4"
                   src="https://res.cloudinary.com/dgjqrdpbq/image/upload/v1719652748/avatar-bearded-doctor-doctor-with-stethoscope-vector-illustrationxa_276184-31_byrpfl.jpg"
                 />{" "}
                 <p>Doctor</p>
               </label>
             </div>
-            <div className="text-xl  w-[600px]  rounded-lg pt-8  text-black">
+            <div className="text-xl  w-[600px]  rounded-lg   text-black">
               <input
                 id="patient"
                 onChange={() => navigate("/patient/signup")}
@@ -36,12 +37,12 @@ function SignUp() {
               />
               <label htmlFor="patient">
                 <img
-                  className="mx-auto"
+                  className="mx-auto p-4"
                   width={310}
                   src="https://res.cloudinary.com/dgjqrdpbq/image/upload/v1719814310/1430453_heabgf.png"
                 />
 
-                <p className="mt-10  ">Patient</p>
+                <p className="  ">Patient</p>
               </label>
             </div>
           </div>

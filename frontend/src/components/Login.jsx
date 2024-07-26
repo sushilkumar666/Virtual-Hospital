@@ -19,7 +19,7 @@ function Login() {
           />
           Patient
         </form> */}
-        <div className=" rounded-lg mt-20 w-[30vw] mx-auto p-4 ">
+        <div className=" rounded-lg md:mt-20 mt-8 md:w-[30vw] w-[90vw] mx-auto pb-4 px-4 ">
           <form action="">
             <div className="flex border  border-black justify-evenly">
               <div className="text-xl  w-[300px] border-r-2 border-black  text-black">

@@ -19,70 +19,66 @@ const generateAccessToken = async (patientId) => {
     }
 }
 
-const registerUser = async (req, res) => {
- 
-    const { name, email, phone, password, age, historyOfSurgery, historyOfIllness} = req.body
-
-    const existedUser = await Patient.findOne(
-        { email }
-    )
-
-    if (existedUser) {
-        throw new Error(409, "User with email  already exists")
-    }
-    //console.log(req.files);
-
-    const profileImagePath = req.files?.profileImage[0]?.path;
-   
-
-    if (!profileImagePath) {
-        throw new Error(400, "profile file is required")
-    }
-
-    const profile = await uploadOnCloudinary(profileImagePath);
-    if (!profile) {
-        throw new ApiError(400, "profile file is required")
-    }
-    console.log(profile.url + " this is the cloudinary url of the signup doctor")
-
-    const patient = await Patient.create({
+const registerUser = async (req, res, next) => {
+    try {
+      const { name, email, phone, password, age, historyOfSurgery, historyOfIllness } = req.body;
+  
+      const existedUser = await Patient.findOne({ email });
+  
+      if (existedUser) {
+        return res.status(409).json({ error: "User with email already exists" });
+      }
+  
+      const profileImagePath = req.files?.profileImage?.[0]?.path;
+  
+      if (!profileImagePath) {
+        return res.status(400).json({ error: "Profile file is required" });
+      }
+  
+      const profile = await uploadOnCloudinary(profileImagePath);
+  
+      if (!profile) {
+        return res.status(400).json({ error: "Failed to upload profile image" });
+      }
+  
+      const patient = await Patient.create({
         name,
         profileImage: profile.url,
-        email, phone, password, age, historyOfSurgery, historyOfIllness, identity:  "patient" 
-    })
-
-
-    if (!patient) {
-        throw new Error(500, "Something went wrong while registering the user")
-    }
-    const createdPatient = await Patient.findById(patient._id).select(
-        "-password "
-    )
-
-    const  accessToken  = await generateAccessToken(patient._id)
-     
-     
-
-    const options = {
+        email,
+        phone,
+        password,
+        age,
+        historyOfSurgery,
+        historyOfIllness,
+        identity: "patient"
+      });
+  
+      if (!patient) {
+        return res.status(500).json({ error: "Something went wrong while registering the user" });
+      }
+  
+      const createdPatient = await Patient.findById(patient._id).select("-password");
+  
+      const accessToken = await generateAccessToken(patient._id);
+  
+      const options = {
         httpOnly: true,
         secure: true,
-         
+      };
+  
+      res.cookie("accessToken", accessToken, options);
+  
+      return res.status(200).json({
+        user: createdPatient,
+        accessToken,
+        message: "User registered successfully"
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: "Internal server error" });
     }
-    res.cookie("accessToken", accessToken, options);
-    
-    return res
-        .status(200)
-         .json(
-            new ApiResponse(
-                200,
-                {
-                    user: createdPatient, accessToken
-                },
-                "User registered Successfully"
-            )
-        )
-
-}
+  };
+  
 
 const loginUser = async (req, res) => {
     
@@ -92,7 +88,7 @@ const loginUser = async (req, res) => {
 
     if (!email) {
         throw new Error(400, " email is required")
-        throw new Error(400, " email is required")
+      
     }
 
 
