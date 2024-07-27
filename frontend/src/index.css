@@ -15,19 +15,18 @@
 .index{
   z-index: 10;
 }
-
+.hideinmoble{
+  display: block;
+}
 
 @media screen and (min-width: 480px) {
  .mblock{
   display : block;
  }
-
-  
 } 
 @media screen and (max-width: 480px) {
-  
-
- .mhidden{
-  display: hidden;
+ 
+ .hideinmoble{
+  display: none !important;
  }
 } 

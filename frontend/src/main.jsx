@@ -71,7 +71,6 @@ const router = createBrowserRouter([
 
         element: (
           <AuthLayout>
-            {" "}
             <DoctorList />
           </AuthLayout>
         ),

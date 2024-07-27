@@ -8,12 +8,13 @@ import SearchBar from "./SearchBar";
 import { NavLink } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import "./../index.css";
+import { optionClose, optionOpen } from "../store/optionSlice";
 
 function Navbar() {
   const authStatus = useSelector((state) => state.auth.status);
   const identity = useSelector((state) => state.auth.identity);
-  console.log(identity + "this is the value of identity in navabar");
-
+  const option = useSelector((state) => state.option.open);
+  const [isOpen, setIsOpen] = useState(option);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -21,6 +22,29 @@ function Navbar() {
     patients: [],
     doctors: [],
   });
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (option) {
+        dispatch(optionClose());
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [option, dispatch]);
+
+  const handleOptionClick = (event) => {
+    event.stopPropagation(); // Prevents the click from propagating to the document
+    if (option) {
+      dispatch(optionClose());
+    } else {
+      dispatch(optionOpen());
+    }
+  };
 
   const logout = async () => {
     console.log("logout ubtton clicked");
@@ -83,10 +107,10 @@ function Navbar() {
             <div className="flex ml-auto my-4 md:my-0  md:mr-12 items-center">
               <SearchBar setSearchResults={setSearchResults} />
               <div className="ml-10">
-                <div className="md:hidden block" onClick={() => setShow(!show)}>
+                <div className="md:hidden block" onClick={handleOptionClick}>
                   <BsThreeDotsVertical size={30} />
                 </div>
-                {show && (
+                {option && (
                   <ul className="absolute right-6 ">
                     <li className="bg-white border border-gray-300 p-3">
                       {" "}
@@ -113,7 +137,7 @@ function Navbar() {
             </div>
 
             {authStatus && (
-              <div className="md:block hidden">
+              <div className="hideinmoble">
                 <div>
                   <a
                     onClick={() => navigate("/profile")}

@@ -107,7 +107,7 @@ const PrescriptionPage = () => {
   return (
     <div className="mt-2">
       <form id="formData" onSubmit={handleSubmit}>
-        <div className="w-[70vw] mx-auto border border-black m-4">
+        <div className="w-[70vw] mx-auto border mb-10 border-black m-4">
           <div className="flex justify-between p-4 ">
             <div className="flex flex-col text-left">
               <div>Name: {user.name}</div>
@@ -120,7 +120,7 @@ const PrescriptionPage = () => {
           <div className="flex flex-col py-2 px-8 text-left">
             <label htmlFor="care">Care to be taken</label>
             <textarea
-              className="border mt-2 w-[60vw] border-black"
+              className="border mt-2 max-w-[70vw] border-black"
               id="care"
               rows={8}
               type="text"
@@ -135,7 +135,7 @@ const PrescriptionPage = () => {
           <div className="flex flex-col px-8 text-left">
             <label htmlFor="care">Medicines</label>
             <textarea
-              className="border mt-2 w-[60vw] border-black"
+              className="border mt-2 max-w-[70vw] border-black"
               id="care"
               rows={8}
               type="text"
@@ -151,7 +151,7 @@ const PrescriptionPage = () => {
           >
             Submit Prescription
           </button>
-          <p className="bg-[#0f9015] leading-4">&nbsp;</p>
+          <p className="bg-[#0f9015]leading-4">&nbsp;</p>
         </div>
       </form>
     </div>

@@ -84,6 +84,58 @@ const registerUser = async (req, res) => {
 
 }
 
+
+
+
+const updateProfile = async (req, res) => {
+    const id = req.parmas;
+    try {   
+    const { name, email, phone, password, experience, specialty } = req.body
+   
+    
+   
+    const profileImagePath = req.files?.profileImage[0]?.path;
+    // const coverImageLocalPath = req.files?.coverImage[0]?.path;
+    
+        const profile = await uploadOnCloudinary(profileImagePath);
+        if (!profile) {
+            throw new ApiError(400, "profile file is required")
+        }
+   
+    const doctor = await Doctor.updateById(id, {
+        name,
+        profileImage: profile,
+        email, phone, password, specialty, experience, identity
+    })
+
+    const updatedDoctor = await Doctor.findById(doctor._id).select(
+        "-password -refreshToken"
+    )
+
+    if (!updatedDoctor) {
+        throw new Error(500, "Something went wrong while registering the user")
+    }
+    // console.log(req.body);
+   
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                {
+                    doctor: updatedDoctor, accessToken
+                },
+                "User registered Successfully"
+            )
+        )
+   
+} catch (error) {
+       console.log('error in registration '  + error) 
+}
+
+}
+
 const loginUser = async (req, res) => {
     const { email, password } = req.body
     console.log(email);
@@ -317,6 +369,7 @@ export {
     prescribe,
     uploadPdf,
     patientHistory,
+    updateProfile
     
 }
 

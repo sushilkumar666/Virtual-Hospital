@@ -9,7 +9,7 @@ import {
     prescribe,
     uploadPdf,
     deletePatient,
-    
+    updateProfile
     
 } from "../controllers/doctor.controller.js";
 import { upload } from "../middlewares/multer.middleware.js"
@@ -56,6 +56,10 @@ router.route("/profile").get(verifyJWT, getCurrentUser);
 router.route("/patienthistory").get(verifyJWT, patientHistory);
 
 router.route("/deletepatient/:patientId").patch( deletePatient);
+
+router.route("/updateProfile").patch( updateProfile);
+
+
 
  
 

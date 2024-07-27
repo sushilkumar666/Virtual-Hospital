@@ -64,52 +64,56 @@ const PatientList = () => {
     <div>
       <div className="p-4">
         {patients?.map((patient) => (
-          <div className="flex px-5 py-3" key={patient._id}>
-            <div>
-              <img width={"300px"} src={patient.profileImage} alt="" />
-            </div>
-            <div className="text-left pl-4">
-              <div className="text-xl">
-                Patient Name:&nbsp; <span>{patient.name}</span>
-              </div>
-              <div>
-                Email: &nbsp; <span>{patient.email}</span>
-              </div>
-              <div>
-                Phone: &nbsp; <span>{patient.phone}</span>
-              </div>
-              <div>
-                Age: <span>{patient.age}</span>
-              </div>
-              <div>
-                Diabetic: <span>{patient?.diabeticOrNot}</span>
+          <div className="p-4" key={patient._id}>
+            <div className="border border-gray-500 rounded-lg flex  flex-col md:flex-row px-5 py-3">
+              <div className="mx-auto md:mx-0">
+                <img width={"230px"} src={patient.profileImage} alt="" />
               </div>
 
-              <div>
-                Illness History: &nbsp; <span>{patient.historyOfIllness}</span>
-              </div>
-              <div>
-                Surgery History:&nbsp; <span>{patient.historyOfSurgery}</span>
-              </div>
+              <div className="text-left pl-4">
+                <div className="text-xl">
+                  Patient Name:&nbsp; <span>{patient.name}</span>
+                </div>
+                <div>
+                  Email: &nbsp; <span>{patient.email}</span>
+                </div>
+                <div>
+                  Phone: &nbsp; <span>{patient.phone}</span>
+                </div>
+                <div>
+                  Age: <span>{patient.age}</span>
+                </div>
+                <div>
+                  Diabetic: <span>{patient?.diabeticOrNot}</span>
+                </div>
 
-              <div>
-                {" "}
-                Current Illness History:{" "}
-                <span>{patient.currentIllnessHistory}</span>
+                <div>
+                  Illness History: &nbsp;{" "}
+                  <span>{patient.historyOfIllness}</span>
+                </div>
+                <div>
+                  Surgery History:&nbsp; <span>{patient.historyOfSurgery}</span>
+                </div>
+
+                <div>
+                  {" "}
+                  Current Illness History:{" "}
+                  <span>{patient.currentIllnessHistory}</span>
+                </div>
+                <div>
+                  Recent Surgery: <span>{patient.recentSurgery}</span>
+                </div>
               </div>
-              <div>
-                Recent Surgery: <span>{patient.recentSurgery}</span>
+              <div className="mx-auto md:ml-auto my-10 ">
+                <span
+                  onClick={() => {
+                    navigate(`/doctor/prescription/${patient._id}`);
+                  }}
+                  className=" ml-auto p-4   bg-[#0f9015] border cursor-pointer text-white rounded-xl"
+                >
+                  prescribe
+                </span>
               </div>
-            </div>
-            <div className="ml-auto mr-20">
-              <span
-                onClick={() => {
-                  navigate(`/doctor/prescription/${patient._id}`);
-                }}
-                className="ml-auto p-4 bg-[#0f9015] border cursor-pointer text-white rounded-xl"
-              >
-                prescribe
-              </span>
             </div>
           </div>
         ))}

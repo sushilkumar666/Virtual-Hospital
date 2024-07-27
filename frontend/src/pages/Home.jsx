@@ -4,6 +4,7 @@ import React from "react";
 import PatientList from "../components/PatientList";
 import { useSelector } from "react-redux";
 import DoctorList from "../components/DoctorList";
+import AuthLayout from "./../components/AuthLayout";
 
 function Home() {
   console.log("insdie home page");

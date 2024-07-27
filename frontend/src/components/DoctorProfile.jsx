@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function UserProfile() {
+function DoctorProfile() {
   const [user, setUser] = useState({}); // Initialize to null to handle loading state
   const identity = useSelector((state) => state.auth.identity);
   console.log(identity + "idnentity vlaue");
@@ -31,6 +31,14 @@ function UserProfile() {
     }
   };
 
+  // const userData = {
+  //   name: user?.name,
+  //   specialty: user?.specialty,
+  //   experience: user?.experience,
+  //   email: user?.experience,
+  //   phone: phone?.phone,
+  // };
+
   useEffect(() => {
     const getuserDetails = async () => {
       await fetchuserDetails();
@@ -49,18 +57,35 @@ function UserProfile() {
           />
         </div>
         <div className="text-left">
-          <p className="text-4xl ">r.&nbsp;{user?.name}</p>
+          {/* <p className="text-4xl ">Dr.&nbsp;{user?.name}</p> */}
           <p>
+            {" "}
+            <span className="text-4xl"> Dr. </span>
+            <input
+              className="text-4xl "
+              value={user?.name}
+              type="text"
+              disabled
+            />{" "}
+          </p>
+          {/* <p>
             Specialty: <span>{user?.specialty}</span>
-          </p>
-          <p>
+          </p> */}
+          Specialty: <input value={user?.specialty} disabled />
+          {/* <p>
             Experience: <span>{user?.experience}</span>
-          </p>
+          </p> */}
           <p>
+            Experience: <input value={user?.experience} disabled />
+          </p>
+          {/* <p>
             Email: <span>{user?.email}</span>
+          </p> */}
+          <p>
+            Email: <input value={user?.email} disabled />
           </p>
           <p>
-            Phone: <span>{user?.phone}</span>
+            Phone: <input value={user?.phone} disabled />
           </p>
           <p>
             Description: users diagnose disease, provide treatment, counsel
@@ -69,13 +94,12 @@ function UserProfile() {
             in cardiology, whereas others may work in surgery, neurology,
             pulmonology or rheumatology.
           </p>
-
           <div className="my-5 mx-auto mb-10">
             <Link
               className="px-4  py-2 border border-black bg-green-500 rounded-lg text-white"
               to={`/patient/consultationform/${user?._id}`}
             >
-              Consult
+              Edit
             </Link>
           </div>
         </div>
@@ -84,4 +108,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+export default DoctorProfile;
