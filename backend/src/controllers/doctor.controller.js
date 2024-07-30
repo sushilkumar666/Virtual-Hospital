@@ -356,6 +356,35 @@ const deletePatient = async (req, res) => {
 };
 
 
+const editDoctorDetails = async (req, res) => {
+
+        try{
+            console.log( JSON.stringify( req.body) + " this is the req.body");
+        const doctorId = req.doctor._id;
+        const { name="", email="", phone="", experience="", specialty="", description=""} = req.body;
+
+        if(!doctorId){
+            return res.status(400).json({ message: 'Doctor ID is required',  });
+        }
+
+        const data = await Doctor.findByIdAndUpdate(doctorId, {$set:{name, email, phone, experience, specialty, description}}, {new: true})
+
+        console.log(data + " data after doctor updatedetails");
+        res.status(200).json({
+            success: true,
+            data : data
+        })
+    }
+    catch(error){
+        console.log("error while updating doctor's detail " + error);
+        res.status(400).json({
+            success:false,
+            message: "Error while updating doctor's detail"
+        })
+    }
+}
+
+
  
 
 export {
@@ -369,7 +398,8 @@ export {
     prescribe,
     uploadPdf,
     patientHistory,
-    updateProfile
+    updateProfile,
+    editDoctorDetails
     
 }
 

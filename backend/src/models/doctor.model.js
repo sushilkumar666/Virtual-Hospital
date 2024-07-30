@@ -10,7 +10,8 @@ const doctorSchema = new mongoose.Schema({
     phone: { type: String, unique: true, required: true },
     experience: { type: String, required: true },
     identity: { type: String, required: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    description: {type: String, default: "Add Your Description"}
 
 }, { timeStamps: true });
 doctorSchema.pre("save", async function (next) {

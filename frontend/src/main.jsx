@@ -18,7 +18,7 @@ import PrescriptionPage from "./components/PrescriptionPage.jsx";
 import ConsultationForm from "./components/ConsultationForm.jsx";
 import Profile from "./components/Profile.jsx";
 import DoctorList from "./components/DoctorList.jsx";
-import UserProfile from "./components/UserProfile.jsx";
+import UserProfile from "./components/DoctorProfile.jsx";
 import PatientHistory from "./components/PatientHistory.jsx";
 import PresciptionPdf from "./components/PresciptionPdf.jsx";
 import UserPrescription from "./components/UserPrescription.jsx";

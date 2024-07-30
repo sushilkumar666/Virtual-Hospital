@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { BsColumnsGap } from "react-icons/bs";
 
 function DoctorProfile() {
   const [user, setUser] = useState({}); // Initialize to null to handle loading state
+  const [isEdit, setIsEdit] = useState(true);
   const identity = useSelector((state) => state.auth.identity);
   console.log(identity + "idnentity vlaue");
 
@@ -31,13 +33,30 @@ function DoctorProfile() {
     }
   };
 
-  // const userData = {
-  //   name: user?.name,
-  //   specialty: user?.specialty,
-  //   experience: user?.experience,
-  //   email: user?.experience,
-  //   phone: phone?.phone,
-  // };
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const editDetails = async (user) => {
+    try {
+      let { data } = await axios.put(
+        "http://localhost:8000/api/v1/doctor/editDetails",
+        user,
+        { withCredentials: true, "Custom-Header": "CustomValue" }
+      );
+      console.log(data);
+      if (data.success) {
+        console.log("doctor's data updated successfully");
+      }
+    } catch (error) {
+      console.log("error while update doctor's detail " + error);
+    }
+  };
+
+  const formSubmit = (e) => {
+    e.preventDefault();
+    editDetails(user);
+  };
 
   useEffect(() => {
     const getuserDetails = async () => {
@@ -47,63 +66,113 @@ function DoctorProfile() {
   }, []);
   return (
     <div>
-      <div className="card  md:flex  items-center">
-        <div className="md:mr-10 ">
-          <img
-            width={"100%"}
-            className="w-[60vw] md:w-[100%] mx-auto mb-4"
-            src={user?.profileImage}
-            alt={user?.name}
-          />
-        </div>
-        <div className="text-left">
-          {/* <p className="text-4xl ">Dr.&nbsp;{user?.name}</p> */}
-          <p>
-            {" "}
-            <span className="text-4xl"> Dr. </span>
-            <input
-              className="text-4xl "
-              value={user?.name}
-              type="text"
-              disabled
-            />{" "}
-          </p>
-          {/* <p>
+      <form onSubmit={formSubmit}>
+        <div className="card  md:flex  items-center">
+          <div className="md:mr-10 ">
+            <img
+              width={"100%"}
+              className="w-[60vw] md:w-[100%] mx-auto mb-4"
+              src={user?.profileImage}
+              alt={user?.name}
+            />
+          </div>
+          <div className="text-left">
+            {/* <p className="text-4xl ">Dr.&nbsp;{user?.name}</p> */}
+            <p>
+              <span className="text-4xl md:w-[100vw]"> Dr. </span>
+              <input
+                className="text-4xl w-[100vw]"
+                value={user?.name}
+                type="text"
+                name="name"
+                disabled="true"
+              />
+            </p>
+            {/* <p>
             Specialty: <span>{user?.specialty}</span>
           </p> */}
-          Specialty: <input value={user?.specialty} disabled />
-          {/* <p>
+            Specialty:{" "}
+            <input
+              onChange={handleChange}
+              value={user?.specialty}
+              type="text"
+              disabled={isEdit}
+              name="specialty"
+            />
+            {/* <p>
             Experience: <span>{user?.experience}</span>
           </p> */}
-          <p>
-            Experience: <input value={user?.experience} disabled />
-          </p>
-          {/* <p>
+            <p>
+              Experience:{" "}
+              <input
+                onChange={handleChange}
+                value={user?.experience}
+                type="number"
+                disabled={isEdit}
+                name="experience"
+              />
+            </p>
+            {/* <p>
             Email: <span>{user?.email}</span>
           </p> */}
-          <p>
-            Email: <input value={user?.email} disabled />
-          </p>
-          <p>
-            Phone: <input value={user?.phone} disabled />
-          </p>
-          <p>
-            Description: users diagnose disease, provide treatment, counsel
-            patients with injuries, diseases or illnesses. The specific duties
-            depend upon the speciality you pursue in your MBBS. Some users work
-            in cardiology, whereas others may work in surgery, neurology,
-            pulmonology or rheumatology.
-          </p>
-          <div className="my-5 mx-auto mb-10">
-            <Link
-              className="px-4  py-2 border border-black bg-green-500 rounded-lg text-white"
-              to={`/patient/consultationform/${user?._id}`}
-            >
-              Edit
-            </Link>
+            <p>
+              Email:{" "}
+              <input
+                onChange={handleChange}
+                value={user?.email}
+                type="email"
+                disabled={isEdit}
+                name="email"
+              />
+            </p>
+            <p>
+              Phone:{" "}
+              <input
+                onChange={handleChange}
+                value={user?.phone}
+                type="mobile"
+                disabled={isEdit}
+                name="phone"
+              />
+            </p>
+            Description:{" "}
+            <p>
+              <textarea
+                className="w-full md:w-3/4 lg:w-1/2 h-32 md:h-48 lg:h-64 p-4 resize-y border rounded-lg focus:outline-none"
+                cols="100"
+                rows="6"
+                onChange={handleChange}
+                maxLength="1500"
+                name="description"
+                disabled={isEdit}
+                value={user?.description || ""}
+              />
+            </p>
+            <div className="my-5 mx-auto mb-10">
+              {/* <Link
+                className="px-4  py-2 border border-black bg-green-500 rounded-lg text-white"
+                to={`/doctor/editDetails`}
+              > */}
+              {isEdit ? (
+                <button
+                  onClick={() => setIsEdit((prev) => !prev)}
+                  className="px-4  py-2 border border-black bg-green-500 rounded-lg text-white"
+                >
+                  Edit
+                </button>
+              ) : (
+                <button
+                  onClick={() => setIsEdit((prev) => !prev)}
+                  className="px-4  py-2 border border-black bg-green-500 rounded-lg text-white"
+                >
+                  update
+                </button>
+              )}
+              {/* </Link> */}
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
