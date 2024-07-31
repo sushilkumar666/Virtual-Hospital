@@ -6,7 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import AuthLayout from "./components/AuthLayout.jsx";
 import { Provider } from "react-redux";
-import store from "./store/store.js";
+import { store, persistor } from "./store/store.js";
 import Login from "./components/Login.jsx";
 import SignUp from "./components/SignUp.jsx";
 import PatientSignUp from "./components/PatientSignUp.jsx";
@@ -25,6 +25,7 @@ import UserPrescription from "./components/UserPrescription.jsx";
 import DummyPage from "./components/DummyPage.jsx";
 import DoctorProfile from "./components/DoctorProfile.jsx";
 import PatientProfile from "./components/PatientProfile.jsx";
+import { PersistGate } from "redux-persist/integration/react";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,7 +42,12 @@ const router = createBrowserRouter([
 
       {
         path: "/signup",
-        element: <SignUp />,
+
+        element: (
+          <AuthLayout authentication={false}>
+            <SignUp />
+          </AuthLayout>
+        ),
       },
       {
         path: "/dummy",
@@ -49,30 +55,51 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login />,
+
+        element: (
+          <AuthLayout authentication={false}>
+            <Login />
+          </AuthLayout>
+        ),
       },
 
       {
         path: "/patient/signup",
-        element: <PatientSignUp />,
+        element: (
+          <AuthLayout authentication={false}>
+            <PatientSignUp />
+          </AuthLayout>
+        ),
       },
       {
         path: "/doctor/signup",
-        element: <DoctorSignUp />,
+        element: (
+          <AuthLayout>
+            <DoctorSignUp />
+          </AuthLayout>
+        ),
       },
       {
         path: "/patient/login",
-        element: <PatientSignIn />,
+        element: (
+          <AuthLayout authentication={false}>
+            <PatientSignIn />
+          </AuthLayout>
+        ),
       },
       {
         path: "/doctor/login",
-        element: <DoctorSignIn />,
+        element: (
+          <AuthLayout authentication={false}>
+            <DoctorSignIn />
+          </AuthLayout>
+        ),
       },
       {
         path: "/patient/doctorlist/:page",
 
         element: (
-          <AuthLayout>
+          <AuthLayout authentication={true}>
             <DoctorList />
           </AuthLayout>
         ),
@@ -80,7 +107,7 @@ const router = createBrowserRouter([
       {
         path: "patient/patientprofile",
         element: (
-          <AuthLayout>
+          <AuthLayout authentication={true}>
             <PatientProfile />
           </AuthLayout>
         ),
@@ -88,7 +115,7 @@ const router = createBrowserRouter([
       {
         path: "doctor/doctorprofile",
         element: (
-          <AuthLayout>
+          <AuthLayout authentication={true}>
             <DoctorProfile />
           </AuthLayout>
         ),
@@ -96,7 +123,7 @@ const router = createBrowserRouter([
       {
         path: "/doctor/prescription/:patientId",
         element: (
-          <AuthLayout>
+          <AuthLayout authentication={true}>
             <PrescriptionPage />,
           </AuthLayout>
         ),
@@ -104,7 +131,7 @@ const router = createBrowserRouter([
       {
         path: "/patient/consultationform/:doctorId",
         element: (
-          <AuthLayout>
+          <AuthLayout authentication={true}>
             <ConsultationForm />,
           </AuthLayout>
         ),
@@ -112,7 +139,7 @@ const router = createBrowserRouter([
       {
         path: "/patient/doctordetails/:doctorId",
         element: (
-          <AuthLayout>
+          <AuthLayout authentication={true}>
             <Profile />,
           </AuthLayout>
         ),
@@ -120,22 +147,34 @@ const router = createBrowserRouter([
       {
         path: "/doctor/doctorprofile",
         element: (
-          <AuthLayout>
+          <AuthLayout authentication={true}>
             <PatientList />,
           </AuthLayout>
         ),
       },
       {
         path: "/doctor/patienthistory",
-        element: <PatientHistory />,
+        element: (
+          <AuthLayout authentication={true}>
+            <PatientHistory />,
+          </AuthLayout>
+        ),
       },
       {
         path: "/doctor/patientlist/:patientId",
-        element: <PresciptionPdf />,
+        element: (
+          <AuthLayout authentication={true}>
+            <PresciptionPdf />,
+          </AuthLayout>
+        ),
       },
       {
         path: "/patient/prescription",
-        element: <UserPrescription />,
+        element: (
+          <AuthLayout authentication={true}>
+            <UserPrescription />,
+          </AuthLayout>
+        ),
       },
 
       // {
@@ -149,7 +188,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <RouterProvider router={router}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </RouterProvider>
   </Provider>
 );

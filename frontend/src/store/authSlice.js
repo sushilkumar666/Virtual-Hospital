@@ -19,8 +19,7 @@ const authSlice = createSlice({
         logout: (state) => {
             state.status = false;
             state.identity = "";
-            
-           
+            Cookies.remove('accessToken'); 
         },
         test:(state) => {
             console.log("test sucesful")
