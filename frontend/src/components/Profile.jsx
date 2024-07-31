@@ -34,13 +34,13 @@ function Profile() {
       <div className="card   md:flex items-center">
         <div className="md:mr-10 ">
           <img
-            className="w-[60vw] md:w-[100%] mx-auto mb-4"
+            className="w-[60vw] md:w-[200px] mx-auto mb-4"
             src={doctor?.profileImage}
             alt={doctor?.name}
           />
         </div>
         <div className="text-left">
-          <p className="text-4xl ">D.&nbsp;{doctor?.name}</p>
+          <p className="text-4xl ">Dr.&nbsp;{doctor?.name}</p>
           <p>
             Specialty: <span>{doctor?.specialty}</span>
           </p>
@@ -53,13 +53,7 @@ function Profile() {
           <p>
             Phone: <span>{doctor?.phone}</span>
           </p>
-          <p>
-            Description: Doctors diagnose disease, provide treatment, counsel
-            patients with injuries, diseases or illnesses. The specific duties
-            depend upon the speciality you pursue in your MBBS. Some doctors
-            work in cardiology, whereas others may work in surgery, neurology,
-            pulmonology or rheumatology.
-          </p>
+          <p>{doctor?.description}</p>
 
           <div className="mt-5">
             <Link

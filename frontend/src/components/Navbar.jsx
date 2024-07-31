@@ -112,16 +112,29 @@ function Navbar() {
                 </div>
                 {option && (
                   <ul className="absolute right-6 ">
-                    <li className="bg-white border border-gray-300 p-3">
-                      {" "}
-                      <a
-                        onClick={() => navigate("/profile")}
-                        href="#"
-                        className="py-2 px-4 font-medium text-black rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
-                      >
-                        Profile
-                      </a>
-                    </li>
+                    {identity == "doctor" ? (
+                      <li className="bg-white border border-gray-300 p-3">
+                        {" "}
+                        <a
+                          onClick={() => navigate(`doctor/doctorprofile`)}
+                          href=""
+                          className="py-2 px-4 font-medium text-black rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
+                        >
+                          Profile
+                        </a>
+                      </li>
+                    ) : (
+                      <li className="bg-white border border-gray-300 p-3">
+                        {" "}
+                        <a
+                          onClick={() => navigate(`patient/patientprofile`)}
+                          href=""
+                          className="py-2 px-4 font-medium text-black rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
+                        >
+                          Profile
+                        </a>
+                      </li>
+                    )}
                     <li className="bg-white border border-gray-300 p-3">
                       <a
                         onClick={logout}
@@ -140,8 +153,7 @@ function Navbar() {
               <div className="hideinmoble">
                 <div>
                   <a
-                    onClick={() => navigate("/profile")}
-                    href="#"
+                    href="/profile"
                     className="py-2 px-4 font-medium text-white rounded hover:bg-gray-100 hover:text-gray-900 transition duration-300"
                   >
                     Profile

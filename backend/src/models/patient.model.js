@@ -28,7 +28,8 @@ const patientSchema = new mongoose.Schema({
     others: { type: String },
     transactionId: { type: String },
     pdf: { type: String },
-    presentInHistory: { type: Boolean, default: true }
+    presentInHistory: { type: Boolean, default: true },
+    description : {type:String}
 
 
 }, {

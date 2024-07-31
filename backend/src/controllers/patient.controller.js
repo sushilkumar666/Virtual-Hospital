@@ -266,8 +266,36 @@ const getPrescriptionPdf = async (req, res) => {
       throw new Error("Error while fetching pdf " + error);
     }
   }
-  
 
+  const editPatientDetails = async (req, res) => {
+
+    try{
+        console.log( JSON.stringify( req.body) + " this is the req.body");
+    const patientId = req.patient._id;
+    const { name="", email="", phone="", description=""} = req.body;
+
+    if(!patientId){
+        return res.status(400).json({ message: 'patient ID is required',  });
+    }
+
+    const data = await Patient.findByIdAndUpdate(patientId, {$set:{name, email, phone, description}}, {new: true})
+
+    console.log(data + " data after doctor updatedetails");
+    res.status(200).json({
+        success: true,
+        data : data
+    })
+}
+catch(error){
+    console.log("error while updating doctor's detail " + error);
+    res.status(400).json({
+        success:false,
+        message: "Error while updating doctor's detail"
+    })
+}
+}
+  
+  
 
 
 export {
@@ -279,6 +307,7 @@ export {
     getDoctor,
     getConsultation,
     getSearchDoctor,
-    getPrescriptionPdf
+    getPrescriptionPdf,
+    editPatientDetails
 
 }

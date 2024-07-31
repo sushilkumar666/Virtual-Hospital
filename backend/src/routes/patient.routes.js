@@ -6,7 +6,8 @@ import {
     getCurrentUser,
     getConsultation,
     getSearchDoctor,
-    getPrescriptionPdf
+    getPrescriptionPdf,
+    editPatientDetails
 } from "../controllers/patient.controller.js";
 import { upload } from "../middlewares/multer.middleware.js"
 import { verifyJWT } from "../middlewares/patient.middleware.js";
@@ -43,11 +44,7 @@ router.route("/profile").get(verifyJWT, getCurrentUser);
 
 router.route("/search/:query").get( getSearchDoctor);
 
+router.route("/editDetails").put(verifyJWT, editPatientDetails);
 
 
-
-
-
-
-
-export default router
+export default router;

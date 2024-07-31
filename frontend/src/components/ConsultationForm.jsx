@@ -33,7 +33,7 @@ const ConsultationForm = () => {
     console.log(JSON.stringify(formData) + " this form data");
     try {
       const { data } = await axios.post(
-        `http://localhost:8000/api/v1/patient/consult/${doctorId}`,
+        `https://virtual-hospital.vercel.app/api/v1/patient/consult/${doctorId}`,
         formData,
         { withCredentials: true }
       );
@@ -84,6 +84,7 @@ const ConsultationForm = () => {
                 name="recentSurgery"
                 placeholder="Recent Surgery"
                 onChange={handleChange}
+                required
               />
             </div>
 
@@ -156,6 +157,7 @@ const ConsultationForm = () => {
                   name="others"
                   placeholder="Others"
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>

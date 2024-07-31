@@ -23,6 +23,8 @@ import PatientHistory from "./components/PatientHistory.jsx";
 import PresciptionPdf from "./components/PresciptionPdf.jsx";
 import UserPrescription from "./components/UserPrescription.jsx";
 import DummyPage from "./components/DummyPage.jsx";
+import DoctorProfile from "./components/DoctorProfile.jsx";
+import PatientProfile from "./components/PatientProfile.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -76,10 +78,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/profile",
+        path: "patient/patientprofile",
         element: (
           <AuthLayout>
-            <UserProfile />
+            <PatientProfile />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "doctor/doctorprofile",
+        element: (
+          <AuthLayout>
+            <DoctorProfile />
           </AuthLayout>
         ),
       },

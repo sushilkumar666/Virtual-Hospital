@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { BsColumnsGap } from "react-icons/bs";
 
-function DoctorProfile() {
+function PatientProfile() {
   const [user, setUser] = useState({}); // Initialize to null to handle loading state
   const [isEdit, setIsEdit] = useState(true);
   const identity = useSelector((state) => state.auth.identity);
@@ -12,21 +12,16 @@ function DoctorProfile() {
 
   const fetchuserDetails = async () => {
     try {
-      console.log("check1");
-      let data = await axios.get(
-        `http://localhost:8000/api/v1/doctor/profile`,
-        {
-          withCredentials: true,
-          "Custom-Header": "CustomValue",
-        }
-      );
-
+      let data;
+      data = await axios.get(`http://localhost:8000/api/v1/patient/profile`, {
+        withCredentials: true,
+        "Custom-Header": "CustomValue",
+      });
       setUser(data.data.data);
-      console.log("check2");
       console.log(data.data.data.name + " this is the value of data.data");
       //   console.log(data.name + " this is the value of data");
-      console.log("check3");
-      console.log(data.data + " this is my check for doctor detail data");
+
+      console.log(data.data);
     } catch (error) {
       console.error("Error fetching user details:", error);
       // Handle error (e.g., set error state)
@@ -40,13 +35,13 @@ function DoctorProfile() {
   const editDetails = async (user) => {
     try {
       let { data } = await axios.put(
-        "http://localhost:8000/api/v1/doctor/editDetails",
+        "http://localhost:8000/api/v1/patient/editDetails",
         user,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
       console.log(data);
       if (data.success) {
-        console.log("doctor's data updated successfully");
+        console.log(data + "doctor's data updated successfully");
       }
     } catch (error) {
       console.log("error while update doctor's detail " + error);
@@ -79,37 +74,12 @@ function DoctorProfile() {
           <div className="text-left">
             {/* <p className="text-4xl ">Dr.&nbsp;{user?.name}</p> */}
             <p>
-              <span className="text-4xl md:w-[100vw]"> Dr. </span>
               <input
                 className="text-4xl w-[100vw]"
                 value={user?.name}
                 type="text"
                 name="name"
                 disabled="true"
-              />
-            </p>
-            {/* <p>
-            Specialty: <span>{user?.specialty}</span>
-          </p> */}
-            Specialty:{" "}
-            <input
-              onChange={handleChange}
-              value={user?.specialty}
-              type="text"
-              disabled={isEdit}
-              name="specialty"
-            />
-            {/* <p>
-            Experience: <span>{user?.experience}</span>
-          </p> */}
-            <p>
-              Experience:{" "}
-              <input
-                onChange={handleChange}
-                value={user?.experience}
-                type="number"
-                disabled={isEdit}
-                name="experience"
               />
             </p>
             {/* <p>
@@ -169,7 +139,6 @@ function DoctorProfile() {
                   update
                 </button>
               )}
-              {/* </Link> */}
             </div>
           </div>
         </div>
@@ -178,4 +147,4 @@ function DoctorProfile() {
   );
 }
 
-export default DoctorProfile;
+export default PatientProfile;
