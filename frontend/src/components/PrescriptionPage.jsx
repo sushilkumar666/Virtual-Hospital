@@ -19,11 +19,11 @@ const PrescriptionPage = () => {
     const input = document.getElementById("formData");
     html2canvas(input, { scale: 1 }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a5");
+      const pdf = new jsPDF("p", "mm", "a4");
       const imgProps = pdf.getImageProperties(imgData);
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth * 1.5) / imgProps.width;
-      pdf.addImage(imgData, "PNG", -15, 20, pdfWidth * 1.2, pdfHeight);
+      const pdfHeight = (imgProps.height * pdfWidth * 2) / imgProps.width;
+      pdf.addImage(imgData, "PNG", 30, 40, pdfWidth * 1.2, pdfHeight);
       // pdf.save("formData.pdf");
 
       const pdfBlob = pdf.output("blob");
@@ -56,7 +56,7 @@ const PrescriptionPage = () => {
               confirmButtonText: "OK",
             });
 
-            navigate("/doctor/doctorprofile");
+            navigate("/");
           }
         });
     });
@@ -83,7 +83,8 @@ const PrescriptionPage = () => {
       );
 
       setUser(data.data);
-      console.log(data.data.data.name + " this is the value of data.data");
+      console.log(JSON.stringify(data.data) + " this is vlaue of data.data");
+      console.log(data.data.name + " this is the value of data.data");
       //   console.log(data.name + " this is the value of data");
 
       console.log(data.data);
@@ -108,7 +109,9 @@ const PrescriptionPage = () => {
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <form onSubmit={handleSubmit}>
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div
+            id="formData"
+            className="bg-white rounded-xl shadow-lg overflow-hidden">
             {/* Header Section */}
             <div className="border-b border-gray-200">
               <div className="px-8 py-6 flex justify-between items-start">

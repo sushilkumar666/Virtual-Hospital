@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/authSlice";
 
 function DoctorSignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const dataValue = useSelector((state) => state.auth.identity);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -35,9 +36,13 @@ function DoctorSignIn() {
       // console.log(JSON.stringify(data.data.doctor) + " data value ");
       console.log(data, "data coming from dr login");
       if (data.success) {
+        console.log(JSON.stringify(data));
+
         const identity = data.data.doctor.identity;
+
         console.log(identity + " this identity value");
-        dispatch(login({ identity }));
+        dispatch(login({ identity: identity }));
+        console.log(dataValue + " value of data vlue");
         navigate("/doctor/doctorprofile");
         // navigate("/dummy");
       } else {
@@ -62,23 +67,23 @@ function DoctorSignIn() {
         <div className="bg-white py-8 px-4 shadow-xl sm:rounded-lg sm:px-10">
           <div className="text-center mb-6">
             <p className="text-sm text-gray-600">
-              Don't have an account?{' '}
+              Don't have an account?{" "}
               <button
                 type="button"
                 onClick={() => navigate("/signup")}
-                className="font-medium text-blue-600 hover:text-blue-500 transition-colors focus:outline-none focus:underline"
-              >
+                className="font-medium text-blue-600 hover:text-blue-500 transition-colors focus:outline-none focus:underline">
                 Create one now
               </button>
             </p>
           </div>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form
+            className="space-y-6"
+            onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
+                className="block text-sm font-medium text-gray-700">
                 Email address
               </label>
               <div className="mt-1">
@@ -99,8 +104,7 @@ function DoctorSignIn() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
+                className="block text-sm font-medium text-gray-700">
                 Password
               </label>
               <div className="mt-1">
@@ -121,8 +125,7 @@ function DoctorSignIn() {
             <div className="flex items-center justify-end">
               <button
                 type="button"
-                className="text-sm font-medium text-blue-600 hover:text-blue-500 transition-colors focus:outline-none focus:underline"
-              >
+                className="text-sm font-medium text-blue-600 hover:text-blue-500 transition-colors focus:outline-none focus:underline">
                 Forgot your password?
               </button>
             </div>
@@ -132,8 +135,7 @@ function DoctorSignIn() {
                 type="submit"
                 className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium 
                 text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 
-                transition-colors duration-200"
-              >
+                transition-colors duration-200">
                 Sign in
               </button>
             </div>
@@ -156,8 +158,7 @@ function DoctorSignIn() {
                 type="button"
                 className="w-full inline-flex justify-center py-2.5 px-4 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 
                 hover:bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 
-                transition-colors duration-200"
-              >
+                transition-colors duration-200">
                 <span className="sr-only">Sign in with Google</span>
                 Google
               </button>
@@ -165,8 +166,7 @@ function DoctorSignIn() {
                 type="button"
                 className="w-full inline-flex justify-center py-2.5 px-4 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 
                 hover:bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 
-                transition-colors duration-200"
-              >
+                transition-colors duration-200">
                 <span className="sr-only">Sign in with Microsoft</span>
                 Microsoft
               </button>

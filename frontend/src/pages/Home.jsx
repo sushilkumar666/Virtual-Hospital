@@ -9,9 +9,12 @@ import AuthLayout from "./../components/AuthLayout";
 function Home() {
   console.log("insdie home page");
   const state = useSelector((state) => state.auth);
-  // console.log(identity);
+  console.log(JSON.stringify(state.identity) + " this is identy i home");
   return (
-    <div>{state.identity == "doctor" ? <PatientList /> : <DoctorList />}</div>
+    <>
+      <div>{state.identity == "doctor" && <PatientList />}</div>
+      <div> {state.identity == "patient" && <DoctorList />} </div>
+    </>
   );
 }
 

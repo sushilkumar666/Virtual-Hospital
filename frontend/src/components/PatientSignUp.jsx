@@ -127,6 +127,7 @@ function PatientSignUp() {
 
     const formDataToSend = new FormData();
     for (const key in formData) {
+      console.log(formData[key]);
       formDataToSend.append(key, formData[key]);
     }
 
@@ -143,8 +144,8 @@ function PatientSignUp() {
         }
       );
       console.log(JSON.stringify(data) + " ye hamar adata hai");
-      if (data.success) {
-        const identity = data.data.user.identity;
+      if (data?.user) {
+        const identity = data.user.identity;
         dispatch(login({ identity }));
         navigate("/");
       } else {
@@ -154,7 +155,7 @@ function PatientSignUp() {
       setErrors((prev) => ({ ...prev, general: error.response.data.error }));
     }
   };
-  console.log(errors);
+  // console.log(errors);
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-2xl">
@@ -348,6 +349,7 @@ function PatientSignUp() {
                           name="profileImage"
                           onChange={handleFileChange}
                           type="file"
+                          required
                           className="relative cursor-pointer rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none"
                         />
                       </div>

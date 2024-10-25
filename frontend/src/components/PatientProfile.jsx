@@ -7,8 +7,8 @@ import { BsColumnsGap } from "react-icons/bs";
 function PatientProfile() {
   const [user, setUser] = useState({}); // Initialize to null to handle loading state
   const [isEdit, setIsEdit] = useState(true);
-  const identity = useSelector((state) => state.auth.identity);
-  console.log(identity + "idnentity vlaue");
+  // const identity = useSelector((state) => state.auth.identity);
+  // console.log(JSON.stringify(identity) + "idnentity vlaue");
 
   const fetchuserDetails = async () => {
     try {
@@ -17,6 +17,9 @@ function PatientProfile() {
         withCredentials: true,
         "Custom-Header": "CustomValue",
       });
+
+      console.log(data + " this is patient data");
+      console.log(JSON.stringify(data) + " this is patient data");
       setUser(data.data.data);
       console.log(data.data.data.name + " this is the value of data.data");
       //   console.log(data.name + " this is the value of data");
@@ -39,9 +42,10 @@ function PatientProfile() {
         user,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
+
       console.log(data);
       if (data.success) {
-        console.log(data + "doctor's data updated successfully");
+        console.log(data + "patients data updated successfully");
       }
     } catch (error) {
       console.log("error while update doctor's detail " + error);
@@ -72,7 +76,7 @@ function PatientProfile() {
                 <img
                   className="w-full h-full object-cover"
                   src={user?.profileImage}
-                  alt={user?.name}
+                  alt={user?.profileImage}
                 />
               </div>
             </div>

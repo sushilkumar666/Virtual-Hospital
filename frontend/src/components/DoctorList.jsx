@@ -77,8 +77,7 @@ function DoctorList() {
           {doctors?.map((doctor) => (
             <div
               key={doctor._id}
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
-            >
+              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
               <div className="p-6">
                 <div className="relative mb-6">
                   <div className="w-48 h-48 mx-auto rounded-full overflow-hidden bg-gray-100">
@@ -101,7 +100,9 @@ function DoctorList() {
                     </p>
                     <div className="flex items-center justify-center space-x-1 text-gray-600">
                       <span className="text-sm">Experience:</span>
-                      <span className="font-medium">{doctor.experience} years</span>
+                      <span className="font-medium">
+                        {doctor.experience} years
+                      </span>
                     </div>
                   </div>
 
@@ -109,8 +110,7 @@ function DoctorList() {
                     onClick={() => details(doctor._id)}
                     className="mt-4 w-full py-3 px-6 bg-blue-600 text-white font-semibold rounded-lg 
                     hover:bg-blue-700 transition-colors duration-200 focus:outline-none 
-                    focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                  >
+                    focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     View Profile
                   </button>
                 </div>
@@ -122,13 +122,13 @@ function DoctorList() {
         <div className="mt-12 flex justify-center gap-4">
           <button
             className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200
-              ${page <= 1
-                ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                : 'bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+              ${
+                page <= 1
+                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                  : "bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               }`}
             onClick={handlePrevPage}
-            disabled={page <= 1}
-          >
+            disabled={page <= 1}>
             Previous Page
           </button>
 
@@ -140,13 +140,13 @@ function DoctorList() {
 
           <button
             className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200
-              ${page >= Math.ceil(count / limit)
-                ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                : 'bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+              ${
+                page >= Math.ceil(count / limit)
+                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                  : "bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               }`}
             onClick={handleNextPage}
-            disabled={page >= Math.ceil(count / limit)}
-          >
+            disabled={page >= Math.ceil(count / limit)}>
             Next Page
           </button>
         </div>
