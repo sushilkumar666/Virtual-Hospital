@@ -65,115 +65,128 @@ function DoctorProfile() {
     getuserDetails();
   }, []);
   return (
-    <div>
-      <form onSubmit={formSubmit}>
-        <div className="card  md:flex  items-center">
-          <div className="md:mr-10 ">
-            <img
-              width={"100%"}
-              className="w-[60vw] md:w-[100%] mx-auto mb-4"
-              src={user?.profileImage}
-              alt={user?.name}
-            />
-          </div>
-          <div className="text-left">
-            {/* <p className="text-4xl ">Dr.&nbsp;{user?.name}</p> */}
-            <p>
-              <span className="text-4xl md:w-[100vw]"> Dr. </span>
-              <input
-                className="text-4xl w-[100vw]"
-                value={user?.name}
-                type="text"
-                name="name"
-                disabled="true"
-              />
-            </p>
-            {/* <p>
-            Specialty: <span>{user?.specialty}</span>
-          </p> */}
-            Specialty:{" "}
-            <input
-              onChange={handleChange}
-              value={user?.specialty}
-              type="text"
-              disabled={isEdit}
-              name="specialty"
-            />
-            {/* <p>
-            Experience: <span>{user?.experience}</span>
-          </p> */}
-            <p>
-              Experience:{" "}
-              <input
-                onChange={handleChange}
-                value={user?.experience}
-                type="number"
-                disabled={isEdit}
-                name="experience"
-              />
-            </p>
-            {/* <p>
-            Email: <span>{user?.email}</span>
-          </p> */}
-            <p>
-              Email:{" "}
-              <input
-                onChange={handleChange}
-                value={user?.email}
-                type="email"
-                disabled={isEdit}
-                name="email"
-              />
-            </p>
-            <p>
-              Phone:{" "}
-              <input
-                onChange={handleChange}
-                value={user?.phone}
-                type="mobile"
-                disabled={isEdit}
-                name="phone"
-              />
-            </p>
-            Description:{" "}
-            <p>
-              <textarea
-                className="w-full md:w-3/4 lg:w-1/2 h-32 md:h-48 lg:h-64 p-4 resize-y border rounded-lg focus:outline-none"
-                cols="100"
-                rows="6"
-                onChange={handleChange}
-                maxLength="1500"
-                name="description"
-                disabled={isEdit}
-                value={user?.description || ""}
-              />
-            </p>
-            <div className="my-5 mx-auto mb-10">
-              {/* <Link
-                className="px-4  py-2 border border-black bg-green-500 rounded-lg text-white"
-                to={`/doctor/editDetails`}
-              > */}
-              {isEdit ? (
-                <button
-                  onClick={() => setIsEdit((prev) => !prev)}
-                  className="px-4  py-2 border border-black bg-green-500 rounded-lg text-white"
-                >
-                  Edit
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  onClick={() => setIsEdit((prev) => !prev)}
-                  className="px-4  py-2 border border-black bg-green-500 rounded-lg text-white"
-                >
-                  update
-                </button>
-              )}
-              {/* </Link> */}
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <form onSubmit={formSubmit}>
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div className="md:grid md:grid-cols-3 md:gap-8">
+              {/* Profile Image Section */}
+              <div className="md:col-span-1 bg-gray-50 p-6">
+                <div className="aspect-w-1 aspect-h-1 rounded-xl overflow-hidden bg-gray-100">
+                  <img
+                    src={user?.profileImage}
+                    alt={user?.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Profile Details Section */}
+              <div className="md:col-span-2 p-8">
+                <div className="space-y-6">
+                  {/* Name Field */}
+                  <div className="flex items-baseline space-x-2">
+                    <span className="text-4xl font-bold text-gray-900">Dr.</span>
+                    <input
+                      className="text-4xl font-bold text-gray-900 bg-transparent border-none focus:ring-0 w-full"
+                      value={user?.name}
+                      type="text"
+                      name="name"
+                      disabled={true}
+                    />
+                  </div>
+
+                  {/* Specialty Field */}
+                  <div className="grid grid-cols-3 gap-4 items-center">
+                    <label className="text-sm font-medium text-gray-700">Specialty</label>
+                    <input
+                      className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
+                      onChange={handleChange}
+                      value={user?.specialty}
+                      type="text"
+                      disabled={isEdit}
+                      name="specialty"
+                    />
+                  </div>
+
+                  {/* Experience Field */}
+                  <div className="grid grid-cols-3 gap-4 items-center">
+                    <label className="text-sm font-medium text-gray-700">Experience</label>
+                    <input
+                      className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
+                      onChange={handleChange}
+                      value={user?.experience}
+                      type="number"
+                      disabled={isEdit}
+                      name="experience"
+                    />
+                  </div>
+
+                  {/* Email Field */}
+                  <div className="grid grid-cols-3 gap-4 items-center">
+                    <label className="text-sm font-medium text-gray-700">Email</label>
+                    <input
+                      className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
+                      onChange={handleChange}
+                      value={user?.email}
+                      type="email"
+                      disabled={isEdit}
+                      name="email"
+                    />
+                  </div>
+
+                  {/* Phone Field */}
+                  <div className="grid grid-cols-3 gap-4 items-center">
+                    <label className="text-sm font-medium text-gray-700">Phone</label>
+                    <input
+                      className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
+                      onChange={handleChange}
+                      value={user?.phone}
+                      type="tel"
+                      disabled={isEdit}
+                      name="phone"
+                    />
+                  </div>
+
+                  {/* Description Field */}
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea
+                      className="w-full h-48 px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 resize-none"
+                      onChange={handleChange}
+                      maxLength="1500"
+                      name="description"
+                      disabled={isEdit}
+                      value={user?.description || ""}
+                      placeholder="Enter your professional description..."
+                    />
+                  </div>
+
+                  {/* Action Button */}
+                  <div className="pt-6">
+                    {isEdit ? (
+                      <button
+                        onClick={() => setIsEdit(prev => !prev)}
+                        className="w-full md:w-auto px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                      >
+                        Edit Profile
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        onClick={() => setIsEdit(prev => !prev)}
+                        className="w-full md:w-auto px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
+                      >
+                        Update Profile
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }

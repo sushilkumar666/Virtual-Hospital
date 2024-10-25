@@ -81,132 +81,205 @@ const DoctorSignUp = () => {
   };
 
   return (
-    <div>
-      <div className="text-2xl p-4 text-blue-700">Doctor's Signup</div>
-      <div className="p-4">
-        Already have an account?{" "}
-        <span
-          className="text-blue-500 cursor-pointer"
-          onClick={() => navigate("/login")}
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full mx-auto space-y-8">
+        {/* Header */}
+        <div>
+          <h2 className="text-center text-3xl font-extrabold text-gray-900">
+            Doctor's Signup
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            Already have an account?
+            <span
+              className="ml-1 font-medium text-blue-600 hover:text-blue-500 cursor-pointer transition-colors duration-150"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </span>
+          </p>
+        </div>
+
+        {/* Form */}
+        <form
+          className="mt-8 space-y-6 bg-white shadow-lg rounded-lg p-8"
+          onSubmit={handleSubmit}
         >
-          &nbsp; Login
-        </span>
+          <div className="space-y-5">
+            {/* Name Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Full Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                className="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Dr. John Doe"
+                onChange={handleChange}
+                required
+              />
+              {errors?.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
+            </div>
+
+            {/* Email Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Email Address
+              </label>
+              <input
+                type="email"
+                name="email"
+                className="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="doctor@example.com"
+                onChange={handleChange}
+                required
+              />
+              {errors?.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+            </div>
+
+            {/* Password Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                className="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="••••••••"
+                onChange={handleChange}
+                required
+              />
+              {errors?.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
+            </div>
+
+            {/* Phone Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Phone Number
+              </label>
+              <input
+                type="text"
+                name="phone"
+                className="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="+1 (555) 000-0000"
+                onChange={handleChange}
+                required
+              />
+              {errors?.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
+            </div>
+
+            {/* Specialty Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Medical Specialty
+              </label>
+              <input
+                type="text"
+                name="specialty"
+                className="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="e.g., Cardiology"
+                onChange={handleChange}
+                required
+              />
+              {errors?.specialty && <p className="mt-1 text-sm text-red-600">{errors.specialty}</p>}
+            </div>
+
+            {/* Experience Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Years of Experience
+              </label>
+              <input
+                type="number"
+                name="experience"
+                className="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="0.0"
+                step="0.1"
+                onChange={handleChange}
+                required
+              />
+              {errors?.experience && <p className="mt-1 text-sm text-red-600">{errors.experience}</p>}
+            </div>
+
+            {/* Profile Image Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Profile Image
+              </label>
+              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <div className="space-y-1 text-center">
+                  <svg
+                    className="mx-auto h-12 w-12 text-gray-400"
+                    stroke="currentColor"
+                    fill="none"
+                    viewBox="0 0 48 48"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <div className="flex text-sm text-gray-600">
+                    <label
+                      htmlFor="file-upload"
+                      className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                    >
+                      <span>Upload a file</span>
+                      <input
+                        id="file-upload"
+                        name="profileImage"
+                        type="file"
+                        className="sr-only"
+                        onChange={handleFileChange}
+                        required
+                      />
+                    </label>
+                    <p className="pl-1">or drag and drop</p>
+                  </div>
+                  <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                </div>
+              </div>
+              {errors?.profileImage && <p className="mt-1 text-sm text-red-600">{errors.profileImage}</p>}
+            </div>
+
+            {/* Identity Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Identity
+              </label>
+              <input
+                type="text"
+                name="identity"
+                value="doctor"
+                className="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-500"
+                disabled
+                required
+              />
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <div>
+            <button
+              type="submit"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-150"
+            >
+              Sign Up
+            </button>
+          </div>
+
+          {/* General Error Message */}
+          {errors?.general && (
+            <div className="text-center text-red-600 text-sm mt-2">
+              {errors.general}
+            </div>
+          )}
+        </form>
       </div>
-      <form
-        className="w-[90vw] md:w-[30vw] mb-10 mx-auto border border-gray p-4 text-left"
-        onSubmit={handleSubmit}
-      >
-        <div className="mb-4">
-          <label className="block text-gray-700">Name</label>
-          <input
-            type="text"
-            name="name"
-            className="w-full border p-2 rounded"
-            placeholder="Name"
-            onChange={handleChange}
-            required
-          />
-          {errors.name && <div className="text-red-500">{errors.name}</div>}
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Email</label>
-          <input
-            type="email"
-            name="email"
-            className="w-full border p-2 rounded"
-            placeholder="Email"
-            onChange={handleChange}
-            required
-          />
-          {errors.email && <div className="text-red-500">{errors.email}</div>}
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Password</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            className="w-full border p-2 rounded"
-            onChange={handleChange}
-            required
-          />
-          {errors.password && (
-            <div className="text-red-500">{errors.password}</div>
-          )}
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Phone</label>
-          <input
-            type="text"
-            name="phone"
-            className="w-full border p-2 rounded"
-            placeholder="Phone Number"
-            onChange={handleChange}
-            required
-          />
-          {errors.phone && <div className="text-red-500">{errors.phone}</div>}
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Specialty</label>
-          <input
-            type="text"
-            name="specialty"
-            className="w-full border p-2 rounded"
-            placeholder="Specialty"
-            onChange={handleChange}
-            required
-          />
-          {errors.specialty && (
-            <div className="text-red-500">{errors.specialty}</div>
-          )}
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Experience</label>
-          <input
-            type="number"
-            className="w-full border p-2 rounded"
-            name="experience"
-            placeholder="Years of Experience"
-            step="0.1"
-            onChange={handleChange}
-            required
-          />
-          {errors.experience && (
-            <div className="text-red-500">{errors.experience}</div>
-          )}
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Profile Image</label>
-          <input
-            type="file"
-            name="profileImage"
-            className="w-full border p-2 rounded"
-            onChange={handleFileChange}
-            required
-          />
-          {errors.profileImage && (
-            <div className="text-red-500">{errors.profileImage}</div>
-          )}
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Identity</label>
-          <input
-            type="text"
-            name="identity"
-            value={"doctor"}
-            className="w-full border p-2 rounded"
-            disabled
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full mb-10 bg-blue-500 text-white p-2 rounded"
-        >
-          Sign Up
-        </button>
-        {errors.general && <div className="text-red-500">{errors.general}</div>}
-      </form>
     </div>
   );
 };

@@ -71,57 +71,87 @@ function DoctorList() {
   }, [page, search]); // Ensure dependencies are correct
 
   return (
-    <>
-      <div>
-        <div className="mx-auto   flex flex-wrap justify-evenly ">
+    <div className="min-h-screen bg-gray-50 py-8 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {doctors?.map((doctor) => (
-            <div key={doctor._id} className="flex flex-wrap ">
-              <div className="w-[300px] card transform transition duration-300 hover:scale-105  m-3 rounded-3xl border border-gray cursor-pointer p-4">
-                <img
-                  style={{ filter: "drop-shadow(0 0 0.5rem gray)" }}
-                  className="mx-auto transform transition duration-300 hover:scale-105"
-                  width={"200px"}
-                  src={doctor.profileImage}
-                  alt="doctor"
-                />
-                <div className="text-center mt-4">
-                  <div className="text-lg font-semibold">{doctor.name}</div>
-                  <div>{doctor.speciality}</div>
-                  <div>Experience: {doctor.experience}</div>
-                  <div>{doctor.speciality}</div>
-                  <div
-                    onClick={() => details(doctor._id)}
-                    className="border mx-auto border-gray text-white w-[100px] bg-green-500 text-center rounded-full font-semibold cursor-pointer mt-2 hover:border-2 py-2"
-                  >
-                    Details
+            <div
+              key={doctor._id}
+              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
+            >
+              <div className="p-6">
+                <div className="relative mb-6">
+                  <div className="w-48 h-48 mx-auto rounded-full overflow-hidden bg-gray-100">
+                    <img
+                      className="w-full h-full object-cover transform transition duration-300 hover:scale-105"
+                      src={doctor.profileImage}
+                      alt={`Dr. ${doctor.name}`}
+                    />
                   </div>
+                </div>
+
+                <div className="text-center space-y-3">
+                  <h3 className="text-xl font-bold text-gray-900">
+                    Dr. {doctor.name}
+                  </h3>
+
+                  <div className="space-y-2">
+                    <p className="text-blue-600 font-medium">
+                      {doctor.speciality}
+                    </p>
+                    <div className="flex items-center justify-center space-x-1 text-gray-600">
+                      <span className="text-sm">Experience:</span>
+                      <span className="font-medium">{doctor.experience} years</span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => details(doctor._id)}
+                    className="mt-4 w-full py-3 px-6 bg-blue-600 text-white font-semibold rounded-lg 
+                    hover:bg-blue-700 transition-colors duration-200 focus:outline-none 
+                    focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  >
+                    View Profile
+                  </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
+
+        <div className="mt-12 flex justify-center gap-4">
+          <button
+            className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200
+              ${page <= 1
+                ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                : 'bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+              }`}
+            onClick={handlePrevPage}
+            disabled={page <= 1}
+          >
+            Previous Page
+          </button>
+
+          <div className="flex items-center">
+            <span className="px-4 py-2 rounded-lg bg-white text-gray-700 font-medium">
+              Page {page} of {Math.ceil(count / limit)}
+            </span>
+          </div>
+
+          <button
+            className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200
+              ${page >= Math.ceil(count / limit)
+                ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                : 'bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+              }`}
+            onClick={handleNextPage}
+            disabled={page >= Math.ceil(count / limit)}
+          >
+            Next Page
+          </button>
+        </div>
       </div>
-      <div className="flex justify-between mb-20 p-4 mx-4">
-        <button
-          className={`bg-green-600 ${
-            page <= 1 ? "bg-green-300" : ""
-          } text-white p-2 rounded-sm`}
-          onClick={handlePrevPage}
-          disabled={page <= 1} // Disable button when not applicable
-        >
-          Previous
-        </button>
-        <button
-          className={`bg-green-600 ${
-            page >= Math.ceil(count / limit) ? "bg-green-300" : ""
-          } text-white px-6 rounded-sm`}
-          onClick={handleNextPage}
-          disabled={page >= Math.ceil(count / limit)} // Disable button when not applicable
-        >
-          Next
-        </button>
-      </div>
-    </>
+    </div>
   );
 }
 
