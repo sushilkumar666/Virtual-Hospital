@@ -105,55 +105,137 @@ const PrescriptionPage = () => {
   }, []);
 
   return (
-    <div className="mt-2">
-      <form id="formData" onSubmit={handleSubmit}>
-        <div className="w-[70vw] mx-auto border mb-10 border-black m-4">
-          <div className="flex justify-between p-4 ">
-            <div className="flex flex-col text-left">
-              <div>Name: {user.name}</div>
-              <div>Email: {user.email} </div>
-              <div>Phone: {user.phone}</div>
+    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <form onSubmit={handleSubmit}>
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            {/* Header Section */}
+            <div className="border-b border-gray-200">
+              <div className="px-8 py-6 flex justify-between items-start">
+                {/* Doctor/Patient Info */}
+                <div className="space-y-2">
+                  <div className="text-xl font-semibold text-gray-900">
+                    {user.name}
+                  </div>
+                  <div className="text-sm text-gray-600 space-y-1">
+                    <div className="flex items-center">
+                      <svg
+                        className="w-4 h-4 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                      </svg>
+                      {user.email}
+                    </div>
+                    <div className="flex items-center">
+                      <svg
+                        className="w-4 h-4 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                        />
+                      </svg>
+                      {user.phone}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Date */}
+                <div className="flex items-center text-gray-600">
+                  <svg
+                    className="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <span className="font-medium">{currentDate}</span>
+                </div>
+              </div>
             </div>
-            <div>Date: {currentDate}</div>
+
+            {/* Accent Line */}
+            <div className="h-1 bg-gradient-to-r from-green-500 to-green-600"></div>
+
+            {/* Form Content */}
+            <div className="px-8 py-6 space-y-8">
+              {/* Care Instructions */}
+              <div className="space-y-2">
+                <label
+                  htmlFor="care"
+                  className="block text-sm font-medium text-gray-700">
+                  Care Instructions
+                </label>
+                <textarea
+                  id="care"
+                  name="care"
+                  rows={6}
+                  value={prescriptionData.care}
+                  onChange={handleChange}
+                  placeholder="Enter detailed care instructions..."
+                  required
+                  className="w-full rounded-lg border border-gray-300 shadow-sm 
+                           focus:ring-2 focus:ring-green-500 focus:border-green-500
+                           placeholder:text-gray-400 p-4 text-gray-900
+                           transition-colors duration-200"
+                />
+              </div>
+
+              {/* Medicines */}
+              <div className="space-y-2">
+                <label
+                  htmlFor="medicines"
+                  className="block text-sm font-medium text-gray-700">
+                  Prescribed Medicines
+                </label>
+                <textarea
+                  id="medicines"
+                  name="medicines"
+                  rows={6}
+                  value={prescriptionData.medicines}
+                  onChange={handleChange}
+                  placeholder="Enter prescribed medicines and dosage..."
+                  className="w-full rounded-lg border border-gray-300 shadow-sm 
+                           focus:ring-2 focus:ring-green-500 focus:border-green-500
+                           placeholder:text-gray-400 p-4 text-gray-900
+                           transition-colors duration-200"
+                />
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="px-8 py-6 bg-gray-50 border-t border-gray-200">
+              <button
+                type="submit"
+                className="w-full sm:w-auto px-6 py-3 bg-green-600 hover:bg-green-700 
+                         text-white font-medium rounded-lg shadow-sm 
+                         transition-colors duration-200
+                         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                Submit Prescription
+              </button>
+            </div>
+
+            {/* Bottom Accent Line */}
+            <div className="h-1 bg-gradient-to-r from-green-500 to-green-600"></div>
           </div>
-          <p className="bg-[#0f9015] leading-4">&nbsp;</p>
-          <div className="flex flex-col py-2 px-8 text-left">
-            <label htmlFor="care">Care to be taken</label>
-            <textarea
-              className="border mt-2 max-w-[70vw] border-black"
-              id="care"
-              rows={8}
-              type="text"
-              name="care"
-              placeholder="Care to be taken"
-              value={prescriptionData.care}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <br />
-          <div className="flex flex-col px-8 text-left">
-            <label htmlFor="care">Medicines</label>
-            <textarea
-              className="border mt-2 max-w-[70vw] border-black"
-              id="care"
-              rows={8}
-              type="text"
-              name="medicines"
-              value={prescriptionData.medicines}
-              placeholder="Medicines"
-              onChange={handleChange}
-            />
-          </div>
-          <button
-            className="mt-8 mb-5 bg-[#0f9015] text-white p-2 rounded-lg"
-            type="submit"
-          >
-            Submit Prescription
-          </button>
-          <p className="bg-[#0f9015]leading-4">&nbsp;</p>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };

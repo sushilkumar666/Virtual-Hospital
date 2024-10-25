@@ -87,62 +87,100 @@ function PatientSignIn() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg md:w-[30vw] w-[90vw] mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Patient Sign-in</h2>
-      <div className="p-4">
-        Don't have an account?
-        <span
-          className="text-blue-500 cursor-pointer"
-          onClick={() => navigate("/signup")}
-        >
-          &nbsp;Sign up
-        </span>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md space-y-8">
+        {/* Header */}
+        <div className="text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+            Patient Sign-in
+          </h2>
+          <div className="mt-4 text-sm text-gray-600">
+            Don't have an account?
+            <span
+              className="ml-1 text-blue-600 hover:text-blue-700 font-medium cursor-pointer transition-colors duration-200"
+              onClick={() => navigate("/signup")}>
+              Sign up
+            </span>
+          </div>
+        </div>
+
+        {/* General Error Message */}
+        {errors.general && (
+          <div className="bg-red-50 p-3 rounded-lg">
+            <p className="text-sm text-red-600 text-center">{errors.general}</p>
+          </div>
+        )}
+
+        {/* Form */}
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6">
+          {/* Email Field */}
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
+            <div className="relative">
+              <input
+                id="email"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm
+                         placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                         transition-colors duration-200"
+                placeholder="Enter your email"
+              />
+              {errors.email && (
+                <div className="absolute -bottom-5 left-0 text-xs text-red-600">
+                  {errors.email}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Password Field */}
+          <div className="mt-8">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                id="password"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm
+                         placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                         transition-colors duration-200"
+                placeholder="Enter your password"
+              />
+              {errors.password && (
+                <div className="absolute -bottom-5 left-0 text-xs text-red-600">
+                  {errors.password}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <div className="pt-4">
+            <button
+              type="submit"
+              className="w-full py-3 px-4 rounded-lg bg-blue-600 hover:bg-blue-700 
+                       text-white font-medium shadow-sm transition-colors duration-200
+                       focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              Sign In
+            </button>
+          </div>
+        </form>
       </div>
-      {errors.general && (
-        <div className="border text-[12px] border-none text-red-600 text-center">
-          {errors.general}
-        </div>
-      )}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4 flex flex-col">
-          <label className="block text-left text-gray-700">Email</label>
-          <input
-            onChange={handleChange}
-            type="email"
-            name="email"
-            value={formData.email}
-            className="w-full border p-2 rounded"
-            placeholder="Email"
-          />
-          {errors.email && (
-            <div className="border text-[11px] border-none text-red-600 text-left">
-              {errors.email}
-            </div>
-          )}
-        </div>
-        <div className="mb-4 flex flex-col">
-          <label className="block text-left text-gray-700">Password</label>
-          <input
-            type="password"
-            onChange={handleChange}
-            name="password"
-            value={formData.password}
-            className="w-full border p-2 rounded"
-            placeholder="Password"
-          />
-          {errors.password && (
-            <div className="border text-[11px] border-none text-red-600 text-left">
-              {errors.password}
-            </div>
-          )}
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-blue-500 mb-8 text-white p-2 rounded"
-        >
-          Sign In
-        </button>
-      </form>
     </div>
   );
 }

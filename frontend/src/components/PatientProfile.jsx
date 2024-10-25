@@ -60,85 +60,92 @@ function PatientProfile() {
     getuserDetails();
   }, []);
   return (
-    <div>
-      <form onSubmit={formSubmit}>
-        <div className="card  md:flex  items-center">
-          <div className="md:mr-10 ">
-            <img
-              width={"100%"}
-              className="w-[60vw] md:w-[100%] mx-auto mb-4"
-              src={user?.profileImage}
-              alt={user?.name}
-            />
-          </div>
-          <div className="text-left">
-            {/* <p className="text-4xl ">Dr.&nbsp;{user?.name}</p> */}
-            <p>
-              <input
-                className="text-4xl w-[100vw]"
-                value={user?.name}
-                type="text"
-                name="name"
-                disabled="true"
-              />
-            </p>
-            {/* <p>
-            Email: <span>{user?.email}</span>
-          </p> */}
-            <p>
-              Email:{" "}
-              <input
-                onChange={handleChange}
-                value={user?.email}
-                type="email"
-                disabled={isEdit}
-                name="email"
-              />
-            </p>
-            <p>
-              Phone:{" "}
-              <input
-                onChange={handleChange}
-                value={user?.phone}
-                type="mobile"
-                disabled={isEdit}
-                name="phone"
-              />
-            </p>
-            Description:{" "}
-            <p>
-              <textarea
-                className="w-full md:w-3/4 lg:w-1/2 h-32 md:h-48 lg:h-64 p-4 resize-y border rounded-lg focus:outline-none"
-                cols="100"
-                rows="6"
-                onChange={handleChange}
-                maxLength="1500"
-                name="description"
-                disabled={isEdit}
-                value={user?.description || ""}
-              />
-            </p>
-            <div className="my-5 mx-auto mb-10">
-              {/* <Link
-                className="px-4  py-2 border border-black bg-green-500 rounded-lg text-white"
-                to={`/doctor/editDetails`}
-              > */}
-              {isEdit ? (
-                <button
-                  onClick={() => setIsEdit((prev) => !prev)}
-                  className="px-4  py-2 border border-black bg-green-500 rounded-lg text-white"
-                >
-                  Edit
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  onClick={() => setIsEdit((prev) => !prev)}
-                  className="px-4  py-2 border border-black bg-green-500 rounded-lg text-white"
-                >
-                  update
-                </button>
-              )}
+    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      <form
+        onSubmit={formSubmit}
+        className="max-w-6xl mx-auto">
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+          <div className="md:flex">
+            {/* Image Section */}
+            <div className="md:w-1/3 p-6 bg-gray-50">
+              <div className="aspect-square overflow-hidden rounded-lg">
+                <img
+                  className="w-full h-full object-cover"
+                  src={user?.profileImage}
+                  alt={user?.name}
+                />
+              </div>
+            </div>
+
+            {/* Form Section */}
+            <div className="md:w-2/3 p-6 md:p-8">
+              <div className="space-y-6">
+                {/* Name Field */}
+                <div>
+                  <input
+                    className="text-3xl font-bold w-full bg-transparent border-none focus:outline-none"
+                    value={user?.name}
+                    type="text"
+                    name="name"
+                    disabled={true}
+                  />
+                </div>
+
+                {/* Email Field */}
+                <div className="space-y-1">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Email
+                  </label>
+                  <input
+                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 disabled:bg-gray-100"
+                    onChange={handleChange}
+                    value={user?.email}
+                    type="email"
+                    disabled={isEdit}
+                    name="email"
+                  />
+                </div>
+
+                {/* Phone Field */}
+                <div className="space-y-1">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Phone
+                  </label>
+                  <input
+                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 disabled:bg-gray-100"
+                    onChange={handleChange}
+                    value={user?.phone}
+                    type="tel"
+                    disabled={isEdit}
+                    name="phone"
+                  />
+                </div>
+
+                {/* Description Field */}
+                <div className="space-y-1">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Description
+                  </label>
+                  <textarea
+                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 min-h-[12rem] resize-y disabled:bg-gray-100"
+                    onChange={handleChange}
+                    maxLength="1500"
+                    name="description"
+                    disabled={isEdit}
+                    value={user?.description || ""}
+                  />
+                </div>
+
+                {/* Action Button */}
+                <div className="pt-4">
+                  <button
+                    type={isEdit ? "button" : "submit"}
+                    onClick={() => setIsEdit((prev) => !prev)}
+                    className="w-full md:w-auto px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm">
+                    {isEdit ? "Edit" : "Update"}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
