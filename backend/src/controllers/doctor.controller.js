@@ -278,12 +278,10 @@ const uploadPdf = async(req, res) => {
 
         const {patientId} = req.params;
       
-        const uploadPdf = await Patient.findByIdAndUpdate(patientId, {$set:{pdf:cloudinaryPdf, prescribed: true}},  { new: true})
+        const uploadPdf = await Patient.findByIdAndUpdate(patientId, {$set:{pdf:cloudinaryPdf, prescribed: true,  presentInHistory: true}},  { new: true})
         console.log('debug3')
 
         res.status(200).json({
-            
-
             success:true,
             message: "presciption uploaded successfully",
             uploadPdf
@@ -330,12 +328,24 @@ const deletePatient = async (req, res) => {
             });
         }
 
-        const data = await Patient.findByIdAndUpdate(patientId, { $set: { presentInHistory: false } }, { new: true });
-
+        const data = await Patient.findByIdAndUpdate(
+            patientId,
+            {
+              $unset: { doctor: "" }, // Remove the `doctor` field from the document
+              $set: { presentInHistory: false, prescribed : false }, // Update `presentInHistory` field
+            },
+            { new: true }
+          );         
         if (!data) {
             return res.status(404).json({
                 success: false,
                 message: 'Patient not found',
+            });
+        }
+        if (!del) {
+            return res.status(404).json({
+                success: false,
+                message: 'doctor id not deleted',
             });
         }
 

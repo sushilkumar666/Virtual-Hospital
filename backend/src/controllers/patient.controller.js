@@ -43,7 +43,7 @@ const registerUser = async (req, res, next) => {
   
       const patient = await Patient.create({
         name,
-        profileImage: profile.url,
+        profileImage: profile,
         email,
         phone,
         password,
