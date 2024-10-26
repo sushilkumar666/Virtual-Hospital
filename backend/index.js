@@ -33,6 +33,19 @@ app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(express.static('public'));
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", req.headers.origin); // Dynamically set based on request origin
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept");
+
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(204);
+    }
+    next();
+});
+
+
 // Additional CORS headers for all routes
 
 app.use((req, res, next) => {
