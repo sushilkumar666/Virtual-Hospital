@@ -26,7 +26,9 @@ export const verifyJWT = async (req, _, next) => {
         req.doctor = doctor;
         next()
     } catch (error) {
-        throw new ApiError(401, error?.message || "Invalid access token")
+        // throw new ApiError(401, error?.message || "Invalid access token")
+        throw new Error(error);
+        console.log("JWT Error:", error);
     }
 
 }
