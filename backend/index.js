@@ -16,7 +16,8 @@ const app = express();
 const corsOptions = {
     origin: ['https://virtual-hospital-frontend.vercel.app', 'http://localhost:5173'],
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    // allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    allowedHeaders: '*',
     credentials: true,
     optionsSuccessStatus: 204,
     preflightContinue: false,
