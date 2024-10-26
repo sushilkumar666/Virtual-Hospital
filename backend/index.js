@@ -14,7 +14,7 @@ const app = express();
 
 // CORS Configuration
 const corsOptions = {
-    origin: 'http://localhost:5173', // Update with your frontend URL
+    origin: 'https://virtual-hospital-frontend.vercel.app', // Update with your frontend URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,
