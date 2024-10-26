@@ -24,13 +24,13 @@ function DoctorSignIn() {
       console.log(formData);
       const { data } = await axios.post(
         "https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/login",
-        formData,
-        {
-          withCredentials: true,
-          headers: {
-            "Custom-Header": "CustomValue",
-          },
-        }
+        formData
+        // {
+        //   withCredentials: true,
+        //   headers: {
+        //     "Custom-Header": "CustomValue",
+        //   },
+        // }
       );
       // console.log("isnde handlesumit");
       // console.log(JSON.stringify(data.data.doctor) + " data value ");
