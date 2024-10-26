@@ -13,10 +13,13 @@ function PatientProfile() {
   const fetchuserDetails = async () => {
     try {
       let data;
-      data = await axios.get(`http://localhost:8000/api/v1/patient/profile`, {
-        withCredentials: true,
-        "Custom-Header": "CustomValue",
-      });
+      data = await axios.get(
+        `https://virtual-hospital-0gwt.onrender.com/api/v1/patient/profile`,
+        {
+          withCredentials: true,
+          "Custom-Header": "CustomValue",
+        }
+      );
 
       console.log(data + " this is patient data");
       console.log(JSON.stringify(data) + " this is patient data");
@@ -38,7 +41,7 @@ function PatientProfile() {
   const editDetails = async (user) => {
     try {
       let { data } = await axios.put(
-        "http://localhost:8000/api/v1/patient/editDetails",
+        "https://virtual-hospital-0gwt.onrender.com/api/v1/patient/editDetails",
         user,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );

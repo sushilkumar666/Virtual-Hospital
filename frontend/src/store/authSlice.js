@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Cookies from 'universal-cookie';
-
-const cookies = new Cookies();
+ 
 
 const initialState = {
     status: "false",  
@@ -22,7 +20,7 @@ const authSlice = createSlice({
         logout: (state) => {
             state.status = false;
             state.identity = "";
-            cookies.remove('accessToken');
+            
         },
         test:(state) => {
             console.log("test sucesful")

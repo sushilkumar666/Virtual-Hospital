@@ -56,7 +56,7 @@ const DoctorSignUp = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/doctor/register",
+        "https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/register",
         formDataToSend,
         {
           withCredentials: true,

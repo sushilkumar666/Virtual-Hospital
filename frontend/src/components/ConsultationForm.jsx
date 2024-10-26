@@ -33,7 +33,7 @@ const ConsultationForm = () => {
     console.log(JSON.stringify(formData) + " this form data");
     try {
       const { data } = await axios.post(
-        `http://localhost:8000/api/v1/patient/consult/${doctorId}`,
+        `https://virtual-hospital-0gwt.onrender.com/api/v1/patient/consult/${doctorId}`,
         formData,
         { withCredentials: true }
       );
@@ -56,11 +56,15 @@ const ConsultationForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="min-h-screen bg-gray-50 py-8">
+    <form
+      onSubmit={handleSubmit}
+      className="min-h-screen bg-gray-50 py-8">
       {step === 1 && (
         <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md border border-gray-200">
           <div className="p-6 space-y-6">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Medical History</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+              Medical History
+            </h2>
 
             <div className="space-y-4">
               <div>
@@ -96,8 +100,7 @@ const ConsultationForm = () => {
               <button
                 type="button"
                 onClick={handleNextStep}
-                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
-              >
+                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
                 Next Step
               </button>
             </div>
@@ -108,11 +111,15 @@ const ConsultationForm = () => {
       {step === 2 && (
         <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md border border-gray-200">
           <div className="p-6 space-y-6">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Medical Conditions</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+              Medical Conditions
+            </h2>
 
             <div className="space-y-6">
               <div className="space-y-4">
-                <label className="text-sm font-medium text-gray-700 block">Diabetes Status</label>
+                <label className="text-sm font-medium text-gray-700 block">
+                  Diabetes Status
+                </label>
                 <div className="space-y-2">
                   <label className="inline-flex items-center">
                     <input
@@ -174,15 +181,13 @@ const ConsultationForm = () => {
               <button
                 type="button"
                 onClick={handlePrevStep}
-                className="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-700 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors"
-              >
+                className="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-700 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
                 Previous
               </button>
               <button
                 type="button"
                 onClick={handleNextStep}
-                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
-              >
+                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
                 Next Step
               </button>
             </div>
@@ -193,7 +198,9 @@ const ConsultationForm = () => {
       {step === 3 && (
         <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md border border-gray-200">
           <div className="p-6">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Payment Information</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+              Payment Information
+            </h2>
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-8">
               <div className="w-48 h-48 bg-gray-100 rounded-lg flex items-center justify-center">
@@ -223,14 +230,12 @@ const ConsultationForm = () => {
               <button
                 type="button"
                 onClick={handlePrevStep}
-                className="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-700 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors"
-              >
+                className="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-700 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
                 Previous
               </button>
               <button
                 type="submit"
-                className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
-              >
+                className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
                 Submit Form
               </button>
             </div>

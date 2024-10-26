@@ -58,7 +58,9 @@ function Navbar() {
   const logout = async () => {
     console.log("logout ubtton clicked");
     // alert("button clicked");
-    const { data } = await axios.get("http://localhost:8000/logout");
+    const { data } = await axios.get(
+      "https://virtual-hospital-0gwt.onrender.com/logout"
+    );
     if (data.success) {
       console.log("after succesffully logged out from backed");
       console.log(data + "data after log out");

@@ -14,7 +14,7 @@ function DoctorList() {
   const searchResult = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/v1/patient/search/${search}`
+        `https://virtual-hospital-0gwt.onrender.com/api/v1/patient/search/${search}`
       );
       console.log(JSON.stringify(data.data) + " this is searched data");
       if (data.success) {
@@ -48,7 +48,7 @@ function DoctorList() {
       try {
         console.log("this is useEffect of fetch doctor");
         const { data } = await axios.get(
-          `http://localhost:8000/api/v1/patient/doctorlist/${page}`,
+          `https://virtual-hospital-0gwt.onrender.com/api/v1/patient/doctorlist/${page}`,
           {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,

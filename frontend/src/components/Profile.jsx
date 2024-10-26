@@ -10,7 +10,7 @@ function Profile() {
   const fetchDoctorDetails = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/v1/patient/doctordetails/${doctorId}`,
+        `https://virtual-hospital-0gwt.onrender.com/api/v1/patient/doctordetails/${doctorId}`,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
       setDoctor(data.data);

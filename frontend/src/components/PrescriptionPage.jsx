@@ -21,9 +21,13 @@ const PrescriptionPage = () => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
       const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth * 2) / imgProps.width;
-      pdf.addImage(imgData, "PNG", 30, 40, pdfWidth * 1.2, pdfHeight);
+      const pdfWidth = 210;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      const xOffset = (pdf.internal.pageSize.getWidth() - pdfWidth) / 2;
+      const yOffset = 20; // Top offset for better spacing
+
+      pdf.addImage(imgData, "PNG", xOffset, yOffset, pdfWidth, pdfHeight);
       // pdf.save("formData.pdf");
 
       const pdfBlob = pdf.output("blob");
@@ -32,7 +36,7 @@ const PrescriptionPage = () => {
       formData.append("pdf", pdfBlob, "prescription.pdf");
       axios
         .post(
-          `http://localhost:8000/api/v1/doctor/upload/${patientId}`,
+          `https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/upload/${patientId}`,
           formData,
           {
             withCredentials: true,
@@ -78,7 +82,7 @@ const PrescriptionPage = () => {
   const fetchUserDetails = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/v1/doctor/profile`,
+        `https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/profile`,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
 

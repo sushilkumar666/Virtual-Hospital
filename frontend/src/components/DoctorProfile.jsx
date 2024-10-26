@@ -14,7 +14,7 @@ function DoctorProfile() {
     try {
       console.log("check1");
       let data = await axios.get(
-        `http://localhost:8000/api/v1/doctor/profile`,
+        `https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/profile`,
         {
           withCredentials: true,
           "Custom-Header": "CustomValue",
@@ -40,7 +40,7 @@ function DoctorProfile() {
   const editDetails = async (user) => {
     try {
       let { data } = await axios.put(
-        "http://localhost:8000/api/v1/doctor/editDetails",
+        "https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/editDetails",
         user,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
@@ -86,7 +86,9 @@ function DoctorProfile() {
                 <div className="space-y-6">
                   {/* Name Field */}
                   <div className="flex items-baseline space-x-2">
-                    <span className="text-4xl font-bold text-gray-900">Dr.</span>
+                    <span className="text-4xl font-bold text-gray-900">
+                      Dr.
+                    </span>
                     <input
                       className="text-4xl font-bold text-gray-900 bg-transparent border-none focus:ring-0 w-full"
                       value={user?.name}
@@ -98,7 +100,9 @@ function DoctorProfile() {
 
                   {/* Specialty Field */}
                   <div className="grid grid-cols-3 gap-4 items-center">
-                    <label className="text-sm font-medium text-gray-700">Specialty</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Specialty
+                    </label>
                     <input
                       className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
                       onChange={handleChange}
@@ -111,7 +115,9 @@ function DoctorProfile() {
 
                   {/* Experience Field */}
                   <div className="grid grid-cols-3 gap-4 items-center">
-                    <label className="text-sm font-medium text-gray-700">Experience</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Experience
+                    </label>
                     <input
                       className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
                       onChange={handleChange}
@@ -124,7 +130,9 @@ function DoctorProfile() {
 
                   {/* Email Field */}
                   <div className="grid grid-cols-3 gap-4 items-center">
-                    <label className="text-sm font-medium text-gray-700">Email</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Email
+                    </label>
                     <input
                       className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
                       onChange={handleChange}
@@ -137,7 +145,9 @@ function DoctorProfile() {
 
                   {/* Phone Field */}
                   <div className="grid grid-cols-3 gap-4 items-center">
-                    <label className="text-sm font-medium text-gray-700">Phone</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Phone
+                    </label>
                     <input
                       className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
                       onChange={handleChange}
@@ -150,7 +160,9 @@ function DoctorProfile() {
 
                   {/* Description Field */}
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Description</label>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Description
+                    </label>
                     <textarea
                       className="w-full h-48 px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 resize-none"
                       onChange={handleChange}
@@ -166,17 +178,15 @@ function DoctorProfile() {
                   <div className="pt-6">
                     {isEdit ? (
                       <button
-                        onClick={() => setIsEdit(prev => !prev)}
-                        className="w-full md:w-auto px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
-                      >
+                        onClick={() => setIsEdit((prev) => !prev)}
+                        className="w-full md:w-auto px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
                         Edit Profile
                       </button>
                     ) : (
                       <button
                         type="submit"
-                        onClick={() => setIsEdit(prev => !prev)}
-                        className="w-full md:w-auto px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
-                      >
+                        onClick={() => setIsEdit((prev) => !prev)}
+                        className="w-full md:w-auto px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
                         Update Profile
                       </button>
                     )}
