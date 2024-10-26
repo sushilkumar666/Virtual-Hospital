@@ -19,9 +19,9 @@ const PatientList = () => {
         "https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/patientlist",
         {
           withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
+          // headers: {
+          //   "Content-Type": "application/json",
+          // },
         }
       );
       setPatients(data.data.patientList);
