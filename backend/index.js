@@ -14,20 +14,35 @@ const app = express();
 
 // CORS Configuration
 const corsOptions = {
-    origin: ['https://virtual-hospital-frontend.vercel.app', 'http://localhost:5173'], // Array of allowed origins
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: ['https://virtual-hospital-frontend.vercel.app', 'http://localhost:5173'],
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
     credentials: true,
     optionsSuccessStatus: 204,
+    preflightContinue: false,
+    maxAge: 86400 // 24 hours
 };
 
-app.use(cookieParser());
+
+
 app.use(cors(corsOptions)); 
+app.use(cookieParser());
 app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(express.static('public'));
 
 // Additional CORS headers for all routes
  
+app.use((req, res, next) => {
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(204);
+    }
+    next();
+});
+
+app.get('/test-cors', (req, res) => {
+    res.json({ message: 'CORS test successful' });
+});
 
 // Routes
 app.use('/api/v1/patient', patientRouter);
