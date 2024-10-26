@@ -13,48 +13,48 @@ const PatientList = () => {
   const [searchState, setSearchState] = useState(search);
   //redux se aa raha ahi
 
-  // const fetchPatients = async () => {
-  //   try {
-  //     const { data } = await axios.get(
-  //       "https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/patientlist",
-  //       {
-  //         withCredentials: true,
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     setPatients(data.data.patientList);
-  //     console.log("all patinet vlae sesach");
-  //   } catch (error) {
-  //     console.log("error while fetching patients data");
-  //     console.error(error);
-  //   }
-  // };
-
   const fetchPatients = async () => {
     try {
-      const accessToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjYyYTA2NGM2YmEyOWQ5NzA1YWZkMmEiLCJlbWFpbCI6ImRvY3RvcjFAZ21haWwuY29tIiwiaWF0IjoxNzI5OTQxNDUyLCJleHAiOjE3MzAwMjc4NTJ9.RACsG-bWzTVoXvWaZEyrrht8wmFIgfSUe0i9Cw_WUjM";
-
       const { data } = await axios.get(
         "https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/patientlist",
         {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`, // Use accessToken here
           },
         }
       );
-
       setPatients(data.data.patientList);
-      console.log("All patient values fetched successfully");
+      console.log("all patinet vlae sesach");
     } catch (error) {
-      console.log("Error while fetching patients data");
+      console.log("error while fetching patients data");
       console.error(error);
     }
   };
+
+  // const fetchPatients = async () => {
+  //   try {
+  //     const accessToken =
+  //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjYyYTA2NGM2YmEyOWQ5NzA1YWZkMmEiLCJlbWFpbCI6ImRvY3RvcjFAZ21haWwuY29tIiwiaWF0IjoxNzI5OTQxNDUyLCJleHAiOjE3MzAwMjc4NTJ9.RACsG-bWzTVoXvWaZEyrrht8wmFIgfSUe0i9Cw_WUjM";
+
+  //     const { data } = await axios.get(
+  //       "https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/patientlist",
+  //       {
+  //         withCredentials: true,
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${accessToken}`, // Use accessToken here
+  //         },
+  //       }
+  //     );
+
+  //     setPatients(data.data.patientList);
+  //     console.log("All patient values fetched successfully");
+  //   } catch (error) {
+  //     console.log("Error while fetching patients data");
+  //     console.error(error);
+  //   }
+  // };
 
   // const changeSearchState = async () => {
   //   await setSearchState(search);
