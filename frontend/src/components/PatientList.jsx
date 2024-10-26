@@ -20,7 +20,7 @@ const PatientList = () => {
         {
           withCredentials: true,
           headers: {
-            "Custom-Header": "CustomValue",
+            "Content-Type": "application/json",
           },
         }
       );
