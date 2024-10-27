@@ -11,7 +11,7 @@ import {
     deletePatient,
     updateProfile,
     editDoctorDetails
-    
+
 } from "../controllers/doctor.controller.js";
 import { upload } from "../middlewares/multer.middleware.js"
 import { verifyJWT } from "../middlewares/doctor.middleware.js";
@@ -27,7 +27,7 @@ router.route("/register").post(
             name: "profileImage",
             maxCount: 1
         },
-        
+
 
     ]),
     registerUser
@@ -35,7 +35,7 @@ router.route("/register").post(
 
 router.route("/upload/:patientId").post(
     upload.fields([{
-        name:"pdf",
+        name: "pdf",
         maxCount: 1
     }]), uploadPdf
 )
@@ -46,7 +46,7 @@ router.route("/logout").post(verifyJWT, logoutUser)
 
 router.route("/current-user").get(verifyJWT, getCurrentUser)
 
-router.route("/patientlist").get(verifyJWT, getPatientList);
+router.route("/patientlist").get(getPatientList);
 
 router.route("/patientlist/:patientId").get(verifyJWT, getPatient);
 
@@ -56,11 +56,11 @@ router.route("/profile").get(verifyJWT, getCurrentUser);
 
 router.route("/patienthistory").get(verifyJWT, patientHistory);
 
-router.route("/deletepatient/:patientId").patch( deletePatient);
+router.route("/deletepatient/:patientId").patch(deletePatient);
 
-router.route("/updateProfile").patch( updateProfile);
+router.route("/updateProfile").patch(updateProfile);
 
-router.route("/editDetails").put( verifyJWT, editDoctorDetails);
+router.route("/editDetails").put(verifyJWT, editDoctorDetails);
 
 
 export default router
