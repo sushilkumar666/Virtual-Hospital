@@ -14,11 +14,11 @@ const app = express();
 
 // CORS Configuration
 const corsOptions = {
-    // origin: ['https://virtual-hospital-frontend.vercel.app', 'http://localhost:5173'],
-    origin: '*',
+    origin: ['https://virtual-hospital-frontend.vercel.app', 'http://localhost:5173'],
+    // origin: '*',
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
-    // allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
-    allowedHeaders: '*',
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    // allowedHeaders: '*',
     credentials: true,
     optionsSuccessStatus: 204,
     preflightContinue: true,
@@ -29,22 +29,31 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
+
+
+
 app.use(cookieParser());
 app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(express.static('public'));
 
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", req.headers.origin); // Dynamically set based on request origin
+    const allowedOrigins = ['https://virtual-hospital-frontend.vercel.app', 'http://localhost:5173'];
+    const origin = req.headers.origin;
+
+    if (allowedOrigins.includes(origin)) {
+        res.header("Access-Control-Allow-Origin", origin); // Set the origin dynamically
+    }
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS");
     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept");
 
     if (req.method === 'OPTIONS') {
-        return res.sendStatus(204);
+        return res.sendStatus(204); // Send 204 for preflight OPTIONS request
     }
     next();
 });
+
 
 
 // Additional CORS headers for all routes
