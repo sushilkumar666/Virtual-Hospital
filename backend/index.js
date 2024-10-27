@@ -20,7 +20,7 @@ const corsOptions = {
     allowedHeaders: '*',
     credentials: true,
     optionsSuccessStatus: 204,
-    preflightContinue: false,
+    preflightContinue: true,
     maxAge: 86400 // 24 hours
 };
 
