@@ -60,7 +60,7 @@ const registerUser = async (req, res) => {
         const accessToken = await generateAccessToken(doctor._id)
 
         const loggedInUser = await Doctor.findById(doctor._id).select("-password")
-        localStorage.setItem("accessToken", accessToken);
+
 
         console.log(accessToken + "access token inside bckend")
 
