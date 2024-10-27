@@ -10,7 +10,12 @@ function PresciptionPdf() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/patientlist/${patientId}`
+          `https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/patientlist/${patientId}`, {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json"
+          },
+        }
         );
         // console.log(data + " this is data insdie prescription pdfjsx");
         setPdfPath(data.patient.pdf);

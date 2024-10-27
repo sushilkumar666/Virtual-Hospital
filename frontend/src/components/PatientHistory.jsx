@@ -17,7 +17,7 @@ const PatientHistory = () => {
     try {
       const { data } = await axios.get(
         "https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/patienthistory",
-        { withCredentials: true, "Custom-Header": "CustomValue" }
+        { withCredentials: true }
       );
       setPatients(data.patientHistory);
 
@@ -52,7 +52,7 @@ const PatientHistory = () => {
       console.log(patientId + " this pateint id");
       const data = await axios.patch(
         `https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/deletepatient/${patientId}`,
-        { withCredentials: true, "Custom-Header": "CustomValue" }
+        { withCredentials: true }
       );
       if (data.success) {
         console.log(typeof data, "this is patient history data", data);
