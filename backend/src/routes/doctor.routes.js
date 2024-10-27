@@ -46,7 +46,7 @@ router.route("/logout").post(verifyJWT, logoutUser)
 
 router.route("/current-user").get(verifyJWT, getCurrentUser)
 
-router.route("/patientlist").get(getPatientList);
+router.route("/patientlist").get(verifyJWT, getPatientList);
 
 router.route("/patientlist/:patientId").get(verifyJWT, getPatient);
 
