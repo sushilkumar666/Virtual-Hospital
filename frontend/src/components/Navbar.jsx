@@ -59,7 +59,13 @@ function Navbar() {
     console.log("logout ubtton clicked");
     // alert("button clicked");
     const { data } = await axios.get(
-      "https://virtual-hospital-0gwt.onrender.com/logout"
+      "https://virtual-hospital-0gwt.onrender.com/logout", {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+    }
     );
     if (data.success) {
       console.log("after succesffully logged out from backed");
@@ -92,10 +98,9 @@ function Navbar() {
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 ${
-                      isActive
-                        ? "bg-blue-100 text-blue-700"
-                        : "text-gray-700 hover:bg-gray-100"
+                    `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 ${isActive
+                      ? "bg-blue-100 text-blue-700"
+                      : "text-gray-700 hover:bg-gray-100"
                     }`
                   }>
                   Doctors
@@ -108,10 +113,9 @@ function Navbar() {
                       : "/patient/prescription"
                   }
                   className={({ isActive }) =>
-                    `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 ${
-                      isActive
-                        ? "bg-blue-100 text-blue-700"
-                        : "text-gray-700 hover:bg-gray-100"
+                    `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 ${isActive
+                      ? "bg-blue-100 text-blue-700"
+                      : "text-gray-700 hover:bg-gray-100"
                     }`
                   }>
                   {identity === "doctor" ? "History" : "Prescriptions"}
@@ -185,10 +189,9 @@ function Navbar() {
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  `block px-3 py-2 rounded-md text-base font-medium ${
-                    isActive
-                      ? "bg-blue-100 text-blue-700"
-                      : "text-gray-700 hover:bg-gray-100"
+                  `block px-3 py-2 rounded-md text-base font-medium ${isActive
+                    ? "bg-blue-100 text-blue-700"
+                    : "text-gray-700 hover:bg-gray-100"
                   }`
                 }>
                 Doctors
@@ -201,10 +204,9 @@ function Navbar() {
                     : "/patient/prescription"
                 }
                 className={({ isActive }) =>
-                  `block px-3 py-2 rounded-md text-base font-medium ${
-                    isActive
-                      ? "bg-blue-100 text-blue-700"
-                      : "text-gray-700 hover:bg-gray-100"
+                  `block px-3 py-2 rounded-md text-base font-medium ${isActive
+                    ? "bg-blue-100 text-blue-700"
+                    : "text-gray-700 hover:bg-gray-100"
                   }`
                 }>
                 {identity === "doctor" ? "History" : "Prescriptions"}

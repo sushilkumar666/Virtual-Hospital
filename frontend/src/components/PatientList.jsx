@@ -15,13 +15,15 @@ const PatientList = () => {
 
   const fetchPatients = async () => {
     try {
+      const accessToken = localStorage.getItem('accessToken');
+      console.log(accessToken + "got the ccess gtoken inside ptinetlist.jsx");
       const { data } = await axios.get(
         "https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/patientlist",
         {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
-
+            "Authorization": `Bearer ${accessToken}`
           },
         }
       );

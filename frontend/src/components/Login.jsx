@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Login() {
   const [user, setUser] = useState("");
-  useEffect(() => {}, [user]);
+  useEffect(() => { }, [user]);
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
@@ -19,10 +19,9 @@ function Login() {
             {/* Doctor Card */}
             <label
               className={`relative flex flex-col items-center p-6 cursor-pointer border-2 rounded-xl transition-all duration-200 hover:shadow-md
-                ${
-                  user === "doctor"
-                    ? "border-blue-500 bg-blue-50 shadow-md"
-                    : "border-gray-200 bg-white hover:border-blue-200"
+                ${user === "doctor"
+                  ? "border-blue-500 bg-blue-50 shadow-md"
+                  : "border-gray-200 bg-white hover:border-blue-200"
                 }`}>
               <input
                 type="radio"
@@ -61,10 +60,9 @@ function Login() {
             {/* Patient Card */}
             <label
               className={`relative flex flex-col items-center p-6 cursor-pointer border-2 rounded-xl transition-all duration-200 hover:shadow-md
-                ${
-                  user === "patient"
-                    ? "border-blue-500 bg-blue-50 shadow-md"
-                    : "border-gray-200 bg-white hover:border-blue-200"
+                ${user === "patient"
+                  ? "border-blue-500 bg-blue-50 shadow-md"
+                  : "border-gray-200 bg-white hover:border-blue-200"
                 }`}>
               <input
                 type="radio"
