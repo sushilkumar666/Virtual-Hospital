@@ -139,7 +139,7 @@ function PatientSignUp() {
           withCredentials: true,
           headers: {
             "Content-Type": "multipart/form-data",
-            "Custom-Header": "CustomValue",
+
           },
         }
       );
