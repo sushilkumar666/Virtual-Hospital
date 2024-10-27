@@ -66,7 +66,8 @@ const registerUser = async (req, res) => {
 
         const options = {
             httpOnly: true,
-            secure: true
+            secure: true,
+            maxAge: 24 * 60 * 60 * 1000
         }
 
         return res
@@ -168,6 +169,7 @@ const loginUser = async (req, res) => {
     const options = {
         httpOnly: true,
         secure: true,
+        maxAge: 24 * 60 * 60 * 1000
 
 
     }
