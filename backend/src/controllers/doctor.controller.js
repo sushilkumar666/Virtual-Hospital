@@ -62,6 +62,8 @@ const registerUser = async (req, res) => {
         const loggedInUser = await Doctor.findById(doctor._id).select("-password")
         localStorage.setItem("accessToken", accessToken);
 
+        console.log(accessToken + "access token inside bckend")
+
         const options = {
             httpOnly: true,
             secure: true
