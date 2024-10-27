@@ -4,14 +4,14 @@ import { ApiError } from "../utils/ApiError.js";
 
 export const verifyJWT = async (req, res, next) => {
     try {
-        console.log(req.cookies.accessToken + "   this is access token ")
+
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
-        console.log(token, "Token Coming", "req.cookies", req?.cookies);
+
 
         if (!token) {
             console.log("Token not found in cookies or headers.");
             throw new ApiError(401, "Unauthorized request");
-        }           
+        }
 
         let decodedToken;
         try {
