@@ -13,22 +13,20 @@ const app = express();
 
 
 // CORS Configuration
+
 const corsOptions = {
     origin: ['https://virtual-hospital-frontend.vercel.app', 'http://localhost:5173'],
-    // origin: '*',
-    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
-    // allowedHeaders: '*',
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Access-Control-Allow-Origin'],
     credentials: true,
     optionsSuccessStatus: 204,
-    preflightContinue: true,
     maxAge: 86400 // 24 hours
 };
 
-
-
+// ✅ Place this **BEFORE all routes/middleware**
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+
+
 
 
 
