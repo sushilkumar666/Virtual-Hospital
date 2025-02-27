@@ -65,97 +65,93 @@ function DoctorProfile() {
     getuserDetails();
   }, []);
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 ">
       <div className="max-w-7xl mx-auto">
         <form onSubmit={formSubmit}>
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div className="md:grid md:grid-cols-3 md:gap-8">
+          <div className="bg-white text-left px-8 rounded-xl shadow-lg overflow-hidden">
+            <div className="md:grid md:grid-cols-[20%_80%] md:gap-8">
               {/* Profile Image Section */}
-              <div className="md:col-span-1 bg-gray-50 p-6">
+              <div className="  bg-gray-50 p-6">
                 <div className="aspect-w-1 aspect-h-1 rounded-xl overflow-hidden bg-gray-100">
                   <img
                     src={user?.profileImage}
                     alt={user?.name}
-                    className="w-full h-full object-cover"
+                    className="w-auto h-[300px] object-cover"
                   />
                 </div>
               </div>
 
               {/* Profile Details Section */}
-              <div className="md:col-span-2 p-8">
-                <div className="space-y-6">
+              <div className="p-8">
+                <div className="space-y-6 ">
                   {/* Name Field */}
                   <div className="flex items-baseline space-x-2">
                     <span className="text-4xl font-bold text-gray-900">
                       Dr.
                     </span>
-                    <input
-                      className="text-4xl font-bold text-gray-900 bg-transparent border-none focus:ring-0 w-full"
-                      value={user?.name}
-                      type="text"
-                      name="name"
-                      disabled={true}
-                    />
-                  </div>
 
-                  {/* Specialty Field */}
-                  <div className="grid grid-cols-3 gap-4 items-center">
-                    <label className="text-sm font-medium text-gray-700">
-                      Specialty
-                    </label>
-                    <input
-                      className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
-                      onChange={handleChange}
-                      value={user?.specialty}
-                      type="text"
-                      disabled={isEdit}
-                      name="specialty"
-                    />
+                    <div className="text-4xl font-bold text-gray-900 bg-transparent border-none">{user?.name}</div>
                   </div>
+                  <div className="flex flex-wrap justify-between gap-2">
+                    {/* Specialty Field */}
+                    <div className="grid   gap-4 items-center">
+                      <label className="text-sm font-medium text-gray-700">
+                        Specialty
+                      </label>
+                      <input
+                        className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
+                        onChange={handleChange}
+                        value={user?.specialty}
+                        type="text"
+                        disabled={isEdit}
+                        name="specialty"
+                      />
+                    </div>
 
-                  {/* Experience Field */}
-                  <div className="grid grid-cols-3 gap-4 items-center">
-                    <label className="text-sm font-medium text-gray-700">
-                      Experience
-                    </label>
-                    <input
-                      className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
-                      onChange={handleChange}
-                      value={user?.experience}
-                      type="number"
-                      disabled={isEdit}
-                      name="experience"
-                    />
-                  </div>
+                    {/* Experience Field */}
+                    <div className="grid gap-4 items-center">
+                      <label className="text-sm font-medium text-gray-700">
+                        Experience
+                      </label>
+                      <input
+                        className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
+                        onChange={handleChange}
+                        value={user?.experience}
+                        type="number"
+                        disabled={isEdit}
+                        name="experience"
+                      />
+                    </div>
 
-                  {/* Email Field */}
-                  <div className="grid grid-cols-3 gap-4 items-center">
-                    <label className="text-sm font-medium text-gray-700">
-                      Email
-                    </label>
-                    <input
-                      className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
-                      onChange={handleChange}
-                      value={user?.email}
-                      type="email"
-                      disabled={isEdit}
-                      name="email"
-                    />
-                  </div>
+                    {/* Email Field */}
+                    <div className="grid  gap-4 items-center">
+                      <label className="text-sm font-medium text-gray-700">
+                        Email
+                      </label>
+                      <input
+                        className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
+                        onChange={handleChange}
+                        value={user?.email}
+                        type="email"
+                        disabled={isEdit}
+                        name="email"
+                      />
+                    </div>
 
-                  {/* Phone Field */}
-                  <div className="grid grid-cols-3 gap-4 items-center">
-                    <label className="text-sm font-medium text-gray-700">
-                      Phone
-                    </label>
-                    <input
-                      className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
-                      onChange={handleChange}
-                      value={user?.phone}
-                      type="tel"
-                      disabled={isEdit}
-                      name="phone"
-                    />
+                    {/* Phone Field */}
+                    <div className="grid  gap-4 items-center">
+                      <label className="text-sm font-medium text-gray-700">
+                        Phone
+                      </label>
+                      <input
+                        className="col-span-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
+                        onChange={handleChange}
+                        value={user?.phone}
+                        type="tel"
+                        disabled={isEdit}
+                        name="phone"
+                      />
+                    </div>
                   </div>
 
                   {/* Description Field */}
@@ -164,9 +160,9 @@ function DoctorProfile() {
                       Description
                     </label>
                     <textarea
-                      className="w-full h-48 px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 resize-none"
+                      className="w-full h-[100px] px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 resize-none"
                       onChange={handleChange}
-                      maxLength="1500"
+                      maxLength="1000"
                       name="description"
                       disabled={isEdit}
                       value={user?.description || ""}

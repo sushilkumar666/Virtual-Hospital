@@ -80,9 +80,9 @@ function DoctorList() {
               className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
               <div className="p-6">
                 <div className="relative mb-6">
-                  <div className="w-48 h-48 mx-auto rounded-full overflow-hidden bg-gray-100">
+                  <div className="w-48 h-40 bg-white mx-auto rounded-full overflow-hidden bg-gray-100">
                     <img
-                      className="w-full h-full object-cover transform transition duration-300 hover:scale-105"
+                      className="w-auto h-48 mx-auto  object-cover transform transition duration-300 hover:scale-105"
                       src={doctor.profileImage}
                       alt={`Dr. ${doctor.name}`}
                     />
@@ -122,10 +122,9 @@ function DoctorList() {
         <div className="mt-12 flex justify-center gap-4">
           <button
             className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200
-              ${
-                page <= 1
-                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                  : "bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              ${page <= 1
+                ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                : "bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               }`}
             onClick={handlePrevPage}
             disabled={page <= 1}>
@@ -140,10 +139,9 @@ function DoctorList() {
 
           <button
             className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200
-              ${
-                page >= Math.ceil(count / limit)
-                  ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                  : "bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              ${page >= Math.ceil(count / limit)
+                ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                : "bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               }`}
             onClick={handleNextPage}
             disabled={page >= Math.ceil(count / limit)}>

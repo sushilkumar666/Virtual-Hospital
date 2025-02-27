@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -20,6 +20,7 @@ function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+  const profileRef = useRef(null);
   const [searchResults, setSearchResults] = useState({
     patients: [],
     doctors: [],
@@ -28,23 +29,42 @@ function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
+  const profileIconRef = useRef(null);
+
+
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-  const toggleProfileDropdown = () =>
+  const toggleProfileDropdown = (e) => {
+
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
+  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
+      console.log("nadle outside click sushil")
       if (option) {
         dispatch(optionClose());
       }
-    };
+      console.log(isProfileDropdownOpen + " isProfileDropdownOpen")
+      console.log(profileRef?.current?.contains(event.target) + " profileRef.current.contains(event.target)")
+      console.log(profileIconRef?.current.contains(event.target) + " profileIconRef.current.contains(event.target)")
+      if (
+        isProfileDropdownOpen &&
+
+        !profileRef?.current?.contains(event.target) &&
+        !profileIconRef.current.contains(event.target)
+      ) {
+        setIsProfileDropdownOpen(() => false);
+
+        console.log("Clicked outside dropdown");
+      }
+    }
 
     document.addEventListener("click", handleClickOutside);
 
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [option, dispatch]);
+  }, [option, dispatch, isProfileDropdownOpen]);
 
   const handleOptionClick = (event) => {
     event.stopPropagation(); // Prevents the click from propagating to the document
@@ -103,7 +123,7 @@ function Navbar() {
                       : "text-gray-700 hover:bg-gray-100"
                     }`
                   }>
-                  Doctors
+                  {identity === "doctor" ? "Patients" : "Doctors"}
                 </NavLink>
 
                 <NavLink
@@ -130,7 +150,7 @@ function Navbar() {
               </div>
 
               {/* Profile Dropdown */}
-              <div className="relative">
+              <div ref={profileIconRef} className="relative">
                 <button
                   onClick={toggleProfileDropdown}
                   className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors duration-150">
@@ -139,7 +159,7 @@ function Navbar() {
 
                 {/* Dropdown Menu */}
                 {isProfileDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  <div ref={profileRef} className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                     <div className="py-1">
                       <button
                         onClick={() => {

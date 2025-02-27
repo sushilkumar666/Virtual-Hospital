@@ -69,7 +69,7 @@ const PatientHistory = () => {
   };
 
   const InfoItem = ({ label, value }) => (
-    <div className="flex flex-col">
+    <div className="flex text-left flex-col">
       <span className="text-sm font-medium text-gray-500">{label}</span>
       <span className="text-gray-800">{value || "Not provided"}</span>
     </div>
@@ -79,31 +79,31 @@ const PatientHistory = () => {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-semibold text-gray-800 border-b pb-4">
+          <h1 className="text-3xl font-semibold   pb-4">
             Patient History
           </h1>
         </div>
 
-        <div className="grid gap-6">
+        <div className="grid   gap-6">
           {patients
             ?.filter((patient) => patient.presentInHistory === true)
             .map((patient) => (
               <div
                 key={patient._id}
-                className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:shadow-lg">
-                <div className="flex flex-col md:flex-row">
+                className="bg-white  rounded-lg shadow-md overflow-auto transition-transform hover:shadow-lg">
+                <div className="flex flex-col  md:flex-row">
                   {/* Image Section */}
-                  <div className="md:w-1/3 p-6 bg-gray-50">
+                  <div className="md:w-1/6 m-6  border-2 h-fit bg-white">
                     <img
                       src={patient.profileImage}
                       alt={patient.name}
-                      className="w-full h-[300px] object-cover rounded-lg shadow-sm"
+                      className="w-auto mx-auto p-2 h-[200px] object-cover rounded-lg shadow-sm"
                     />
                   </div>
 
                   {/* Information Section */}
-                  <div className="md:w-2/3 p-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="md:w-2/3     max-h-[240px] overflow-auto      p-6">
+                    <div className="grid grid-cols-1  p-4  border-2 md:flex justify-between md:flex-wrap gap-4">
                       <div className="space-y-4">
                         <InfoItem
                           label="Patient Name"
@@ -137,18 +137,19 @@ const PatientHistory = () => {
                           value={patient.historyOfSurgery}
                         />
                       </div>
+                      <div className="mt-6 space-y-4">
+                        <InfoItem
+                          label="Current Illness History"
+                          value={patient.currentIllnessHistory}
+                        />
+                        <InfoItem
+                          label="Recent Surgery"
+                          value={patient.recentSurgery}
+                        />
+                      </div>
                     </div>
 
-                    <div className="mt-6 space-y-4">
-                      <InfoItem
-                        label="Current Illness History"
-                        value={patient.currentIllnessHistory}
-                      />
-                      <InfoItem
-                        label="Recent Surgery"
-                        value={patient.recentSurgery}
-                      />
-                    </div>
+
 
                     {/* Actions */}
                     <div className="mt-6 flex justify-end space-x-4">

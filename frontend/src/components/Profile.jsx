@@ -37,7 +37,7 @@ function Profile() {
           <div className="md:w-1/3 bg-gray-50 p-6">
             <div className="aspect-square overflow-hidden rounded-xl shadow-md">
               <img
-                className="w-full h-full object-cover"
+                className="w-auto h-[300px] mx-auto object-cover"
                 src={doctor?.profileImage}
                 alt={doctor?.name}
               />
@@ -96,7 +96,7 @@ function Profile() {
             </div>
 
             {/* Description */}
-            <div className="mb-8">
+            <div className="mb-8 text-left">
               <h3 className="text-lg font-medium text-gray-900 mb-2">About</h3>
               <p className="text-gray-600 leading-relaxed">
                 {doctor?.description}
@@ -104,7 +104,7 @@ function Profile() {
             </div>
 
             {/* Action Button */}
-            <div className="mt-8">
+            <div className="mt-8 text-left">
               <Link
                 to={`/patient/consultationform/${doctor?._id}`}
                 className="inline-flex items-center px-6 py-3 border border-transparent 

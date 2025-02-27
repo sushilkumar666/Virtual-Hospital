@@ -85,12 +85,12 @@ const PatientList = () => {
 
   const InfoItem = ({ label, value, isTitle = false, isHighlight = false }) => (
     <div className="flex flex-col">
-      <span className="text-sm font-medium text-gray-500">{label}</span>
+      <span className="text-sm  font-medium text-gray-500">{label}</span>
       <span
         className={`
           ${isTitle ? "text-xl font-semibold text-gray-800" : "text-gray-700"} 
           ${isHighlight ? "text-red-600 font-medium" : ""}
-        `}>
+        w-[150px] `}>
         {value || "Not provided"}
       </span>
     </div>
@@ -101,28 +101,30 @@ const PatientList = () => {
   // }, [search]);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="space-y-6">
+    <div className="min-h-screen  bg-gray-50 p-6 ">
+      <div className="   border-2  border-green-500">
+        <div className="space-y-6        justify-between">
           {patients?.map((patient) => (
             <div
               key={patient._id}
-              className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
-              <div className="flex flex-col md:flex-row p-6 gap-6">
+              className="bg-gray-10 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
+              <div className="flex flex-col md:flex-row justify-around p-6 gap-6">
                 {/* Image Section */}
-                <div className="md:w-1/4 flex justify-center md:justify-start">
+                <div >
                   <img
                     src={patient.profileImage}
                     alt={patient.name}
-                    className="w-[230px] h-[230px] object-cover rounded-lg shadow-sm"
+                    className="w-auto h-[200px] object-cover rounded-lg shadow-sm"
                   />
                 </div>
 
                 {/* Patient Information */}
-                <div className="md:w-2/4 space-y-3">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="  space-y-3  ">
+                  <div className="  grid grid-cols-1 text-left md:grid-cols-[30%_70%] gap-4">
                     {/* Left Column */}
-                    <div className="space-y-3">
+
+                    <div className="space-y-3 max-h-64  border-gray-200 p-4 rounded-2xl border-2">
+                      {/* <div className="text-xl">Patient Details</div> */}
                       <InfoItem
                         label="Patient Name"
                         value={patient.name}
@@ -140,15 +142,16 @@ const PatientList = () => {
                         label="Age"
                         value={patient.age}
                       />
+
+                    </div>
+
+                    {/* Right Column */}
+                    <div className="space-y-3 flex flex-col md:max-h-64 gap-x-4 overflow-y-auto overflow-x-hidden  w-[500px]   flex-wrap   border-gray-200 p-4 rounded-2xl border-2">
                       <InfoItem
                         label="Diabetic"
                         value={patient.diabeticOrNot}
                         isHighlight={patient.diabeticOrNot === "Yes"}
                       />
-                    </div>
-
-                    {/* Right Column */}
-                    <div className="space-y-3">
                       <InfoItem
                         label="Illness History"
                         value={patient.historyOfIllness}
@@ -165,12 +168,13 @@ const PatientList = () => {
                         label="Recent Surgery"
                         value={patient.recentSurgery}
                       />
+
                     </div>
                   </div>
                 </div>
 
                 {/* Action Button */}
-                <div className="md:w-1/4 flex items-center justify-center md:justify-end">
+                <div className="     flex items-center justify-center md:justify-end">
                   <button
                     onClick={() =>
                       navigate(`/doctor/prescription/${patient._id}`)

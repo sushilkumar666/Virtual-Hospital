@@ -67,17 +67,17 @@ function PatientProfile() {
     getuserDetails();
   }, []);
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="max-h-[80vh] bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <form
         onSubmit={formSubmit}
         className="max-w-6xl mx-auto">
         <div className="bg-white shadow-lg rounded-lg overflow-hidden">
           <div className="md:flex">
             {/* Image Section */}
-            <div className="md:w-1/3 p-6 bg-gray-50">
+            <div className="md:w-1/3 p-6 flex items-center justify-center bg-gray-50">
               <div className="aspect-square overflow-hidden rounded-lg">
                 <img
-                  className="w-full h-full object-cover"
+                  className="md:w-[auto] md:h-[400px] mx-auto object-cover"
                   src={user?.profileImage}
                   alt={user?.profileImage}
                 />
@@ -86,8 +86,9 @@ function PatientProfile() {
 
             {/* Form Section */}
             <div className="md:w-2/3 p-6 md:p-8">
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {/* Name Field */}
+
                 <div>
                   <input
                     className="text-3xl font-bold w-full bg-transparent border-none focus:outline-none"
@@ -99,7 +100,7 @@ function PatientProfile() {
                 </div>
 
                 {/* Email Field */}
-                <div className="space-y-1">
+                <div className="space-y-1 text-left">
                   <label className="block text-sm font-medium text-gray-700">
                     Email
                   </label>
@@ -114,7 +115,7 @@ function PatientProfile() {
                 </div>
 
                 {/* Phone Field */}
-                <div className="space-y-1">
+                <div className="space-y-1 text-left">
                   <label className="block text-sm font-medium text-gray-700">
                     Phone
                   </label>
@@ -129,12 +130,12 @@ function PatientProfile() {
                 </div>
 
                 {/* Description Field */}
-                <div className="space-y-1">
+                <div className="space-y-1 text-left">
                   <label className="block text-sm font-medium text-gray-700">
                     Description
                   </label>
                   <textarea
-                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 min-h-[12rem] resize-y disabled:bg-gray-100"
+                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 min-h-[6rem] resize-y disabled:bg-gray-100"
                     onChange={handleChange}
                     maxLength="1500"
                     name="description"
@@ -144,11 +145,11 @@ function PatientProfile() {
                 </div>
 
                 {/* Action Button */}
-                <div className="pt-4">
+                <div className="pt-2">
                   <button
                     type={isEdit ? "button" : "submit"}
                     onClick={() => setIsEdit((prev) => !prev)}
-                    className="w-full md:w-auto px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm">
+                    className="w-full md:w-auto px-6 py-3 mb-8 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm">
                     {isEdit ? "Edit" : "Update"}
                   </button>
                 </div>
