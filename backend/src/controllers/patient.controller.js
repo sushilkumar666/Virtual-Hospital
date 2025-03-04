@@ -275,13 +275,13 @@ const editPatientDetails = async (req, res) => {
     try {
         console.log(JSON.stringify(req.body) + " this is the req.body");
         const patientId = req.patient._id;
-        const { name = "", email = "", phone = "", description = "" } = req.body;
+        const { name = "", email = "", phone = "", age = "" } = req.body;
 
         if (!patientId) {
             return res.status(400).json({ message: 'patient ID is required', });
         }
 
-        const data = await Patient.findByIdAndUpdate(patientId, { $set: { name, email, phone, description } }, { new: true })
+        const data = await Patient.findByIdAndUpdate(patientId, { $set: { name, email, phone, age } }, { new: true })
 
         console.log(data + " data after doctor updatedetails");
         res.status(200).json({

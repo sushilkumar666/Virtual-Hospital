@@ -6,9 +6,9 @@ import { searchQueryFunc } from "../store/searchSlice";
 import { IoIosSearch } from "react-icons/io";
 
 const SearchBar = () => {
-  const [query, setQuery] = useState("");
   const identity = useSelector((state) => state.auth.identity);
   const searchQuery = useSelector((state) => state.search.searchQuery);
+  const [query, setQuery] = useState(searchQuery);
   const dispatch = useDispatch();
 
   // console.log("checking identity data " + identity);

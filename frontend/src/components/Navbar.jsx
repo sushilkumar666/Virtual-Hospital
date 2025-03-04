@@ -6,7 +6,6 @@ import { logout as logoutAction } from "../store/authSlice";
 import axios from "axios";
 import SearchBar from "./SearchBar";
 import { NavLink } from "react-router-dom";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import "./../index.css";
 import { optionClose, optionOpen } from "../store/optionSlice";
 import { BACKEND_URL } from "../config";
@@ -33,6 +32,7 @@ function Navbar() {
   const profileIconRef = useRef(null);
 
 
+
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const toggleProfileDropdown = (e) => {
 
@@ -47,9 +47,7 @@ function Navbar() {
       if (option) {
         dispatch(optionClose());
       }
-      // console.log(isProfileDropdownOpen + " isProfileDropdownOpen")
-      // console.log(profileRef?.current?.contains(event.target) + " profileRef.current.contains(event.target)")
-      // console.log(profileIconRef?.current.contains(event.target) + " profileIconRef.current.contains(event.target)")
+
       if (
         isProfileDropdownOpen &&
 
