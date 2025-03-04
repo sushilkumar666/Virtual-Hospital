@@ -39,11 +39,10 @@ const ConsultationForm = () => {
 
     if (step === 2) {
       if (!formData.historyOfSurgery) newErrors.historyOfSurgery = "Required";
-      if (!formData.recentSurgery) newErrors.recentSurgery = "Required";
+      if (!formData.diabeticOrNot) newErrors.diabeticOrNot = "Required";
     }
 
     if (step === 3) {
-      if (!formData.diabeticOrNot) newErrors.diabeticOrNot = "Required";
       if (!formData.allergies) newErrors.allergies = "Required";
       if (!formData.others) newErrors.others = "Required";
     }
@@ -162,6 +161,7 @@ const ConsultationForm = () => {
             </h2>
 
             <div className="space-y-4">
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   History of Surgery
@@ -178,21 +178,44 @@ const ConsultationForm = () => {
                 {errors.historyOfSurgery && <p className="text-red-500 text-sm">{errors.historyOfSurgery}</p>}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Recent Surgery
+              <div className="space-y-4">
+                <label className="text-sm font-medium text-gray-700 block">
+                  Diabetes Status
                 </label>
-                <textarea
-                  rows="6"
-                  className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors"
-                  name="recentSurgery"
-                  placeholder="List any surgeries in the past year..."
-                  onChange={handleChange}
-                  value={formData.recentSurgery}
-                  required
-                />
-                {errors.recentSurgery && <p className="text-red-500 text-sm">{errors.recentSurgery}</p>}
+                <div className="flex items-center ">
+                  <div>
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        name="diabeticOrNot"
+                        value="Diabetics"
+                        onChange={handleChange}
+                        required
+                        checked={formData.diabeticOrNot === "Diabetics"}
+                        className="form-radio text-blue-600 focus:ring-blue-500"
+                      />
+                      <span className="ml-2">Diabetic</span>
+                    </label>
+                  </div>
+                  <div className="pl-4">
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        name="diabeticOrNot"
+                        value="Non-Diabetics"
+                        onChange={handleChange}
+                        checked={formData.diabeticOrNot === "Non-Diabetics"}
+                        required
+                        className="form-radio text-blue-600 focus:ring-blue-500"
+                      />
+                      <span className="ml-2">Non-Diabetic</span>
+                    </label>
+                  </div>
+                </div>
+                {errors.diabeticOrNot && <p className="text-red-500 text-sm">{errors.diabeticOrNot}</p>}
               </div>
+
+
             </div>
 
             <div className="flex justify-between pt-4">
@@ -221,38 +244,7 @@ const ConsultationForm = () => {
             </h2>
 
             <div className="space-y-6">
-              <div className="space-y-4">
-                <label className="text-sm font-medium text-gray-700 block">
-                  Diabetes Status
-                </label>
-                <div className="space-y-2">
-                  <label className="inline-flex items-center">
-                    <input
-                      type="radio"
-                      name="diabeticOrNot"
-                      value="Diabetics"
-                      onChange={handleChange}
-                      required
-                      className="form-radio text-blue-600 focus:ring-blue-500"
-                    />
-                    <span className="ml-2">Diabetic</span>
-                  </label>
-                  <div>
-                    <label className="inline-flex items-center">
-                      <input
-                        type="radio"
-                        name="familyMedicalHistory"
-                        value="Non-Diabetics"
-                        onChange={handleChange}
-                        required
-                        className="form-radio text-blue-600 focus:ring-blue-500"
-                      />
-                      <span className="ml-2">Non-Diabetic</span>
-                    </label>
-                  </div>
-                </div>
-                {errors.diabeticOrNot && <p className="text-red-500 text-sm">{errors.diabeticOrNot}</p>}
-              </div>
+
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -328,7 +320,7 @@ const ConsultationForm = () => {
                 <input
                   type="text"
                   name="transactionId"
-                  placeholder="Enter transaction ID"
+                  placeholder="Type Random"
                   onChange={handleChange}
                   required
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors"
