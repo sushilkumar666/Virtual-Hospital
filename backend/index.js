@@ -28,10 +28,6 @@ const corsOptions = {
 // ✅ Place this **BEFORE all routes/middleware**
 app.use(cors(corsOptions));
 
-
-
-
-
 app.use(cookieParser());
 app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
@@ -102,7 +98,5 @@ connectDB()
         }
         process.exit(1); // Exit the process with an error code
     });
-
-
 
 export default app;
