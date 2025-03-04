@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { BACKEND_URL } from "../config";
 
 function DoctorList() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function DoctorList() {
   const searchResult = async () => {
     try {
       const { data } = await axios.get(
-        `https://virtual-hospital-0gwt.onrender.com/api/v1/patient/search/${search}`
+        `${BACKEND_URL}/api/v1/patient/search/${search}`
       );
       console.log(JSON.stringify(data.data) + " this is searched data");
       if (data.success) {
@@ -48,7 +49,7 @@ function DoctorList() {
       try {
         console.log("this is useEffect of fetch doctor");
         const { data } = await axios.get(
-          `https://virtual-hospital-0gwt.onrender.com/api/v1/patient/doctorlist/${page}`,
+          `${BACKEND_URL}/api/v1/patient/doctorlist/${page}`,
           {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,

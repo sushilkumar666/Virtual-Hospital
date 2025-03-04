@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/authSlice";
+import { BACKEND_URL } from "../config";
 
 function PatientSignUp() {
   const navigate = useNavigate();
   const authStatus = useSelector((state) => state.auth.status);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -17,8 +19,7 @@ function PatientSignUp() {
     phone: "",
     password: "",
     profileImage: null,
-    historyOfSurgery: "",
-    historyOfIllness: "",
+
   });
 
   const [errors, setErrors] = useState({
@@ -28,8 +29,7 @@ function PatientSignUp() {
     phone: "",
     password: "",
     profileImage: "",
-    historyOfSurgery: "",
-    historyOfIllness: "",
+
   });
 
   const handleChange = (e) => {
@@ -49,8 +49,7 @@ function PatientSignUp() {
       phone: "",
       password: "",
       profileImage: "",
-      historyOfSurgery: "",
-      historyOfIllness: "",
+
       general: "",
     };
 
@@ -103,16 +102,7 @@ function PatientSignUp() {
     }
 
     // History of Surgery validation
-    if (!formData.historyOfSurgery) {
-      newErrors.historyOfSurgery = "History of Surgery is required.";
-      isValid = false;
-    }
 
-    // History of Illness validation
-    if (!formData.historyOfIllness) {
-      newErrors.historyOfIllness = "History of Illness is required.";
-      isValid = false;
-    }
 
     setErrors(newErrors);
     return isValid;
@@ -125,6 +115,8 @@ function PatientSignUp() {
       return;
     }
 
+    setLoading(true);
+
     const formDataToSend = new FormData();
     for (const key in formData) {
       console.log(formData[key]);
@@ -133,7 +125,7 @@ function PatientSignUp() {
 
     try {
       const { data } = await axios.post(
-        "https://virtual-hospital-0gwt.onrender.com/api/v1/patient/register",
+        `${BACKEND_URL}/api/v1/patient/register`,
         formDataToSend,
         {
           withCredentials: true,
@@ -144,6 +136,7 @@ function PatientSignUp() {
         }
       );
       console.log(JSON.stringify(data) + " ye hamar adata hai");
+      setLoading(false);
       if (data?.user) {
         const identity = data.user.identity;
         dispatch(login({ identity }));
@@ -151,7 +144,9 @@ function PatientSignUp() {
       } else {
         console.log("Error while registering patient");
       }
+
     } catch (error) {
+      setLoading(false);
       setErrors((prev) => ({ ...prev, general: error.response.data.error }));
     }
   };
@@ -285,50 +280,7 @@ function PatientSignUp() {
             </div>
 
             {/* Medical History Section */}
-            <div className="space-y-6 pt-6 border-t border-gray-200">
-              <h3 className="text-lg font-medium text-gray-900">
-                Medical History
-              </h3>
-              <div className="space-y-6">
-                {/* History of Surgery Field */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    History of Surgery
-                  </label>
-                  <input
-                    type="text"
-                    name="historyOfSurgery"
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-                    placeholder="Enter any previous surgeries"
-                  />
-                  {errors.historyOfSurgery && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {errors.historyOfSurgery}
-                    </p>
-                  )}
-                </div>
 
-                {/* History of Illness Field */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    History of Illness
-                  </label>
-                  <input
-                    type="text"
-                    name="historyOfIllness"
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-                    placeholder="Enter medical conditions (separated by ',')"
-                  />
-                  {errors.historyOfIllness && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {errors.historyOfIllness}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
 
             {/* Profile Section */}
             <div className="space-y-6 pt-6 border-t border-gray-200">
@@ -385,7 +337,7 @@ function PatientSignUp() {
               <button
                 type="submit"
                 className="w-full py-3 px-4 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                Create Account
+                {loading ? "Processing..." : "Create Account"}
               </button>
             </div>
           </form>

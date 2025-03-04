@@ -7,7 +7,7 @@ function SignUp() {
   const [selectedType, setSelectedType] = useState(null);
   const [user, setUser] = useState("patient");
   const navigate = useNavigate();
-  useEffect(() => {}, [user]);
+  useEffect(() => { }, [user]);
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden">
@@ -19,9 +19,8 @@ function SignUp() {
           <div className="grid md:grid-cols-2 gap-6">
             {/* Doctor Option */}
             <label
-              className={`relative cursor-pointer group ${
-                selectedType === "doctor" ? "ring-2 ring-blue-500" : ""
-              }`}>
+              className={`relative cursor-pointer group ${selectedType === "doctor" ? "ring-2 ring-blue-500" : ""
+                }`}>
               <input
                 type="radio"
                 name="userType"
@@ -33,11 +32,11 @@ function SignUp() {
               />
               <div className="rounded-lg p-6 transition-all duration-200 hover:shadow-md border-2 border-gray-200 hover:border-blue-500">
                 <div className="flex flex-col items-center">
-                  <div className="w-48 h-48 mb-4 rounded-full overflow-hidden bg-blue-50 flex items-center justify-center">
+                  <div className="w-[200px] h-[200px] mb-4 rounded-full overflow-hidden bg-blue-50 flex items-center justify-center">
                     <img
-                      src="/api/placeholder/200/200"
+                      src="https://res.cloudinary.com/dgjqrdpbq/image/upload/v1719652748/avatar-bearded-doctor-doctor-with-stethoscope-vector-illustrationxa_276184-31_byrpfl.jpg"
                       alt="Doctor"
-                      className="object-cover w-40 h-40"
+                      className=" w-[120px] h-[120px]"
                     />
                   </div>
                   <h3 className="text-xl font-medium text-gray-900 mb-2">
@@ -52,9 +51,8 @@ function SignUp() {
 
             {/* Patient Option */}
             <label
-              className={`relative cursor-pointer group ${
-                selectedType === "patient" ? "ring-2 ring-blue-500" : ""
-              }`}>
+              className={`relative cursor-pointer group ${selectedType === "patient" ? "ring-2 ring-blue-500" : ""
+                }`}>
               <input
                 type="radio"
                 name="userType"
@@ -68,9 +66,9 @@ function SignUp() {
                 <div className="flex flex-col items-center">
                   <div className="w-48 h-48 mb-4 rounded-full overflow-hidden bg-blue-50 flex items-center justify-center">
                     <img
-                      src="/api/placeholder/200/200"
+                      src="https://res.cloudinary.com/dgjqrdpbq/image/upload/v1719814310/1430453_heabgf.png"
                       alt="Patient"
-                      className="object-cover w-40 h-40"
+                      className="  w-[120px] h-[120px]"
                     />
                   </div>
                   <h3 className="text-xl font-medium text-gray-900 mb-2">

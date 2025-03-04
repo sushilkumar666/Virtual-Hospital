@@ -4,13 +4,12 @@ import bcrypt from "bcryptjs"
 
 // models/Patient.js
 const patientSchema = new mongoose.Schema({
-    profileImage: {type: String, default: "https://res.cloudinary.com/dgjqrdpbq/image/upload/v1719814310/1430453_heabgf.png"} ,
+    profileImage: { type: String, default: "https://res.cloudinary.com/dgjqrdpbq/image/upload/v1719814310/1430453_heabgf.png" },
     name: { type: String, required: true, trim: true, },
     age: { type: Number, required: true },
     email: { type: String, unique: true, required: true, lowercase: true },
-    phone: { type: String, unique: true, required: true },
-    historyOfSurgery: { type: String },
-    historyOfIllness: { type: String },
+    phone: { type: String, required: true },
+
     identity: { type: String, default: "patient" },
     password: {
         type: String,
@@ -20,16 +19,8 @@ const patientSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "Doctor"
     },
-    prescribed: {type:Boolean, default:false},
-    currentIllnessHistory: { type: String },
-    recentSurgery: { type: String },
-    diabeticOrNot: { type: String },
-    allergies: { type: String },
-    others: { type: String },
-    transactionId: { type: String },
-    pdf: { type: String },
-    presentInHistory: { type: Boolean, default: false },
-    description : {type:String}
+
+    description: { type: String }
 
 
 }, {

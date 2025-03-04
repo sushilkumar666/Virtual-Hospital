@@ -4,6 +4,7 @@ import html2canvas from "html2canvas";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { BACKEND_URL } from "../config";
 
 const PrescriptionPage = () => {
   const [prescriptionData, setPrescriptionData] = useState({
@@ -12,58 +13,70 @@ const PrescriptionPage = () => {
   });
   const navigate = useNavigate();
   const { patientId } = useParams();
+  const { recordId } = useParams();
   const [user, setUser] = useState({});
   const [currentDate, setCurrentDate] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const generatePDF = async () => {
-    const input = document.getElementById("formData");
-    html2canvas(input, { scale: 1 }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = 210;
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-      const xOffset = (pdf.internal.pageSize.getWidth() - pdfWidth) / 2;
-      const yOffset = 20; // Top offset for better spacing
+    try {
+      setLoading(true);
+      const input = document.getElementById("formData");
+      html2canvas(input, { scale: 1 }).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF("p", "mm", "a4");
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = 210;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-      pdf.addImage(imgData, "PNG", xOffset, yOffset, pdfWidth, pdfHeight);
-      // pdf.save("formData.pdf");
+        const xOffset = (pdf.internal.pageSize.getWidth() - pdfWidth) / 2;
+        const yOffset = 20; // Top offset for better spacing
 
-      const pdfBlob = pdf.output("blob");
+        pdf.addImage(imgData, "PNG", xOffset, yOffset, pdfWidth, pdfHeight);
+        // pdf.save("formData.pdf");
 
-      const formData = new FormData();
-      formData.append("pdf", pdfBlob, "prescription.pdf");
-      axios
-        .post(
-          `https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/upload/${patientId}`,
-          formData,
-          {
-            withCredentials: true,
-            "Custom-Header": "CustomValue",
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        .then((response) => {
-          if (response.data.success) {
-            setPrescriptionData({
-              care: "",
-              medicines: "",
-            });
+        const pdfBlob = pdf.output("blob");
 
-            Swal.fire({
-              title: "Success!",
-              text: "Get Well Soon!",
-              icon: "success",
-              confirmButtonText: "OK",
-            });
+        const formData = new FormData();
+        formData.append("pdf", pdfBlob, "prescription.pdf");
+        axios
+          .post(
+            `${BACKEND_URL}/api/v1/pdf/createPdf/${patientId}/${recordId}`,
+            formData,
+            {
+              withCredentials: true,
+              "Custom-Header": "CustomValue",
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          )
+          .then((response) => {
+            if (response.data.success) {
+              setPrescriptionData({
+                care: "",
+                medicines: "",
+              });
+              setLoading(false);
 
-            navigate("/");
-          }
-        });
-    });
+              Swal.fire({
+                title: "Success!",
+                text: "Get Well Soon!",
+                icon: "success",
+                confirmButtonText: "OK",
+              });
+
+              navigate("/");
+            }
+          });
+      });
+    } catch (error) {
+      setLoading(false);
+      console.log("error while prescribing")
+    }
+
+
   };
 
   const handleChange = (e) => {
@@ -82,7 +95,7 @@ const PrescriptionPage = () => {
   const fetchUserDetails = async () => {
     try {
       const { data } = await axios.get(
-        `https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/profile`,
+        `${BACKEND_URL}/api/v1/doctor/profile`,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
 
@@ -234,7 +247,7 @@ const PrescriptionPage = () => {
                          text-white font-medium rounded-lg shadow-sm 
                          transition-colors duration-200
                          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                Submit Prescription
+                {loading ? 'Processing...' : 'Submit Prescription'}
               </button>
             </div>
 

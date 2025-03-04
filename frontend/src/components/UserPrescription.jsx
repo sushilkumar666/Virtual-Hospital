@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FileText, AlertCircle } from "lucide-react";
+import { BACKEND_URL } from "../config";
 
 function UserPrescription() {
   const [pdfPath, setPdfPath] = useState("");
@@ -21,7 +22,7 @@ function UserPrescription() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `https://virtual-hospital-0gwt.onrender.com/api/v1/patient/profile`,
+          `${BACKEND_URL}/api/v1/patient/profile`,
           { withCredentials: true, "Custom-Header": "CustomValue" }
         );
         console.log(data);

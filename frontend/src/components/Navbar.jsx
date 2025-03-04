@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import "./../index.css";
 import { optionClose, optionOpen } from "../store/optionSlice";
+import { BACKEND_URL } from "../config";
 
 import { Menu, X, Search, User, LogOut } from "lucide-react";
 
@@ -41,12 +42,14 @@ function Navbar() {
   useEffect(() => {
     const handleClickOutside = (event) => {
       console.log("nadle outside click sushil")
+      console.log(identity + " this is identity from navbar");
+      console.log(identity == "doctor")
       if (option) {
         dispatch(optionClose());
       }
-      console.log(isProfileDropdownOpen + " isProfileDropdownOpen")
-      console.log(profileRef?.current?.contains(event.target) + " profileRef.current.contains(event.target)")
-      console.log(profileIconRef?.current.contains(event.target) + " profileIconRef.current.contains(event.target)")
+      // console.log(isProfileDropdownOpen + " isProfileDropdownOpen")
+      // console.log(profileRef?.current?.contains(event.target) + " profileRef.current.contains(event.target)")
+      // console.log(profileIconRef?.current.contains(event.target) + " profileIconRef.current.contains(event.target)")
       if (
         isProfileDropdownOpen &&
 
@@ -79,7 +82,7 @@ function Navbar() {
     console.log("logout ubtton clicked");
     // alert("button clicked");
     const { data } = await axios.get(
-      "https://virtual-hospital-0gwt.onrender.com/logout", {
+      `${BACKEND_URL}/logout`, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
@@ -123,7 +126,10 @@ function Navbar() {
                       : "text-gray-700 hover:bg-gray-100"
                     }`
                   }>
+                  {/* {identity == "doctor" ? "Patients" : "Doctors"} */}
                   {identity === "doctor" ? "Patients" : "Doctors"}
+
+
                 </NavLink>
 
                 <NavLink
@@ -214,7 +220,7 @@ function Navbar() {
                     : "text-gray-700 hover:bg-gray-100"
                   }`
                 }>
-                Doctors
+                {identity === "doctor" ? "Patients" : "Doctors"}
               </NavLink>
 
               <NavLink

@@ -21,7 +21,7 @@ const generateAccessToken = async (patientId) => {
 
 const registerUser = async (req, res, next) => {
     try {
-        const { name, email, phone, password, age, historyOfSurgery, historyOfIllness } = req.body;
+        const { name, email, phone, password, age } = req.body;
 
         const existedUser = await Patient.findOne({ email });
 
@@ -48,8 +48,7 @@ const registerUser = async (req, res, next) => {
             phone,
             password,
             age,
-            historyOfSurgery,
-            historyOfIllness,
+
             identity: "patient"
         });
 

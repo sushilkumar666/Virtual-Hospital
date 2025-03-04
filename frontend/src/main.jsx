@@ -26,6 +26,8 @@ import DummyPage from "./components/DummyPage.jsx";
 import DoctorProfile from "./components/DoctorProfile.jsx";
 import PatientProfile from "./components/PatientProfile.jsx";
 import { PersistGate } from "redux-persist/integration/react";
+import PatientPdf from "./components/PatientPdf.jsx";
+import PresciptionPdf2 from "./components/prescriptionPdf2.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -121,7 +123,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/doctor/prescription/:patientId",
+        path: "/doctor/prescription/:patientId/:recordId",
         element: (
           <AuthLayout authentication={true}>
             <PrescriptionPage />,
@@ -161,7 +163,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/doctor/patientlist/:patientId",
+        path: "/doctor/patientlist/:recordId",
         element: (
           <AuthLayout authentication={true}>
             <PresciptionPdf />,
@@ -172,7 +174,15 @@ const router = createBrowserRouter([
         path: "/patient/prescription",
         element: (
           <AuthLayout authentication={true}>
-            <UserPrescription />,
+            < PatientPdf />,
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/patient/prescription/:pdfId",
+        element: (
+          <AuthLayout authentication={true}>
+            < PresciptionPdf2 />,
           </AuthLayout>
         ),
       },

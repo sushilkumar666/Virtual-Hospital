@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice";
+import { BACKEND_URL } from "../config";
 
 const DoctorSignUp = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const DoctorSignUp = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const validate = () => {
     let newErrors = {};
@@ -55,8 +57,9 @@ const DoctorSignUp = () => {
     }
 
     try {
+      setLoading(true);
       const { data } = await axios.post(
-        "https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/register",
+        `${BACKEND_URL}/api/v1/doctor/register`,
         formDataToSend,
         {
           withCredentials: true,
@@ -68,15 +71,18 @@ const DoctorSignUp = () => {
       );
       console.log("data outside success " + JSON.stringify(data));
       if (data.success) {
+        setLoading(false);
         console.log("data " + data);
 
         const identity = data.data.doctor.identity;
         dispatch(login({ identity }));
         navigate("/doctor/doctorprofile");
       } else {
+        setLoading(false);
         console.log("Error while registering doctor");
       }
     } catch (error) {
+      setLoading(false);
       console.error(error.response.data);
       setErrors({ general: error.response.data.error });
     }
@@ -282,8 +288,9 @@ const DoctorSignUp = () => {
           <div>
             <button
               type="submit"
+              disabled={loading}
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-150">
-              Sign Up
+              {loading ? "processing..." : "Sign Up"}
             </button>
           </div>
 

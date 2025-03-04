@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { BsColumnsGap } from "react-icons/bs";
+import { BACKEND_URL } from "../config";
 
 function DoctorProfile() {
   const [user, setUser] = useState({}); // Initialize to null to handle loading state
@@ -14,7 +15,7 @@ function DoctorProfile() {
     try {
       console.log("check1");
       let data = await axios.get(
-        `https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/profile`,
+        `${BACKEND_URL}/api/v1/doctor/profile`,
         {
           withCredentials: true,
           "Custom-Header": "CustomValue",
@@ -40,7 +41,7 @@ function DoctorProfile() {
   const editDetails = async (user) => {
     try {
       let { data } = await axios.put(
-        "https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/editDetails",
+        `${BACKEND_URL}/api/v1/doctor/editDetails`,
         user,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );

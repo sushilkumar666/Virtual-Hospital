@@ -2,11 +2,9 @@ import jwt from "jsonwebtoken";
 import { Patient } from "../models/patient.model.js";
 import { ApiError } from "../utils/ApiError.js";
 
-export const verifyJWT = async (req, res, next) => {
+export const verifyPatientJWT = async (req, res, next) => {
     try {
-
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
-
 
         if (!token) {
             console.log("Token not found in cookies or headers.");

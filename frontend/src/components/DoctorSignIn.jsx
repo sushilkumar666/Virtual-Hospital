@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/authSlice";
+import { BACKEND_URL } from "../config";
 
 function DoctorSignIn() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function DoctorSignIn() {
     try {
       console.log(formData);
       const { data } = await axios.post(
-        "https://virtual-hospital-0gwt.onrender.com/api/v1/doctor/login",
+        `${BACKEND_URL}/api/v1/doctor/login`,
         formData,
         {
           withCredentials: true,

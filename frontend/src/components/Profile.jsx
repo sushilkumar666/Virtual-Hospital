@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 function Profile() {
   const { doctorId } = useParams();
@@ -10,7 +11,7 @@ function Profile() {
   const fetchDoctorDetails = async () => {
     try {
       const { data } = await axios.get(
-        `https://virtual-hospital-0gwt.onrender.com/api/v1/patient/doctordetails/${doctorId}`,
+        `${BACKEND_URL}/api/v1/patient/doctordetails/${doctorId}`,
         { withCredentials: true, "Custom-Header": "CustomValue" }
       );
       setDoctor(data.data);

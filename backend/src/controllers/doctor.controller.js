@@ -21,6 +21,7 @@ const generateAccessToken = async (patientId) => {
     }
 }
 
+
 const registerUser = async (req, res) => {
 
     try {
@@ -232,10 +233,13 @@ const getPatientList = async (req, res) => {
     try {
         const patientList = await Patient.find({ doctor: req.doctor._id, prescribed: false });
         const count = patientList.length;
-        res.status(200).json(new ApiResponse(200, { patientList, count }, 'patient list fetched successfully')
-
-
-        )
+        // res.status(200).json(new ApiResponse(200, { patientList, count }, 'patient list fetched successfully')
+        // )
+        res.status(200).json({
+            success: true,
+            message: 'Patient list fetched successfully',
+            patientList
+        })
     } catch (error) {
         throw new Error("error while fetching doctorList" + error);
     }
@@ -281,7 +285,7 @@ const uploadPdf = async (req, res) => {
         const cloudinaryPdf = await uploadOnCloudinary(pdf);
         console.log("cloudnary pdf :" + cloudinaryPdf);
         if (!cloudinaryPdf) {
-            throw new ApiError(400, "profile file is required")
+            throw new ApiError(400, "error while pdf uplaoding to cloudinary")
         }
 
         const { patientId } = req.params;
