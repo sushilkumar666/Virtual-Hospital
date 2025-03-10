@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { BACKEND_URL } from "../config";
+import PaymentButton from "./PaymentButton";
 
 function DoctorList() {
   const navigate = useNavigate();
@@ -47,7 +48,6 @@ function DoctorList() {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        console.log("this is useEffect of fetch doctor");
         const { data } = await axios.get(
           `${BACKEND_URL}/api/v1/patient/doctorlist/${page}`,
           {
@@ -55,7 +55,6 @@ function DoctorList() {
             withCredentials: true,
           }
         );
-        console.log("this is useEffect of fetch doctor" + data);
 
         setDoctors(data.data.doctorList);
         setCount(data.data.count);
@@ -119,6 +118,7 @@ function DoctorList() {
             </div>
           ))}
         </div>
+
 
         <div className="mt-12 flex justify-center gap-4">
           <button

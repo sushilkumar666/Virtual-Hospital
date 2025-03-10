@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { BACKEND_URL } from "../config";
 import { useNavigate } from "react-router-dom";
+import PaymentButton from "./PaymentButton";
 
 const ConsultationForm = () => {
   const { doctorId } = useParams();
@@ -66,7 +67,7 @@ const ConsultationForm = () => {
   const handleSubmit = async (e) => {
 
     setLoading(true);
-    e.preventDefault();
+    // e.preventDefault();
     console.log(JSON.stringify(formData) + " this form data");
     try {
       const { data } = await axios.post(
@@ -95,9 +96,58 @@ const ConsultationForm = () => {
     }
   };
 
+
+  const [order, setOrder] = useState(null);
+
+  const createOrder = async () => {
+    const response = await fetch(`${BACKEND_URL}/api/v1/payment/order`, {
+      method: "POST",
+      credentials: "include", // Cookies ko include karne ke liye
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+      body: JSON.stringify({ amount: 1, currency: "INR" }),
+    });
+    const data = await response.json();
+    setOrder(data.order);
+    setFormData((prev) => ({ ...prev, transactionId: data.dbOrder._id }));
+    console.log(formData.transactionId + " this is value of trasacnto id");
+  };
+
+  const payNow = async () => {
+
+    let { data } = await axios.get(
+      `${BACKEND_URL}/api/v1/patient/profile`,
+      {
+        withCredentials: true,
+        "Custom-Header": "CustomValue",
+      }
+    );
+
+    console.log(data)
+    const options = {
+      key: "rzp_test_GuwOwWZNaYQQkA",
+      amount: order.amount,
+      currency: order.currency,
+      name: "Virtual Hospital",
+      description: "Medical Payment",
+      order_id: order.id,
+      handler: async function (response) {
+        console.log("Payment Started, waiting for webhook...");
+        handleSubmit();
+      },
+      prefill: { name: data.data.name, email: data.data.email, phone: data.data.phone },
+      theme: { color: "#3399cc" },
+    };
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
+
+
   return (
     <form
-      onSubmit={handleSubmit}
+      // onSubmit={handleSubmit}
       className="min-h-screen bg-gray-50 py-8">
       {step === 1 && (
         <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md border border-gray-200">
@@ -305,13 +355,14 @@ const ConsultationForm = () => {
             </h2>
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-              <div className="w-48 h-48 bg-gray-100 rounded-lg flex items-center justify-center">
+              {/* <div className="w-48 h-48 bg-gray-100 rounded-lg flex items-center justify-center">
                 <img
                   className="max-w-full max-h-full"
                   src="/api/placeholder/200/200"
                   alt="QR code for payment"
                 />
-              </div>
+              </div> */}
+
 
               <div className="space-y-4">
                 <label className="block text-sm font-medium text-gray-700">
@@ -320,12 +371,19 @@ const ConsultationForm = () => {
                 <input
                   type="text"
                   name="transactionId"
-                  placeholder="Type Random"
+                  placeholder="autofill formsubmit"
                   onChange={handleChange}
+                  value={formData.transactionId}
                   required
+                  disabled
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors"
                 />
               </div>
+            </div>
+
+            <div className="flex justify-center">
+              {!order && <div className="bg-blue-600 mt-10 text-white px-4 py-3 cursor-pointer rounded-lg" onClick={createOrder}>Submit Form</div>}
+              {order && <div className="bg-green-600 mt-10 text-white cursor-pointer px-4 py-3 rounded-lg" onClick={payNow}>Pay Now</div>}
             </div>
 
             <div className="flex justify-between pt-8">
@@ -335,11 +393,11 @@ const ConsultationForm = () => {
                 className="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-700 font-medium rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
                 Previous
               </button>
-              <button
+              {/* <button
                 type="submit"
                 className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
                 {loading ? "processing..." : "Submit Form"}
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

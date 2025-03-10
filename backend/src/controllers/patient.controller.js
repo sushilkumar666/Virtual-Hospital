@@ -209,9 +209,9 @@ const getDoctorList = async (req, res) => {
 const getDoctor = async (req, res) => {
     try {
         const { doctorId } = req.params
-        console.log(req.params + "reqest docteor id");
+        // console.log(req.params + "reqest docteor id");
         const doctor = await Doctor.findById(doctorId);
-        console.log(doctor);
+        // console.log(doctor);
         res.status(200).json(
             new ApiResponse(200,
 

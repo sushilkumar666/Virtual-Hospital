@@ -6,6 +6,7 @@ import patientRouter from './src/routes/patient.routes.js';
 import doctorRouter from './src/routes/doctor.routes.js';
 import recordRouter from './src/routes/record.routes.js';
 import pdfRouter from './src/routes/pdf.routes.js';
+import paymentRouter from './src/routes/payment.routes.js'
 import connectDB from './src/db/index.js';
 
 dotenv.config({ path: './.env' });
@@ -70,6 +71,7 @@ app.use('/api/v1/patient', patientRouter);
 app.use('/api/v1/doctor', doctorRouter);
 app.use('/api/v1/record', recordRouter);
 app.use('/api/v1/pdf', pdfRouter);
+app.use('/api/v1/payment', paymentRouter)
 
 // Test Route
 app.get('/test', (req, res) => {

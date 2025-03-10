@@ -12,7 +12,7 @@ const recordSchema = new Schema({
     recentSurgery: { type: String, default: "no surgery" },
     currentIllness: { type: String, required: true },
     others: { type: String },
-    transactionId: { type: String, required: true },
+    transactionId: { type: Schema.Types.ObjectId, ref: 'Payment' },
     pdf: { type: String }
 }, { timestamps: true })
 

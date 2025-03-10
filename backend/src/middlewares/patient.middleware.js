@@ -19,7 +19,7 @@ export const verifyPatientJWT = async (req, res, next) => {
             throw new ApiError(401, "Invalid access token");
         }
 
-        console.log("Decoded token:", decodedToken);
+        // console.log("Decoded token:", decodedToken);
 
         const patient = await Patient.findById(decodedToken?._id);
         if (!patient) {
@@ -27,7 +27,7 @@ export const verifyPatientJWT = async (req, res, next) => {
             throw new ApiError(401, "Invalid access token");
         }
 
-        console.log("Patient found:", patient);
+        // console.log("Patient found:", patient);
 
         req.patient = patient;
         next();
