@@ -24,6 +24,7 @@ const createOrder = async (req, res) => {
     };
 
     try {
+        console.log("checkpoint 1")
         const order = await razorpay.orders.create(options);
         console.log("atleat reaching to this piint ")
         // Save order to DB

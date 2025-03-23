@@ -10,8 +10,8 @@ function DoctorSignIn() {
   const dispatch = useDispatch();
   const dataValue = useSelector((state) => state.auth.identity);
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: "doctor1@gmail.com",
+    password: "12345678",
   });
 
   const handleChange = (e) => {
@@ -91,6 +91,7 @@ function DoctorSignIn() {
                 <input
                   id="email"
                   name="email"
+                  value={formData.email}
                   type="email"
                   autoComplete="email"
                   required
@@ -112,6 +113,7 @@ function DoctorSignIn() {
                 <input
                   id="password"
                   name="password"
+                  value={formData.password}
                   type="password"
                   autoComplete="current-password"
                   required

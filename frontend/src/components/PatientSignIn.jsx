@@ -7,8 +7,8 @@ import { BACKEND_URL } from "../config";
 
 function PatientSignIn() {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: "patient1@gmail.com",
+    password: "12345678",
   });
   const state = useSelector((state) => state.auth);
 
